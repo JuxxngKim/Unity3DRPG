@@ -57,16 +57,14 @@ namespace Server
 
         private void Ping()
         {
-            if (MyPlayer?.Room == null)
-            {
-                return;
-            }
-
             S_Ping packet = new S_Ping();
             packet.Time = System.DateTime.UtcNow.Ticks;
             Send(packet);
 
-            MyPlayer?.Room?.PushAfter(5000, () => { Ping(); });
+            Console.WriteLine($"packet.Time : {packet.Time}");
+
+            GameRoom room = RoomManager.Instance.Find(1);
+            room.PushAfter(5000, () => { Ping(); });
         }
 
 

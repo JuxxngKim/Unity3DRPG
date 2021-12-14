@@ -42,4 +42,9 @@ class PacketHandler
 
 		room.Push(room.HandleSkill, player, skillPacket);
 	}
+
+	public static void C_PongHandler(PacketSession session, IMessage packet)
+	{
+
+	}
 }

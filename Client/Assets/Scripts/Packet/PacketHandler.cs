@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using ServerCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,6 +100,16 @@ class PacketHandler
 			cc.Hp = 0;
 			cc.OnDead();
 		}
+	}
+
+
+	public static void S_PingHandler(PacketSession session, IMessage packet)
+	{
+		S_Ping pingPacket = packet as S_Ping;
+		var latencyTicks = DateTime.UtcNow.Ticks - pingPacket.Time;
+		var timeSpan = TimeSpan.FromTicks(latencyTicks);
+		var ms = timeSpan.Milliseconds;
+		Debug.LogError($"ms : {ms}");
 	}
 }
 
