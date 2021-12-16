@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ObjectManager
 {
-	public MyPlayerController MyPlayer { get; set; }
+	public Player MyPlayer { get; set; }
 	Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
 	
 	public static GameObjectType GetObjectTypeById(int id)
@@ -20,54 +20,20 @@ public class ObjectManager
 		GameObjectType objectType = GetObjectTypeById(info.ObjectId);
 		if (objectType == GameObjectType.Player)
 		{
-			if (myPlayer)
-			{
-				GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
-				go.name = info.Name;
-				_objects.Add(info.ObjectId, go);
 
-				MyPlayer = go.GetComponent<MyPlayerController>();
-				MyPlayer.Id = info.ObjectId;
-				MyPlayer.PosInfo = info.PosInfo;
-				MyPlayer.Stat = info.StatInfo;
-				MyPlayer.SyncPos();
-			}
-			else
-			{
-				GameObject go = Managers.Resource.Instantiate("Creature/Player");
-				go.name = info.Name;
-				_objects.Add(info.ObjectId, go);
+            if (myPlayer)
+            {
+                GameObject go = Managers.Resource.Instantiate("Creature/Player");
+                go.name = info.Name;
+                _objects.Add(info.ObjectId, go);
 
-				PlayerController pc = go.GetComponent<PlayerController>();
-				pc.Id = info.ObjectId;
-				pc.PosInfo = info.PosInfo;
-				pc.Stat = info.StatInfo;
-				pc.SyncPos();
-			}
-		}
-		else if (objectType == GameObjectType.Monster)
-		{
-			GameObject go = Managers.Resource.Instantiate("Creature/Monster");
-			go.name = info.Name;
-			_objects.Add(info.ObjectId, go);
-
-			MonsterController mc = go.GetComponent<MonsterController>();
-			mc.Id = info.ObjectId;
-			mc.PosInfo = info.PosInfo;
-			mc.Stat = info.StatInfo;
-			mc.SyncPos();
-		}
-		else if (objectType == GameObjectType.Projectile)
-		{
-			GameObject go = Managers.Resource.Instantiate("Creature/Arrow");
-			go.name = "Arrow";
-			_objects.Add(info.ObjectId, go);
-
-			ArrowController ac = go.GetComponent<ArrowController>();
-			ac.PosInfo = info.PosInfo;
-			ac.Stat = info.StatInfo;
-			ac.SyncPos();
-		}
+                MyPlayer = go.GetComponent<Player>();
+                //MyPlayer.Id = info.ObjectId;
+                //MyPlayer.PosInfo = info.PosInfo;
+                //MyPlayer.Stat = info.StatInfo;
+                //MyPlayer.SyncPos();
+            }
+        }
 	}
 
 	public void Remove(int id)
