@@ -11,7 +11,7 @@ class PacketHandler
 	public static void S_EnterGameHandler(PacketSession session, IMessage packet)
 	{
 		S_EnterGame enterGamePacket = packet as S_EnterGame;
-		Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
+		//Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
 	}
 
 	public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
@@ -25,7 +25,7 @@ class PacketHandler
 		S_Spawn spawnPacket = packet as S_Spawn;
 		foreach (ObjectInfo obj in spawnPacket.Objects)
 		{
-			Managers.Object.Add(obj, myPlayer: false);
+			//Managers.Object.Add(obj, myPlayer: false);
 		}
 	}
 
@@ -109,7 +109,30 @@ class PacketHandler
 		var latencyTicks = DateTime.UtcNow.Ticks - pingPacket.Time;
 		var timeSpan = TimeSpan.FromTicks(latencyTicks);
 		var ms = timeSpan.Milliseconds;
-		Debug.LogError($"ms : {ms}");
+	}
+
+	public static void S_Move2Handler(PacketSession session, IMessage packet)
+	{
+		//S_Ping pingPacket = packet as S_Ping;
+		//var latencyTicks = DateTime.UtcNow.Ticks - pingPacket.Time;
+		//var timeSpan = TimeSpan.FromTicks(latencyTicks);
+		//var ms = timeSpan.Milliseconds;
+		//Debug.LogError($"ms : {ms}");
+	}
+
+	public static void S_EnterGame2Handler(PacketSession session, IMessage packet)
+	{
+		S_EnterGame2 enterGamePacket = packet as S_EnterGame2;
+		Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
+	}
+
+	public static void S_Spawn2Handler(PacketSession session, IMessage packet)
+	{
+		S_Spawn2 spawnPacket = packet as S_Spawn2;
+		foreach (ObjectInfo2 obj in spawnPacket.Objects)
+		{
+            Managers.Object.Add(obj, myPlayer: false);
+        }
 	}
 }
 

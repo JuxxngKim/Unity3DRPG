@@ -15,12 +15,11 @@ public class ObjectManager
 		return (GameObjectType)type;
 	}
 
-	public void Add(ObjectInfo info, bool myPlayer = false)
+	public void Add(ObjectInfo2 info, bool myPlayer = false)
 	{
 		GameObjectType objectType = GetObjectTypeById(info.ObjectId);
 		if (objectType == GameObjectType.Player)
 		{
-
             if (myPlayer)
             {
                 GameObject go = Managers.Resource.Instantiate("Creature/Player");
@@ -28,12 +27,12 @@ public class ObjectManager
                 _objects.Add(info.ObjectId, go);
 
                 MyPlayer = go.GetComponent<Player>();
-                //MyPlayer.Id = info.ObjectId;
-                //MyPlayer.PosInfo = info.PosInfo;
-                //MyPlayer.Stat = info.StatInfo;
-                //MyPlayer.SyncPos();
+				MyPlayer.ID = info.ObjectId;
+				MyPlayer.PosInfo = info.PosInfo;
+                MyPlayer.Stat = info.StatInfo;
+                MyPlayer.SyncPos();
             }
-        }
+		}
 	}
 
 	public void Remove(int id)

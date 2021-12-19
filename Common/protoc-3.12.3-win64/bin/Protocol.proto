@@ -17,6 +17,10 @@ enum MsgId {
   S_DIE = 9;
   S_PING = 10;
   C_PONG = 11;
+  C_MOVE2 = 12;
+  S_MOVE2 = 13;
+  S_ENTER_GAME2 = 14;
+  S_SPAWN2 = 15;
 }
 
 enum CreatureState {
@@ -89,12 +93,31 @@ message S_Die {
   int32 attackerId = 2;
 }
 
+//=====================================================
+
+message S_EnterGame2 {
+  ObjectInfo2 player = 1;
+}
+
+message S_Spawn2 {
+  repeated ObjectInfo2 objects = 1;
+}
+
 message S_Ping {
   int64 time = 1;
 }
 
 message C_Pong {
   int64 time = 1;
+}
+
+message C_Move2 {
+  PositionInfo2 posInfo = 1;
+}
+
+message S_Move2 {
+  int32 objectId = 1;
+  PositionInfo2 posInfo = 2;
 }
 
 message ObjectInfo {
@@ -122,4 +145,21 @@ message StatInfo {
 
 message SkillInfo {
   int32 skillId = 1;
+}
+
+message PositionInfo2 {
+  CreatureState state = 1;
+  int32 dirX = 2;
+  int32 dirY = 3;
+  int32 dirZ = 4;
+  int32 posX = 5;
+  int32 posY = 6;
+  int32 posZ = 7;
+}
+
+message ObjectInfo2 {
+  int32 objectId = 1;
+  string name = 2;
+  PositionInfo2 posInfo = 3;
+  StatInfo statInfo = 4;
 }

@@ -38,9 +38,13 @@ namespace Server
             {
                 MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
                 MyPlayer.Info.PosInfo.State = CreatureState.Idle;
-                MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
+                MyPlayer.Info.PosInfo.DirX = 0;
+                MyPlayer.Info.PosInfo.DirY = 0;
+                MyPlayer.Info.PosInfo.DirZ = -1;
+
                 MyPlayer.Info.PosInfo.PosX = 0;
                 MyPlayer.Info.PosInfo.PosY = 0;
+                MyPlayer.Info.PosInfo.PosZ = 10;
 
                 StatInfo stat = null;
                 DataManager.StatDict.TryGetValue(1, out stat);

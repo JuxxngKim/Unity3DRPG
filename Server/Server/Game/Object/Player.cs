@@ -23,5 +23,11 @@ namespace Server.Game
 		{
 			base.OnDead(attacker);
 		}
-	}
+
+        public override void Update()
+        {
+            base.Update();
+
+        }
+    }
 }
