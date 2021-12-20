@@ -65,8 +65,6 @@ namespace Server
             packet.Time = System.DateTime.UtcNow.Ticks;
             Send(packet);
 
-            Console.WriteLine($"packet.Time : {packet.Time}");
-
             GameRoom room = RoomManager.Instance.Find(1);
             room.PushAfter(5000, () => { Ping(); });
         }

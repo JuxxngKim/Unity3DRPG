@@ -108,16 +108,28 @@ class PacketHandler
 		S_Ping pingPacket = packet as S_Ping;
 		var latencyTicks = DateTime.UtcNow.Ticks - pingPacket.Time;
 		var timeSpan = TimeSpan.FromTicks(latencyTicks);
-		var ms = timeSpan.Milliseconds;
+		float latency = timeSpan.Milliseconds / 1000f;
+
+		var myPlayer = Managers.Object?.MyPlayer;
+		if (myPlayer == null)
+		{
+			return;
+		}
+
+		myPlayer.SetLatency(latency);
 	}
 
 	public static void S_Move2Handler(PacketSession session, IMessage packet)
 	{
-		//S_Ping pingPacket = packet as S_Ping;
-		//var latencyTicks = DateTime.UtcNow.Ticks - pingPacket.Time;
-		//var timeSpan = TimeSpan.FromTicks(latencyTicks);
-		//var ms = timeSpan.Milliseconds;
-		//Debug.LogError($"ms : {ms}");
+        var movePacket = packet as S_Move2;
+        GameObject go = Managers.Object?.FindById(movePacket.ObjectId);
+        var player = go?.GetComponent<Player>();
+        if (player == null)
+        {
+            return;
+        }
+
+		player.SetServerPos(movePacket.PosInfo);
 	}
 
 	public static void S_EnterGame2Handler(PacketSession session, IMessage packet)

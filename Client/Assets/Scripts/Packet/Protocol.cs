@@ -51,9 +51,9 @@ namespace Google.Protobuf.Protocol {
             "BRIKCgJocBgCIAEoBRINCgVtYXhIcBgDIAEoBRIOCgZhdHRhY2sYBCABKAUS",
             "DQoFc3BlZWQYBSABKAISEAoIdG90YWxFeHAYBiABKAUiHAoJU2tpbGxJbmZv",
             "Eg8KB3NraWxsSWQYASABKAUiiwEKDVBvc2l0aW9uSW5mbzISJgoFc3RhdGUY",
-            "ASABKA4yFy5Qcm90b2NvbC5DcmVhdHVyZVN0YXRlEgwKBGRpclgYAiABKAUS",
-            "DAoEZGlyWRgDIAEoBRIMCgRkaXJaGAQgASgFEgwKBHBvc1gYBSABKAUSDAoE",
-            "cG9zWRgGIAEoBRIMCgRwb3NaGAcgASgFIn0KC09iamVjdEluZm8yEhAKCG9i",
+            "ASABKA4yFy5Qcm90b2NvbC5DcmVhdHVyZVN0YXRlEgwKBGRpclgYAiABKAIS",
+            "DAoEZGlyWRgDIAEoAhIMCgRkaXJaGAQgASgCEgwKBHBvc1gYBSABKAISDAoE",
+            "cG9zWRgGIAEoAhIMCgRwb3NaGAcgASgCIn0KC09iamVjdEluZm8yEhAKCG9i",
             "amVjdElkGAEgASgFEgwKBG5hbWUYAiABKAkSKAoHcG9zSW5mbxgDIAEoCzIX",
             "LlByb3RvY29sLlBvc2l0aW9uSW5mbzISJAoIc3RhdEluZm8YBCABKAsyEi5Q",
             "cm90b2NvbC5TdGF0SW5mbyroAQoFTXNnSWQSEAoMU19FTlRFUl9HQU1FEAAS",
@@ -3238,9 +3238,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "dirX" field.</summary>
     public const int DirXFieldNumber = 2;
-    private int dirX_;
+    private float dirX_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int DirX {
+    public float DirX {
       get { return dirX_; }
       set {
         dirX_ = value;
@@ -3249,9 +3249,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "dirY" field.</summary>
     public const int DirYFieldNumber = 3;
-    private int dirY_;
+    private float dirY_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int DirY {
+    public float DirY {
       get { return dirY_; }
       set {
         dirY_ = value;
@@ -3260,9 +3260,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "dirZ" field.</summary>
     public const int DirZFieldNumber = 4;
-    private int dirZ_;
+    private float dirZ_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int DirZ {
+    public float DirZ {
       get { return dirZ_; }
       set {
         dirZ_ = value;
@@ -3271,9 +3271,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "posX" field.</summary>
     public const int PosXFieldNumber = 5;
-    private int posX_;
+    private float posX_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int PosX {
+    public float PosX {
       get { return posX_; }
       set {
         posX_ = value;
@@ -3282,9 +3282,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "posY" field.</summary>
     public const int PosYFieldNumber = 6;
-    private int posY_;
+    private float posY_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int PosY {
+    public float PosY {
       get { return posY_; }
       set {
         posY_ = value;
@@ -3293,9 +3293,9 @@ namespace Google.Protobuf.Protocol {
 
     /// <summary>Field number for the "posZ" field.</summary>
     public const int PosZFieldNumber = 7;
-    private int posZ_;
+    private float posZ_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int PosZ {
+    public float PosZ {
       get { return posZ_; }
       set {
         posZ_ = value;
@@ -3316,12 +3316,12 @@ namespace Google.Protobuf.Protocol {
         return true;
       }
       if (State != other.State) return false;
-      if (DirX != other.DirX) return false;
-      if (DirY != other.DirY) return false;
-      if (DirZ != other.DirZ) return false;
-      if (PosX != other.PosX) return false;
-      if (PosY != other.PosY) return false;
-      if (PosZ != other.PosZ) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DirX, other.DirX)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DirY, other.DirY)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(DirZ, other.DirZ)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosX, other.PosX)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosY, other.PosY)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(PosZ, other.PosZ)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3329,12 +3329,12 @@ namespace Google.Protobuf.Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (State != global::Google.Protobuf.Protocol.CreatureState.Idle) hash ^= State.GetHashCode();
-      if (DirX != 0) hash ^= DirX.GetHashCode();
-      if (DirY != 0) hash ^= DirY.GetHashCode();
-      if (DirZ != 0) hash ^= DirZ.GetHashCode();
-      if (PosX != 0) hash ^= PosX.GetHashCode();
-      if (PosY != 0) hash ^= PosY.GetHashCode();
-      if (PosZ != 0) hash ^= PosZ.GetHashCode();
+      if (DirX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DirX);
+      if (DirY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DirY);
+      if (DirZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(DirZ);
+      if (PosX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosX);
+      if (PosY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosY);
+      if (PosZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(PosZ);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3352,29 +3352,29 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(8);
         output.WriteEnum((int) State);
       }
-      if (DirX != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(DirX);
+      if (DirX != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(DirX);
       }
-      if (DirY != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(DirY);
+      if (DirY != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(DirY);
       }
-      if (DirZ != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(DirZ);
+      if (DirZ != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(DirZ);
       }
-      if (PosX != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(PosX);
+      if (PosX != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(PosX);
       }
-      if (PosY != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(PosY);
+      if (PosY != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(PosY);
       }
-      if (PosZ != 0) {
-        output.WriteRawTag(56);
-        output.WriteInt32(PosZ);
+      if (PosZ != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(PosZ);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -3387,23 +3387,23 @@ namespace Google.Protobuf.Protocol {
       if (State != global::Google.Protobuf.Protocol.CreatureState.Idle) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) State);
       }
-      if (DirX != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DirX);
+      if (DirX != 0F) {
+        size += 1 + 4;
       }
-      if (DirY != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DirY);
+      if (DirY != 0F) {
+        size += 1 + 4;
       }
-      if (DirZ != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DirZ);
+      if (DirZ != 0F) {
+        size += 1 + 4;
       }
-      if (PosX != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PosX);
+      if (PosX != 0F) {
+        size += 1 + 4;
       }
-      if (PosY != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PosY);
+      if (PosY != 0F) {
+        size += 1 + 4;
       }
-      if (PosZ != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PosZ);
+      if (PosZ != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3419,22 +3419,22 @@ namespace Google.Protobuf.Protocol {
       if (other.State != global::Google.Protobuf.Protocol.CreatureState.Idle) {
         State = other.State;
       }
-      if (other.DirX != 0) {
+      if (other.DirX != 0F) {
         DirX = other.DirX;
       }
-      if (other.DirY != 0) {
+      if (other.DirY != 0F) {
         DirY = other.DirY;
       }
-      if (other.DirZ != 0) {
+      if (other.DirZ != 0F) {
         DirZ = other.DirZ;
       }
-      if (other.PosX != 0) {
+      if (other.PosX != 0F) {
         PosX = other.PosX;
       }
-      if (other.PosY != 0) {
+      if (other.PosY != 0F) {
         PosY = other.PosY;
       }
-      if (other.PosZ != 0) {
+      if (other.PosZ != 0F) {
         PosZ = other.PosZ;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -3452,28 +3452,28 @@ namespace Google.Protobuf.Protocol {
             State = (global::Google.Protobuf.Protocol.CreatureState) input.ReadEnum();
             break;
           }
-          case 16: {
-            DirX = input.ReadInt32();
+          case 21: {
+            DirX = input.ReadFloat();
             break;
           }
-          case 24: {
-            DirY = input.ReadInt32();
+          case 29: {
+            DirY = input.ReadFloat();
             break;
           }
-          case 32: {
-            DirZ = input.ReadInt32();
+          case 37: {
+            DirZ = input.ReadFloat();
             break;
           }
-          case 40: {
-            PosX = input.ReadInt32();
+          case 45: {
+            PosX = input.ReadFloat();
             break;
           }
-          case 48: {
-            PosY = input.ReadInt32();
+          case 53: {
+            PosY = input.ReadFloat();
             break;
           }
-          case 56: {
-            PosZ = input.ReadInt32();
+          case 61: {
+            PosZ = input.ReadFloat();
             break;
           }
         }

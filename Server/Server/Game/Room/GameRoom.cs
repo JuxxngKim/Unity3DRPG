@@ -105,6 +105,17 @@ namespace Server.Game
 			}
 		}
 
+		public void HandleMove2(Player player, C_Move2 movePacket)
+        {
+			PositionInfo2 movePosInfo = movePacket.PosInfo;
+			ObjectInfo2 info = player.Info;
+
+			info.PosInfo.State = movePosInfo.State;
+			info.PosInfo.PosX = movePosInfo.PosX;
+			info.PosInfo.PosY = movePosInfo.PosY;
+			info.PosInfo.PosZ = movePosInfo.PosZ;
+		}
+
 		public void HandleMove(Player player, C_Move movePacket)
 		{
 			//if (player == null)

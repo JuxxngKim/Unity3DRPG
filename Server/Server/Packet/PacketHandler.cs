@@ -61,6 +61,6 @@ class PacketHandler
 		if (room == null)
 			return;
 
-		//room.Push(room.HandleMove, player, movePacket);
-	}
+        room.Push(room.HandleMove2, player, movePacket);
+    }
 }

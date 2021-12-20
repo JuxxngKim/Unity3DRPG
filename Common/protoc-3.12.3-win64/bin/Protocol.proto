@@ -149,12 +149,12 @@ message SkillInfo {
 
 message PositionInfo2 {
   CreatureState state = 1;
-  int32 dirX = 2;
-  int32 dirY = 3;
-  int32 dirZ = 4;
-  int32 posX = 5;
-  int32 posY = 6;
-  int32 posZ = 7;
+  float dirX = 2;
+  float dirY = 3;
+  float dirZ = 4;
+  float posX = 5;
+  float posY = 6;
+  float posZ = 7;
 }
 
 message ObjectInfo2 {
