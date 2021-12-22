@@ -23,6 +23,11 @@ namespace Server.Game
 		{
 			base.OnDead(attacker);
 		}
+		
+		public void SyncPos()
+        {
+
+        }
 
         public override void Update()
         {
@@ -35,6 +40,7 @@ namespace Server.Game
         {
 			BroadcastMove();
 		}
+
 
 		void BroadcastMove()
 		{
