@@ -21,11 +21,11 @@ namespace Server.Game
 		}
 
 		// 누군가 주기적으로 호출해줘야 한다
-		public void Update()
+		public void Update(float deltaTime)
 		{
 			foreach (Player player in _players.Values)
 			{
-				player.Update();
+				player.Update(deltaTime);
 			}
 
 			Flush();

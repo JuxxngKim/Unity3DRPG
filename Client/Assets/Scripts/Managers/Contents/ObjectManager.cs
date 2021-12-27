@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ObjectManager
 {
-	public Player MyPlayer { get; set; }
+	public MyPlayer MyPlayer { get; set; }
 	Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
 	
 	public static GameObjectType GetObjectTypeById(int id)
@@ -22,16 +22,31 @@ public class ObjectManager
 		{
             if (myPlayer)
             {
-                GameObject go = Managers.Resource.Instantiate("Creature/Player");
+                GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
                 go.name = info.Name;
                 _objects.Add(info.ObjectId, go);
 
-                MyPlayer = go.GetComponent<Player>();
+                MyPlayer = go.GetComponent<MyPlayer>();
 				MyPlayer.ID = info.ObjectId;
 				MyPlayer.PosInfo = info.PosInfo;
                 MyPlayer.Stat = info.StatInfo;
                 MyPlayer.SyncPos();
             }
+			else
+            {
+                GameObject go = Managers.Resource.Instantiate("Creature/Player");
+                go.name = info.Name;
+                _objects.Add(info.ObjectId, go);
+
+                var player = go.GetComponent<Player>();
+				player.ID = info.ObjectId;
+				player.PosInfo = info.PosInfo;
+				player.Stat = info.StatInfo;
+				player.SyncPos();
+			}
+		}
+		else
+        {
 		}
 	}
 

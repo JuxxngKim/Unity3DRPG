@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace Server.Game
 {
@@ -20,13 +21,16 @@ namespace Server.Game
 		public PositionInfo2 PosInfo { get; private set; } = new PositionInfo2();
 		public StatInfo Stat { get; private set; } = new StatInfo();
 
+		protected Vector3 _position;
+		protected Vector3 _direction;
+
 		public GameObject()
 		{
 			Info.PosInfo = PosInfo;
 			Info.StatInfo = Stat;
 		}
 
-		public virtual void Update()
+		public virtual void Update(float deltaTime)
 		{
 
 		}
@@ -69,6 +73,12 @@ namespace Server.Game
 			//PosInfo.PosY = 0;
 
 			//room.EnterGame(this);
+		}
+
+		public virtual void SyncPos()
+		{
+			_position = Util.ProtoPositionToVector3(PosInfo);
+			_direction = Util.ProtoDirectionToVector3(PosInfo);
 		}
 	}
 }

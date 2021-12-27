@@ -24,7 +24,7 @@ namespace Server
 		{
 			var timer = new System.Timers.Timer();
 			timer.Interval = tick;
-			timer.Elapsed += ((s, e) => { room.Update(); });
+			timer.Elapsed += ((s, e) => { room.Update((float)tick / 1000); });
 			timer.AutoReset = true;
 			timer.Enabled = true;
 

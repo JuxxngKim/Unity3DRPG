@@ -42,7 +42,7 @@ namespace Server
                 MyPlayer.Info.PosInfo.DirY = 0;
                 MyPlayer.Info.PosInfo.DirZ = -1;
 
-                MyPlayer.Info.PosInfo.PosX = 0;
+                MyPlayer.Info.PosInfo.PosX = new System.Random().Next(0, 10);
                 MyPlayer.Info.PosInfo.PosY = 0;
                 MyPlayer.Info.PosInfo.PosZ = 10;
 
@@ -51,6 +51,8 @@ namespace Server
                 MyPlayer.Stat.MergeFrom(stat);
 
                 MyPlayer.Session = this;
+
+                MyPlayer.SyncPos();
             }
 
             GameRoom room = RoomManager.Instance.Find(1);
@@ -68,8 +70,6 @@ namespace Server
             GameRoom room = RoomManager.Instance.Find(1);
             room.PushAfter(5000, () => { Ping(); });
         }
-
-
 
         public override void OnRecvPacket(ArraySegment<byte> buffer)
         {
