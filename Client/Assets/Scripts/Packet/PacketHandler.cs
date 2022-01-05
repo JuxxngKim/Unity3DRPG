@@ -64,11 +64,11 @@ class PacketHandler
 		if (go == null)
 			return;
 
-		CreatureController cc = go.GetComponent<CreatureController>();
-		if (cc != null)
-		{
-			cc.UseSkill(skillPacket.Info.SkillId);
-		}
+		////CreatureController cc = go.GetComponent<CreatureController>();
+		//if (cc != null)
+		//{
+		//	cc.UseSkill(skillPacket.Info.SkillId);
+		//}
 	}
 
 	public static void S_ChangeHpHandler(PacketSession session, IMessage packet)
@@ -79,11 +79,11 @@ class PacketHandler
 		if (go == null)
 			return;
 
-		CreatureController cc = go.GetComponent<CreatureController>();
-		if (cc != null)
-		{
-			cc.Hp = changePacket.Hp;
-		}
+		////CreatureController cc = go.GetComponent<CreatureController>();
+		//if (cc != null)
+		//{
+		//	cc.Hp = changePacket.Hp;
+		//}
 	}
 
 	public static void S_DieHandler(PacketSession session, IMessage packet)
@@ -94,12 +94,12 @@ class PacketHandler
 		if (go == null)
 			return;
 
-		CreatureController cc = go.GetComponent<CreatureController>();
-		if (cc != null)
-		{
-			cc.Hp = 0;
-			cc.OnDead();
-		}
+		//CreatureController cc = go.GetComponent<CreatureController>();
+		//if (cc != null)
+		//{
+		//	cc.Hp = 0;
+		//	cc.OnDead();
+		//}
 	}
 
 

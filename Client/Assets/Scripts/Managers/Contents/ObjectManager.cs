@@ -71,12 +71,12 @@ public class ObjectManager
 	{
 		foreach (GameObject obj in _objects.Values)
 		{
-			CreatureController cc = obj.GetComponent<CreatureController>();
-			if (cc == null)
-				continue;
+			////CreatureController cc = obj.GetComponent<CreatureController>();
+			//if (cc == null)
+			//	continue;
 
-			if (cc.CellPos == cellPos)
-				return obj;
+			//if (cc.CellPos == cellPos)
+			//	return obj;
 		}
 
 		return null;
