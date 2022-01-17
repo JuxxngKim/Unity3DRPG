@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
+    private ObjModel _level;
+
     protected override void Init()
     {
         base.Init();
@@ -13,6 +15,8 @@ public class GameScene : BaseScene
         //Managers.Map.LoadMap(1);
 
         Screen.SetResolution(640, 480, false);
+
+        _level = new ObjModel("Assets/NavMesh.obj");
 
         //GameObject player = Managers.Resource.Instantiate("Creature/Player");
         //player.name = "Player";
@@ -36,4 +40,42 @@ public class GameScene : BaseScene
     {
         
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (_level == null || _level.IsVaild == false)
+            return;
+        if (_level.Triangles == null)
+            return;
+
+        int index = 0;
+
+        foreach(var triangle in _level.Triangles)
+        {
+            switch (index)
+            {
+                case 0: Gizmos.color = Color.red; break;
+                case 1: Gizmos.color = Color.green; break;
+                case 2: Gizmos.color = Color.yellow; break;
+            }
+            
+            Gizmos.DrawLine(sVectorToVector(triangle.A), sVectorToVector(triangle.B));
+            Gizmos.DrawLine(sVectorToVector(triangle.B), sVectorToVector(triangle.C));
+            Gizmos.DrawLine(sVectorToVector(triangle.C), sVectorToVector(triangle.A));
+
+            Gizmos.
+
+            if (index++ == 2)
+                index = 0;
+        }
+    }
+
+    private Vector3 sVectorToVector(SharpNav.Geometry.Vector3 form)
+    {
+        return new Vector3(form.X, form.Y, form.Z);
+    }
+
+
+#endif
 }

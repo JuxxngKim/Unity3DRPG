@@ -42,6 +42,8 @@ namespace Server.Game
 			_direction.Normalize();
 
 			_position = Vector3.MoveTowards(_position, targetPos, deltaTime * 10.0f);
+
+			Console.WriteLine(_position);
 			BroadcastMove();
 		}
 

@@ -22,7 +22,7 @@ public class ExportNavMesh
         mesh.triangles = triangulatedNavMesh.indices;
         string filename = Application.dataPath + "/" + Path.GetFileNameWithoutExtension(EditorApplication.currentScene) + " Exported NavMesh.obj";
         MeshToFile(mesh, filename);
-        print("NavMesh exported as '" + filename + "'");
+        //print("NavMesh exported as '" + filename + "'");
         AssetDatabase.Refresh();
     }
 
