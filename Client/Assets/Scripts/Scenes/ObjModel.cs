@@ -9,6 +9,35 @@ using System.IO;
 using SharpNav.Geometry;
 
 
+public class Triangle
+{ 
+    public Triangle3 Tri { get; private set; }
+    public Triangle3[] Siblings { get; private set; }
+
+    public UnityEngine.Vector3[] Vertices
+    { 
+        get
+        {
+            var vertices = new UnityEngine.Vector3[3];
+            vertices[0] = A;
+            vertices[1] = B;
+            vertices[2] = C;
+            return vertices;
+        }
+    }
+
+    public UnityEngine.Vector3 A => new UnityEngine.Vector3(Tri.A.X, 0, Tri.A.Z);
+    public UnityEngine.Vector3 B => new UnityEngine.Vector3(Tri.B.X, 0, Tri.B.Z);
+    public UnityEngine.Vector3 C => new UnityEngine.Vector3(Tri.C.X, 0, Tri.C.Z);
+
+    public Triangle(Triangle3 triangle, Triangle3[] siblings)
+    {
+        Tri = triangle;
+        Siblings = siblings;
+    }
+}
+
+
 
 /// <summary>
 /// Parses a model in .obj format.
@@ -19,8 +48,10 @@ public class ObjModel
 
     private List<Triangle3> tris;
     private List<Vector3> norms;
+    private List<Triangle> _triangles;
 
-    public List<Triangle3> Triangles => tris;
+    public List<Triangle3> Tris => tris;
+    public List<Triangle> Triangles => _triangles;
     public bool IsVaild { get; private set; }
 
     /// <summary>
@@ -137,16 +168,70 @@ public class ObjModel
                             break;
                     }
                 }
+                CalculateTriSibling();
+                IsVaild = true;
             }
             catch (Exception ex)
             {
+                UnityEngine.Debug.LogError($"ex : {ex}");
+            }
+        }
+    }
 
+    public void CalculateTriSibling()
+    {
+        _triangles = new List<Triangle>(tris.Count);
+
+        for (int i = 0; i < tris.Count; ++i)
+        {
+            Triangle3 current = tris[i];
+            Triangle3[] siblings = new Triangle3[3];
+
+            for(int j = 0; j < tris.Count; ++j)
+            {
+                if (j == i)
+                    continue;
+
+                Triangle3 otherTri = tris[j];
+                if (SetSibling(current.A, current.B, otherTri, siblings, 0))
+                    continue;
+                if (SetSibling(current.B, current.C, otherTri, siblings, 1))
+                    continue;
+                if (SetSibling(current.C, current.A, otherTri, siblings, 2))
+                    continue;
             }
 
+            var triangle = new Triangle(tris[i], siblings);
+            _triangles.Add(triangle);
+        }
+    }
+
+    private bool SetSibling(Vector3 pos1, Vector3 pos2, Triangle3 otherTri, Triangle3[] siblings, int index)
+    {
+        if ((pos1 == otherTri.A && pos2 == otherTri.B) ||
+            (pos2 == otherTri.A && pos1 == otherTri.B))
+        {
+            siblings[index] = otherTri;
+            return true;
         }
 
-        IsVaild = true;
+        if ((pos1 == otherTri.B && pos2 == otherTri.C) ||
+            (pos2 == otherTri.B && pos1 == otherTri.C))
+        {
+            siblings[index] = otherTri;
+            return true;
+        }
+
+        if ((pos1 == otherTri.C && pos2 == otherTri.A) ||
+            (pos2 == otherTri.C && pos1 == otherTri.A))
+        {
+            siblings[index] = otherTri;
+            return true;
+        }
+
+        return false;
     }
+
 
     /// <summary>
     /// Gets an array of the triangles in this model.
