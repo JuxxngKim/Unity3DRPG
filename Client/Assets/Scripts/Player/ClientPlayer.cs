@@ -9,7 +9,7 @@ public class ClientPlayer : MonoBehaviour
     private Vector3 _targetDir;
     private Vector3 _targetPosition;
 
-    private Triangle _currentTri;
+    private NavMeshTriangle _currentNavMesh;
 
     private void Start()
     {
@@ -22,48 +22,22 @@ public class ClientPlayer : MonoBehaviour
         Vector3 myPosition = this.transform.position;
         myPosition.y = 0.0f;
 
-        Debug.LogError($"myPosition : {myPosition}");
-
         var triangles = level.Triangles;
         for(int i = 0; i < triangles.Count; ++i)
         {
-            Triangle triangle = triangles[i];
-            bool inSide = CalcOnTriangle(triangle.Vertices, myPosition);
+            NavMeshTriangle navMeshTriangle = triangles[i];
+            bool inSide = navMeshTriangle.InSidePoint(myPosition);
             if (inSide)
             {
-                Debug.LogError($"==========================");
                 Debug.LogError($"nav : {i}");
-                Debug.LogError($"A : {triangle.Vertices[0]}");
-                Debug.LogError($"B : {triangle.Vertices[1]}");
-                Debug.LogError($"C : {triangle.Vertices[2]}");
-                _currentTri = triangle;
-                //break;
+                _currentNavMesh = navMeshTriangle;
+                break;
             }
         }
 
-        if(_currentTri == null)
+        if(_currentNavMesh == null)
         {
             Debug.LogError("Outside Navmesh!");
-        }
-    }
-
-    private bool CalcOnTriangle(Vector3[] vertices, Vector3 point)
-    {
-        Vector3 a = Vector3.Cross(vertices[1] - vertices[0], vertices[2] - vertices[0]);
-        Vector3 b = Vector3.Cross(vertices[1] - point, vertices[2] - point);
-        Vector3 c = Vector3.Cross(vertices[2] - point, vertices[0] - point);
-        Vector3 d = Vector3.Cross(vertices[0] - point, vertices[1] - point);
-
-        float temp = b.magnitude + c.magnitude + d.magnitude;
-        int r = (int)temp;
-        float t = (int)a.magnitude;
-        if (r == t)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
         }
     }
 
@@ -86,13 +60,35 @@ public class ClientPlayer : MonoBehaviour
 
     private void UpdateMove()
     {
+        if(_currentNavMesh == null)
+        {
+            return;
+        }
+
         if (_targetPosition == this.transform.position)
         {
             _targetDir = Vector3.zero;
             return;
         }
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, _targetPosition, Time.deltaTime * _speed);
+        var nextPos = Vector3.MoveTowards(this.transform.position, _targetPosition, Time.deltaTime * _speed);
+        bool inSide = _currentNavMesh.InSidePoint(nextPos);
+        if(inSide)
+        {
+            this.transform.position = nextPos;
+            return;
+        }
+
+        var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
+        if (nextNavMesh != null)
+        {
+            _currentNavMesh = nextNavMesh;
+            this.transform.position = nextPos;
+        }
+        else
+        {
+            // TODO 네비 밖에 있을경우 삼각형 선분 까지 땡겨와야함.
+        }
     }
 
     private (bool isValid, Vector3 position) GetClickPosition()

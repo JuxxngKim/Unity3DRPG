@@ -5,39 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-
-using SharpNav.Geometry;
-
-
-public class Triangle
-{ 
-    public Triangle3 Tri { get; private set; }
-    public Triangle3[] Siblings { get; private set; }
-
-    public UnityEngine.Vector3[] Vertices
-    { 
-        get
-        {
-            var vertices = new UnityEngine.Vector3[3];
-            vertices[0] = A;
-            vertices[1] = B;
-            vertices[2] = C;
-            return vertices;
-        }
-    }
-
-    public UnityEngine.Vector3 A => new UnityEngine.Vector3(Tri.A.X, 0, Tri.A.Z);
-    public UnityEngine.Vector3 B => new UnityEngine.Vector3(Tri.B.X, 0, Tri.B.Z);
-    public UnityEngine.Vector3 C => new UnityEngine.Vector3(Tri.C.X, 0, Tri.C.Z);
-
-    public Triangle(Triangle3 triangle, Triangle3[] siblings)
-    {
-        Tri = triangle;
-        Siblings = siblings;
-    }
-}
-
-
+using UnityEngine;
 
 /// <summary>
 /// Parses a model in .obj format.
@@ -46,12 +14,13 @@ public class ObjModel
 {
     private static readonly char[] lineSplitChars = { ' ' };
 
-    private List<Triangle3> tris;
+    private List<Triangle> tris;
     private List<Vector3> norms;
-    private List<Triangle> _triangles;
 
-    public List<Triangle3> Tris => tris;
-    public List<Triangle> Triangles => _triangles;
+    private List<NavMeshTriangle> _meshTriangles;
+
+    public List<NavMeshTriangle> Triangles => _meshTriangles;
+
     public bool IsVaild { get; private set; }
 
     /// <summary>
@@ -60,7 +29,7 @@ public class ObjModel
     /// <param name="path">The path of the .obj file to parse.</param>
     public ObjModel(string path)
     {
-        tris = new List<Triangle3>();
+        tris = new List<Triangle>();
         norms = new List<Vector3>();
         List<Vector3> tempVerts = new List<Vector3>();
         List<Vector3> tempNorms = new List<Vector3>();
@@ -125,7 +94,7 @@ public class ObjModel
                                 n1 -= 1;
                                 n2 -= 1;
 
-                                tris.Add(new Triangle3(tempVerts[v0], tempVerts[v1], tempVerts[v2]));
+                                tris.Add(new Triangle(tempVerts[v0], tempVerts[v1], tempVerts[v2]));
                                 if (tempNorms.Count > n0)
                                     norms.Add(tempNorms[n0]);
                                 if (tempNorms.Count > n1)
@@ -156,7 +125,7 @@ public class ObjModel
                                     ni -= 1;
                                     nii -= 1;
 
-                                    tris.Add(new Triangle3(tempVerts[v0], tempVerts[vi], tempVerts[vii]));
+                                    tris.Add(new Triangle(tempVerts[v0], tempVerts[vi], tempVerts[vii]));
                                     if (tempNorms.Count > n0)
                                         norms.Add(tempNorms[n0]);
                                     if (tempNorms.Count > ni)
@@ -180,64 +149,60 @@ public class ObjModel
 
     public void CalculateTriSibling()
     {
-        _triangles = new List<Triangle>(tris.Count);
+        _meshTriangles = new List<NavMeshTriangle>(tris.Count);
 
         for (int i = 0; i < tris.Count; ++i)
         {
-            Triangle3 current = tris[i];
-            Triangle3[] siblings = new Triangle3[3];
+            _meshTriangles.Add(new NavMeshTriangle(tris[i]));
+        }
 
-            for(int j = 0; j < tris.Count; ++j)
+        for(int i = 0; i < _meshTriangles.Count; ++i)
+        {
+            NavMeshTriangle current = _meshTriangles[i];
+            Dictionary<int, NavMeshTriangle> siblings = new Dictionary<int, NavMeshTriangle>();
+
+            for (int j = 0; j < _meshTriangles.Count; ++j)
             {
                 if (j == i)
                     continue;
 
-                Triangle3 otherTri = tris[j];
-                if (SetSibling(current.A, current.B, otherTri, siblings, 0))
+                var other = _meshTriangles[j];
+                if (current.A == other.A || current.A == other.B || current.A == other.C)
+                {
+                    if (!siblings.ContainsKey(j))
+                    {
+                        siblings.Add(j, other);
+                    }
                     continue;
-                if (SetSibling(current.B, current.C, otherTri, siblings, 1))
+                }
+
+                if (current.B == other.A || current.B == other.B || current.B == other.C)
+                {
+                    if (!siblings.ContainsKey(j))
+                    {
+                        siblings.Add(j, other);
+                    }
                     continue;
-                if (SetSibling(current.C, current.A, otherTri, siblings, 2))
-                    continue;
+                }
+
+                if (current.C == other.A || current.C == other.B || current.C == other.C)
+                {
+                    if (!siblings.ContainsKey(j))
+                    {
+                        siblings.Add(j, other);
+                    }
+                }
             }
 
-            var triangle = new Triangle(tris[i], siblings);
-            _triangles.Add(triangle);
+            current.SetSiblings(siblings);
         }
     }
-
-    private bool SetSibling(Vector3 pos1, Vector3 pos2, Triangle3 otherTri, Triangle3[] siblings, int index)
-    {
-        if ((pos1 == otherTri.A && pos2 == otherTri.B) ||
-            (pos2 == otherTri.A && pos1 == otherTri.B))
-        {
-            siblings[index] = otherTri;
-            return true;
-        }
-
-        if ((pos1 == otherTri.B && pos2 == otherTri.C) ||
-            (pos2 == otherTri.B && pos1 == otherTri.C))
-        {
-            siblings[index] = otherTri;
-            return true;
-        }
-
-        if ((pos1 == otherTri.C && pos2 == otherTri.A) ||
-            (pos2 == otherTri.C && pos1 == otherTri.A))
-        {
-            siblings[index] = otherTri;
-            return true;
-        }
-
-        return false;
-    }
-
 
     /// <summary>
     /// Gets an array of the triangles in this model.
     /// </summary>
     /// <returns></returns>
-    public Triangle3[] GetTriangles()
+    public Triangle[] GetTriangles()
     {
         return tris.ToArray();
     }
@@ -253,13 +218,13 @@ public class ObjModel
 
     private bool TryParseVec(string[] values, int x, int y, int z, out Vector3 v)
     {
-        v = Vector3.Zero;
+        v = Vector3.zero;
 
-        if (!float.TryParse(values[x], NumberStyles.Any, CultureInfo.InvariantCulture, out v.X))
+        if (!float.TryParse(values[x], NumberStyles.Any, CultureInfo.InvariantCulture, out v.x))
             return false;
-        if (!float.TryParse(values[y], NumberStyles.Any, CultureInfo.InvariantCulture, out v.Y))
+        if (!float.TryParse(values[y], NumberStyles.Any, CultureInfo.InvariantCulture, out v.y))
             return false;
-        if (!float.TryParse(values[z], NumberStyles.Any, CultureInfo.InvariantCulture, out v.Z))
+        if (!float.TryParse(values[z], NumberStyles.Any, CultureInfo.InvariantCulture, out v.z))
             return false;
 
         return true;

@@ -26,7 +26,6 @@ public class ClientMapTest : MonoBehaviour
         if (Level.Triangles == null)
             return;
 
-        int index = 0;
         Gizmos.color = Color.red;
 
         for (int i = 0; i < Level.Triangles.Count; ++i)
@@ -50,12 +49,5 @@ public class ClientMapTest : MonoBehaviour
                 totalIndex = 0;
         }
     }
-
-    private Vector3 sVectorToVector(SharpNav.Geometry.Vector3 form)
-    {
-        return new Vector3(form.X, form.Y, form.Z);
-    }
-
-
 #endif
 }
