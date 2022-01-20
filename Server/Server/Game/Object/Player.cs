@@ -9,13 +9,38 @@ namespace Server.Game
 	public class Player : GameObject
 	{
 		public ClientSession Session { get; set; }
+		public ObjModel Level { get; private set; }
+
+		private NavMeshTriangle _currentNavMesh;
 
 		public Player()
 		{
 			ObjectType = GameObjectType.Player;
 		}
 
-		public override void OnDamaged(GameObject attacker, int damage)
+        public void InitMap(ObjModel level)
+        {
+            if (level == null)
+                return;
+
+			Level = level;
+
+			Vector3 myPosition = Util.ProtoPositionToVector3(PosInfo);
+
+			var triangles = level.Triangles;
+			for (int i = 0; i < triangles.Count; ++i)
+			{
+				NavMeshTriangle navMeshTriangle = triangles[i];
+				bool inSide = navMeshTriangle.InSidePoint(myPosition);
+				if (inSide)
+				{
+					_currentNavMesh = navMeshTriangle;
+					break;
+				}
+			}
+		}
+
+        public override void OnDamaged(GameObject attacker, int damage)
 		{
 			base.OnDamaged(attacker, damage);
 		}
@@ -37,13 +62,42 @@ namespace Server.Game
 
 		private void UpdateMove(float deltaTime)
         {
+			if (_currentNavMesh == null)
+				return;
+
 			var targetPos = Util.ProtoPositionToVector3(PosInfo);
 			_direction = targetPos - _position;
 			_direction.Normalize();
 
-			_position = Vector3.MoveTowards(_position, targetPos, deltaTime * 10.0f);
+			var nextPos = Vector3.MoveTowards(_position, targetPos, deltaTime * Stat.Speed);
+			bool inSide = _currentNavMesh.InSidePoint(nextPos);
+			if (inSide)
+			{
+				_position = nextPos;
+			}
+			else
+            {
+				var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
+				if (nextNavMesh != null)
+				{
+					_currentNavMesh = nextNavMesh;
+					_position = nextPos;
+				}
+				else
+				{
+					_direction = Vector3.zero;
+					PosInfo.PosX = _position.x;
+					PosInfo.PosY = 0;
+					PosInfo.PosZ = _position.z;
 
-			Console.WriteLine(_position);
+					PosInfo.DirX = _direction.x;
+					PosInfo.DirY = _direction.y;
+					PosInfo.DirZ = _direction.z;
+				}
+			}
+
+			Console.WriteLine($"_pos : {_position.x},{_position.y},{_position.z}");
+
 			BroadcastMove();
 		}
 

@@ -10,6 +10,7 @@ using Google.Protobuf.Protocol;
 using Google.Protobuf;
 using Server.Game;
 using Server.Data;
+using UnityEngine;
 
 namespace Server
 {
@@ -34,6 +35,9 @@ namespace Server
         {
             Console.WriteLine($"OnConnected : {endPoint}");
 
+            GameRoom room = RoomManager.Instance.Find(1);
+            Vector3 spawnPos = room.Level?.GetRandomNavMeshPos() ?? Vector3.zero;
+
             MyPlayer = ObjectManager.Instance.Add<Player>();
             {
                 MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
@@ -42,20 +46,22 @@ namespace Server
                 MyPlayer.Info.PosInfo.DirY = 0;
                 MyPlayer.Info.PosInfo.DirZ = -1;
 
-                MyPlayer.Info.PosInfo.PosX = new System.Random().Next(0, 10);
-                MyPlayer.Info.PosInfo.PosY = 0;
-                MyPlayer.Info.PosInfo.PosZ = 10;
+                MyPlayer.Info.PosInfo.PosX = spawnPos.x;
+                MyPlayer.Info.PosInfo.PosY = spawnPos.y;
+                MyPlayer.Info.PosInfo.PosZ = spawnPos.z;
 
-                StatInfo stat = null;
-                DataManager.StatDict.TryGetValue(1, out stat);
+                StatInfo stat = new StatInfo();
+                stat.Attack = 1;
+                stat.Hp = stat.MaxHp = 10;
+                stat.Speed = 10;
                 MyPlayer.Stat.MergeFrom(stat);
 
                 MyPlayer.Session = this;
 
                 MyPlayer.SyncPos();
+                MyPlayer.InitMap(room.Level);
             }
 
-            GameRoom room = RoomManager.Instance.Find(1);
             room.Push(room.EnterGame, MyPlayer);
 
             Ping();

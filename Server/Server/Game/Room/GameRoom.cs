@@ -10,14 +10,14 @@ namespace Server.Game
 	public class GameRoom : JobSerializer
 	{
 		public int RoomId { get; set; }
+		public ObjModel Level { get; private set; }
 
-		Dictionary<int, Player> _players = new Dictionary<int, Player>();
-
-		//public Map Map { get; private set; } = new Map();
+		private Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
 		public void Init(int mapId)
 		{
-			//Map.LoadMap(mapId);
+			string path = $"NavMesh{mapId:D2}.obj";
+			Level = new ObjModel(path);
 		}
 
 		// 누군가 주기적으로 호출해줘야 한다
@@ -112,7 +112,7 @@ namespace Server.Game
 
 			info.PosInfo.State = movePosInfo.State;
 			info.PosInfo.PosX = movePosInfo.PosX;
-			info.PosInfo.PosY = movePosInfo.PosY;
+			info.PosInfo.PosY = 0;
 			info.PosInfo.PosZ = movePosInfo.PosZ;
 		}
 

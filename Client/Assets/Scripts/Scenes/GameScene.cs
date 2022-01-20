@@ -4,40 +4,54 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-    private ObjModel _level;
+    private ObjModel Level;
 
     protected override void Init()
     {
         base.Init();
 
         SceneType = Define.Scene.Game;
-
-        //Managers.Map.LoadMap(1);
-
         Screen.SetResolution(640, 480, false);
 
-        _level = new ObjModel("Assets/NavMesh.obj");
-
-        //GameObject player = Managers.Resource.Instantiate("Creature/Player");
-        //player.name = "Player";
-        //Managers.Object.Add(player);
-        
-
-        //Managers.UI.ShowSceneUI<UI_Inven>();
-        //Dictionary<int, Data.Stat> dict = Managers.Data.StatDict;
-        //gameObject.GetOrAddComponent<CursorController>();
-
-        //GameObject player = Managers.Game.Spawn(Define.WorldObject.Player, "UnityChan");
-        //Camera.main.gameObject.GetOrAddComponent<CameraController>().SetPlayer(player);
-
-        ////Managers.Game.Spawn(Define.WorldObject.Monster, "Knight");
-        //GameObject go = new GameObject { name = "SpawningPool" };
-        //SpawningPool pool = go.GetOrAddComponent<SpawningPool>();
-        //pool.SetKeepMonsterCount(2);
+        Level = new ObjModel("Assets/NavMesh.obj");
     }
 
     public override void Clear()
     {
         
     }
+#if UNITY_EDITOR
+
+    private int totalIndex = 0;
+    private void OnDrawGizmos()
+    {
+        if (Level == null || !Level.IsVaild)
+            return;
+        if (Level.Triangles == null)
+            return;
+
+        Gizmos.color = Color.red;
+
+        for (int i = 0; i < Level.Triangles.Count; ++i)
+        {
+            var triangle = Level.Triangles[i];
+
+            if (i == 0)
+            {
+                Gizmos.color = Color.yellow;
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+            }
+
+            Gizmos.DrawLine(triangle.A, triangle.B);
+            Gizmos.DrawLine(triangle.B, triangle.C);
+            Gizmos.DrawLine(triangle.C, triangle.A);
+
+            if (totalIndex >= 20)
+                totalIndex = 0;
+        }
+    }
+#endif
 }

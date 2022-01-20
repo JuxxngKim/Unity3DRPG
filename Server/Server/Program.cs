@@ -33,9 +33,6 @@ namespace Server
 
 		static void Main(string[] args)
 		{
-			ConfigManager.LoadConfig();
-			DataManager.LoadData();
-
 			GameRoom room = RoomManager.Instance.Add(1);
 			TickRoom(room, 50);
 
@@ -48,13 +45,8 @@ namespace Server
 			_listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
 			Console.WriteLine("Listening...");
 
-			//FlushRoom();
-			//JobTimer.Instance.Push(FlushRoom);
-
-			// TODO
 			while (true)
 			{
-				//JobTimer.Instance.Flush();
 				Thread.Sleep(100);
 			}
 		}
