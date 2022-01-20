@@ -16,17 +16,17 @@ public class MyPlayer : Player
     {
         if (Input.GetMouseButtonDown(1))
         {
-            (bool, Vector3) result = GetClickPosition();
-            if (!result.Item1)
+            var result = GetClickPosition();
+            if (!result.result)
             {
                 return;
             }
 
             C_Move2 movePacket = new C_Move2();
             movePacket.PosInfo = PosInfo.Clone();
-            movePacket.PosInfo.PosX = result.Item2.x;
-            movePacket.PosInfo.PosY = result.Item2.y;
-            movePacket.PosInfo.PosZ = result.Item2.z;
+            movePacket.PosInfo.PosX = result.position.x;
+            movePacket.PosInfo.PosY = result.position.y;
+            movePacket.PosInfo.PosZ = result.position.z;
             Managers.Network.Send(movePacket);
         }
 
@@ -46,14 +46,16 @@ public class MyPlayer : Player
         this.transform.position = Vector3.MoveTowards(this.transform.position, Position, Time.deltaTime * Stat.Speed);
     }
 
-    private (bool, Vector3) GetClickPosition()
+    private (bool result, Vector3 position) GetClickPosition()
     {
+        var layerMask = LayerMask.NameToLayer("Ground");
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity))
+        if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, ~layerMask))
         {
             return (true, hit.point);
         }
 
-        return (true, Vector3.zero);
+        return (false, Vector3.zero);
     }
 }
