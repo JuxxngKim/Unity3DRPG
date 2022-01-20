@@ -25,7 +25,7 @@ public class MyPlayer : Player
             C_Move2 movePacket = new C_Move2();
             movePacket.PosInfo = PosInfo.Clone();
             movePacket.PosInfo.PosX = result.position.x;
-            movePacket.PosInfo.PosY = result.position.y;
+            movePacket.PosInfo.PosY = 0;
             movePacket.PosInfo.PosZ = result.position.z;
             Managers.Network.Send(movePacket);
         }
