@@ -35,114 +35,121 @@ namespace Server.Game
 
             IsVaild = false;
 
-            using (StreamReader reader = new StreamReader(path))
+            try
             {
-                try
+                using (StreamReader reader = new StreamReader(path))
                 {
-                    string file = reader.ReadToEnd();
-                    foreach (string l in file.Split('\n'))
+                    try
                     {
-                        //trim any extras
-                        string tl = l;
-                        int commentStart = l.IndexOf("#");
-                        if (commentStart != -1)
-                            tl = tl.Substring(0, commentStart);
-                        tl = tl.Trim();
-
-                        string[] line = tl.Split(lineSplitChars, StringSplitOptions.RemoveEmptyEntries);
-                        if (line == null || line.Length == 0)
-                            continue;
-
-                        switch (line[0])
+                        string file = reader.ReadToEnd();
+                        foreach (string l in file.Split('\n'))
                         {
-                            case "v":
-                                if (line.Length < 4)
-                                    continue;
+                            //trim any extras
+                            string tl = l;
+                            int commentStart = l.IndexOf("#");
+                            if (commentStart != -1)
+                                tl = tl.Substring(0, commentStart);
+                            tl = tl.Trim();
 
-                                Vector3 v;
-                                if (!TryParseVec(line, 1, 2, 3, out v)) continue;
-                                tempVerts.Add(v);
-                                break;
-                            case "vn":
-                                if (line.Length < 4)
-                                    continue;
+                            string[] line = tl.Split(lineSplitChars, StringSplitOptions.RemoveEmptyEntries);
+                            if (line == null || line.Length == 0)
+                                continue;
 
-                                Vector3 n;
-                                if (!TryParseVec(line, 1, 2, 3, out n)) continue;
-                                tempNorms.Add(n);
-                                break;
-                            case "f":
+                            switch (line[0])
+                            {
+                                case "v":
+                                    if (line.Length < 4)
+                                        continue;
 
-                                if (line.Length < 4)
-                                    continue;
-                                else if (line.Length == 4)
-                                {
-                                    int v0, v1, v2;
-                                    int n0, n1, n2;
-                                    if (!int.TryParse(line[1].Split('/')[0], out v0)) continue;
-                                    if (!int.TryParse(line[2].Split('/')[0], out v1)) continue;
-                                    if (!int.TryParse(line[3].Split('/')[0], out v2)) continue;
-                                    if (!int.TryParse(line[1].Split('/')[2], out n0)) continue;
-                                    if (!int.TryParse(line[2].Split('/')[2], out n1)) continue;
-                                    if (!int.TryParse(line[3].Split('/')[2], out n2)) continue;
+                                    Vector3 v;
+                                    if (!TryParseVec(line, 1, 2, 3, out v)) continue;
+                                    tempVerts.Add(v);
+                                    break;
+                                case "vn":
+                                    if (line.Length < 4)
+                                        continue;
 
-                                    v0 -= 1;
-                                    v1 -= 1;
-                                    v2 -= 1;
-                                    n0 -= 1;
-                                    n1 -= 1;
-                                    n2 -= 1;
+                                    Vector3 n;
+                                    if (!TryParseVec(line, 1, 2, 3, out n)) continue;
+                                    tempNorms.Add(n);
+                                    break;
+                                case "f":
 
-                                    tris.Add(new Triangle(tempVerts[v0], tempVerts[v1], tempVerts[v2]));
-                                    if (tempNorms.Count > n0)
-                                        norms.Add(tempNorms[n0]);
-                                    if (tempNorms.Count > n1)
-                                        norms.Add(tempNorms[n1]);
-                                    if (tempNorms.Count > n2)
-                                        norms.Add(tempNorms[n2]);
-                                }
-                                else
-                                {
-                                    int v0, n0;
-                                    if (!int.TryParse(line[1].Split('/')[0], out v0)) continue;
-                                    if (!int.TryParse(line[1].Split('/')[2], out n0)) continue;
-
-                                    v0 -= 1;
-                                    n0 -= 1;
-
-                                    for (int i = 2; i < line.Length - 1; i++)
+                                    if (line.Length < 4)
+                                        continue;
+                                    else if (line.Length == 4)
                                     {
-                                        int vi, vii;
-                                        int ni, nii;
-                                        if (!int.TryParse(line[i].Split('/')[0], out vi)) continue;
-                                        if (!int.TryParse(line[i + 1].Split('/')[0], out vii)) continue;
-                                        if (!int.TryParse(line[i].Split('/')[2], out ni)) continue;
-                                        if (!int.TryParse(line[i + 1].Split('/')[2], out nii)) continue;
+                                        int v0, v1, v2;
+                                        int n0, n1, n2;
+                                        if (!int.TryParse(line[1].Split('/')[0], out v0)) continue;
+                                        if (!int.TryParse(line[2].Split('/')[0], out v1)) continue;
+                                        if (!int.TryParse(line[3].Split('/')[0], out v2)) continue;
+                                        if (!int.TryParse(line[1].Split('/')[2], out n0)) continue;
+                                        if (!int.TryParse(line[2].Split('/')[2], out n1)) continue;
+                                        if (!int.TryParse(line[3].Split('/')[2], out n2)) continue;
 
-                                        vi -= 1;
-                                        vii -= 1;
-                                        ni -= 1;
-                                        nii -= 1;
+                                        v0 -= 1;
+                                        v1 -= 1;
+                                        v2 -= 1;
+                                        n0 -= 1;
+                                        n1 -= 1;
+                                        n2 -= 1;
 
-                                        tris.Add(new Triangle(tempVerts[v0], tempVerts[vi], tempVerts[vii]));
+                                        tris.Add(new Triangle(tempVerts[v0], tempVerts[v1], tempVerts[v2]));
                                         if (tempNorms.Count > n0)
                                             norms.Add(tempNorms[n0]);
-                                        if (tempNorms.Count > ni)
-                                            norms.Add(tempNorms[ni]);
-                                        if (tempNorms.Count > nii)
-                                            norms.Add(tempNorms[nii]);
+                                        if (tempNorms.Count > n1)
+                                            norms.Add(tempNorms[n1]);
+                                        if (tempNorms.Count > n2)
+                                            norms.Add(tempNorms[n2]);
                                     }
-                                }
-                                break;
+                                    else
+                                    {
+                                        int v0, n0;
+                                        if (!int.TryParse(line[1].Split('/')[0], out v0)) continue;
+                                        if (!int.TryParse(line[1].Split('/')[2], out n0)) continue;
+
+                                        v0 -= 1;
+                                        n0 -= 1;
+
+                                        for (int i = 2; i < line.Length - 1; i++)
+                                        {
+                                            int vi, vii;
+                                            int ni, nii;
+                                            if (!int.TryParse(line[i].Split('/')[0], out vi)) continue;
+                                            if (!int.TryParse(line[i + 1].Split('/')[0], out vii)) continue;
+                                            if (!int.TryParse(line[i].Split('/')[2], out ni)) continue;
+                                            if (!int.TryParse(line[i + 1].Split('/')[2], out nii)) continue;
+
+                                            vi -= 1;
+                                            vii -= 1;
+                                            ni -= 1;
+                                            nii -= 1;
+
+                                            tris.Add(new Triangle(tempVerts[v0], tempVerts[vi], tempVerts[vii]));
+                                            if (tempNorms.Count > n0)
+                                                norms.Add(tempNorms[n0]);
+                                            if (tempNorms.Count > ni)
+                                                norms.Add(tempNorms[ni]);
+                                            if (tempNorms.Count > nii)
+                                                norms.Add(tempNorms[nii]);
+                                        }
+                                    }
+                                    break;
+                            }
                         }
+                        CalculateTriSibling();
+                        IsVaild = true;
                     }
-                    CalculateTriSibling();
-                    IsVaild = true;
+                    catch (Exception ex)
+                    {
+                        IsVaild = false;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    IsVaild = false;
-                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
