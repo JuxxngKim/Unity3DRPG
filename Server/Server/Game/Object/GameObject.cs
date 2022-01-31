@@ -30,9 +30,12 @@ namespace Server.Game
 			Info.StatInfo = Stat;
 		}
 
-		public virtual void Update(float deltaTime)
+		public virtual void Update()
 		{
+			if (Room == null)
+				return;
 
+			Room.PushAfter(100, Update);
 		}
 
 		public virtual void OnDamaged(GameObject attacker, int damage)

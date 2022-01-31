@@ -27,7 +27,7 @@ public class ObjectManager
                 _objects.Add(info.ObjectId, go);
 
                 MyPlayer = go.GetComponent<MyPlayer>();
-				MyPlayer.ID = info.ObjectId;
+				MyPlayer.Id = info.ObjectId;
 				MyPlayer.PosInfo = info.PosInfo;
                 MyPlayer.Stat = info.StatInfo;
                 MyPlayer.SyncPos();
@@ -39,7 +39,7 @@ public class ObjectManager
                 _objects.Add(info.ObjectId, go);
 
                 var player = go.GetComponent<Player>();
-				player.ID = info.ObjectId;
+				player.Id = info.ObjectId;
 				player.PosInfo = info.PosInfo;
 				player.Stat = info.StatInfo;
 				player.SyncPos();

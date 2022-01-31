@@ -21,13 +21,8 @@ namespace Server.Game
 		}
 
 		// 누군가 주기적으로 호출해줘야 한다
-		public void Update(float deltaTime)
+		public void Update()
 		{
-			foreach (Player player in _players.Values)
-			{
-				player.Update(deltaTime);
-			}
-
 			Flush();
 		}
 
@@ -59,6 +54,8 @@ namespace Server.Game
 
                     player.Session.Send(spawnPacket);
                 }
+
+				player.Update();
 			}
 			
 			// 타인한테 정보 전송

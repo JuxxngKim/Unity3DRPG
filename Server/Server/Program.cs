@@ -18,37 +18,59 @@ namespace Server
 	class Program
 	{
 		static Listener _listener = new Listener();
-		static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
 
-		static void TickRoom(GameRoom room, int tick = 100)
+		static void GameLogicTask()
 		{
-			var timer = new System.Timers.Timer();
-			timer.Interval = tick;
-			timer.Elapsed += ((s, e) => { room.Update((float)tick / 1000); });
-			timer.AutoReset = true;
-			timer.Enabled = true;
-
-			_timers.Add(timer);
+			while (true)
+			{
+				GameLogic.Instance.Update();
+				Thread.Sleep(0);
+			}
 		}
+
+		static void NetworkTask()
+		{
+			while (true)
+			{
+				List<ClientSession> sessions = SessionManager.Instance.GetSessions();
+				foreach (ClientSession session in sessions)
+				{
+					session.FlushSend();
+				}
+
+				Thread.Sleep(0);
+			}
+		}
+
+		public static string Name { get; } = "데포르쥬";
+		public static int Port { get; } = 7777;
+		public static string IpAddress { get; set; }
 
 		static void Main(string[] args)
 		{
-			GameRoom room = RoomManager.Instance.Add(1);
-			TickRoom(room, 50);
+			GameLogic.Instance.Push(() => { GameLogic.Instance.Add(1); });
 
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();
 			IPHostEntry ipHost = Dns.GetHostEntry(host);
 			IPAddress ipAddr = ipHost.AddressList[0];
-			IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+			IPEndPoint endPoint = new IPEndPoint(ipAddr, Port);
+
+			IpAddress = ipAddr.ToString();
 
 			_listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
 			Console.WriteLine("Listening...");
 
-			while (true)
+			// NetworkTask
 			{
-				Thread.Sleep(100);
+				Thread t = new Thread(NetworkTask);
+				t.Name = "Network Send";
+				t.Start();
 			}
+
+			// GameLogic
+			Thread.CurrentThread.Name = "GameLogic";
+			GameLogicTask();
 		}
 	}
 }

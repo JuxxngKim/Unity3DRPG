@@ -5,18 +5,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int ID;
+    public int Id;
+
+    [SerializeField] GameObject _model;
 
     protected PositionInfo2 _posInfo;
     public PositionInfo2 PosInfo { get { return _posInfo; } set { _posInfo = value; } }
 
-    public Vector3 Direction
+    public Vector3 ServerDir
     {
         get { return new Vector3(_posInfo.DirX, _posInfo.DirY, _posInfo.DirZ); }
-        set { _posInfo.DirX = value.x; _posInfo.DirX = value.y; _posInfo.DirZ = value.z; }
+        set 
+        { 
+            _posInfo.DirX = value.x; 
+            _posInfo.DirY = value.y; 
+            _posInfo.DirZ = value.z; 
+        }
     }
 
-    public Vector3 Position
+    public Vector3 ServerPos
     {
         get { return new Vector3(_posInfo.PosX, _posInfo.PosY, _posInfo.PosZ); }
         set { _posInfo.PosX = value.x; _posInfo.PosY = value.y; _posInfo.PosZ = value.z; }
@@ -27,8 +34,8 @@ public class Player : MonoBehaviour
 
     public void SetServerPos(PositionInfo2 posInfo)
     {
-        Direction = new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
-        Position = new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
+        ServerDir = new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
+        ServerPos = new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
     }
 
     protected virtual void Update()
@@ -38,15 +45,16 @@ public class Player : MonoBehaviour
 
     protected virtual void UpdateMove()
     {
-        if (Position == this.transform.position)
+        if (ServerPos == this.transform.position)
             return;
 
-        float targetX = Position.x + Direction.x * Time.deltaTime * Stat.Speed;
-        float targetY = Position.y;
-        float targetZ = Position.z + Direction.z * Time.deltaTime * Stat.Speed;
+        //float targetX = ServerPos.x + ServerDir.x * Time.deltaTime * Stat.Speed;
+        //float targetY = ServerPos.y;
+        //float targetZ = ServerPos.z + ServerDir.z * Time.deltaTime * Stat.Speed;
 
-        Position = new Vector3(targetX, targetY, targetZ);
-        this.transform.position = Vector3.MoveTowards(this.transform.position, Position, Time.deltaTime * Stat.Speed);
+        //ServerPos = new Vector3(targetX, targetY, targetZ);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, ServerPos, Time.deltaTime * Stat.Speed);
+        _model.transform.rotation = Quaternion.Lerp(_model.transform.rotation, Quaternion.LookRotation(ServerDir), Time.deltaTime * 10f);
     }
 
     public void SyncPos()

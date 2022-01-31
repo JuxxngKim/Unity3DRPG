@@ -50,14 +50,14 @@ namespace Server.Game
 			base.OnDead(attacker);
 		}
 
-        public override void Update(float deltaTime)
+        public override void Update()
 		{
-            base.Update(deltaTime);
+            base.Update();
 
-			if(_position != Util.ProtoPositionToVector3(PosInfo))
-            {
-				UpdateMove(deltaTime);
-			}
+			if (_position == Util.ProtoPositionToVector3(PosInfo))
+				return;
+
+            UpdateMove(0.1f);
 		}
 
 		private void UpdateMove(float deltaTime)
@@ -74,32 +74,45 @@ namespace Server.Game
 			if (inSide)
 			{
 				_position = nextPos;
+				BroadcastMove();
+				return;
 			}
-			else
+
+            var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
+            if (nextNavMesh != null)
             {
-				var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
-				if (nextNavMesh != null)
-				{
-					_currentNavMesh = nextNavMesh;
-					_position = nextPos;
-				}
-				else
-				{
-					_direction = Vector3.zero;
-					PosInfo.PosX = _position.x;
-					PosInfo.PosY = 0;
-					PosInfo.PosZ = _position.z;
-
-					PosInfo.DirX = _direction.x;
-					PosInfo.DirY = _direction.y;
-					PosInfo.DirZ = _direction.z;
-				}
+                _currentNavMesh = nextNavMesh;
+                _position = nextPos;
+				BroadcastMove();
+				return;
 			}
 
-			Console.WriteLine($"_pos : {_position.x},{_position.y},{_position.z}");
 
-			BroadcastMove();
-		}
+            var triangles = Level.Triangles;
+            for (int i = 0; i < triangles.Count; ++i)
+            {
+                NavMeshTriangle navMeshTriangle = triangles[i];
+                inSide = navMeshTriangle.InSidePoint(nextPos);
+                if (inSide)
+                {
+                    _currentNavMesh = navMeshTriangle;
+					_position = nextPos;
+					BroadcastMove();
+					break;
+                }
+            }
+
+            Console.WriteLine($"next pos null : {nextPos}");
+
+            _direction = Vector3.zero;
+            PosInfo.PosX = _position.x;
+            PosInfo.PosY = 0;
+            PosInfo.PosZ = _position.z;
+
+            PosInfo.DirX = _direction.x;
+            PosInfo.DirY = _direction.y;
+            PosInfo.DirZ = _direction.z;
+        }
 
 		void BroadcastMove()
 		{

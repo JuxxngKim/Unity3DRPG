@@ -33,19 +33,6 @@ public class MyPlayer : Player
         base.Update();
     }
 
-    protected override void UpdateMove()
-    {
-        if (Position == this.transform.position)
-            return;
-
-        float targetX = Position.x + Direction.x * Time.deltaTime * Stat.Speed * _latency;
-        float targetY = Position.y;
-        float targetZ = Position.z + Direction.z * Time.deltaTime * Stat.Speed * _latency;
-
-        Position = new Vector3(targetX, targetY, targetZ);
-        this.transform.position = Vector3.MoveTowards(this.transform.position, Position, Time.deltaTime * Stat.Speed);
-    }
-
     private (bool result, Vector3 position) GetClickPosition()
     {
         var layerMask = LayerMask.NameToLayer("Ground");

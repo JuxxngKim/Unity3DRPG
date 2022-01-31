@@ -20,8 +20,8 @@ class Util
     {
         var posInfo = new PositionInfo2();
         posInfo.DirX = diretion.x;
-        posInfo.DirX = diretion.y;
-        posInfo.DirX = diretion.z;
+        posInfo.DirY = diretion.y;
+        posInfo.DirZ = diretion.z;
 
         posInfo.PosX = position.x;
         posInfo.PosY = position.y;

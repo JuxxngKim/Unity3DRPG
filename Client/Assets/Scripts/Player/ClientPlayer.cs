@@ -50,6 +50,7 @@ public class ClientPlayer : MonoBehaviour
                 return;
 
             _targetDir = result.position - this.transform.position;
+            _targetDir.Normalize();
             _targetDir.y = 0.0f;
             _targetPosition = result.position;
             _targetPosition.y = 0.0f;
@@ -88,6 +89,7 @@ public class ClientPlayer : MonoBehaviour
         else
         {
             // TODO 네비 밖에 있을경우 삼각형 선분 까지 땡겨와야함.
+            Debug.LogError($"!!!!!!!!!!!!!!!");
         }
     }
 
