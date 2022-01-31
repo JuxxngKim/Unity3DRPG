@@ -20,6 +20,7 @@ public class GameScene : BaseScene
     {
         
     }
+
 #if UNITY_EDITOR
 
     private int totalIndex = 0;
