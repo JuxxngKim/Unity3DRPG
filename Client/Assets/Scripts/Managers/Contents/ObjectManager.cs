@@ -22,7 +22,7 @@ public class ObjectManager
 		{
             if (myPlayer)
             {
-                GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
+                GameObject go = Managers.Resource.Instantiate("Actor/MyPlayer");
                 go.name = info.Name;
                 _objects.Add(info.ObjectId, go);
 
@@ -34,7 +34,7 @@ public class ObjectManager
             }
 			else
             {
-                GameObject go = Managers.Resource.Instantiate("Creature/Player");
+                GameObject go = Managers.Resource.Instantiate("Actor/Player");
                 go.name = info.Name;
                 _objects.Add(info.ObjectId, go);
 

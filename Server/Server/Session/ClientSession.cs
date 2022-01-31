@@ -98,7 +98,7 @@ namespace Server
             GameLogic.Instance.Push(() =>
             {
                 GameRoom room = GameLogic.Instance.Find(1);
-                Vector3 spawnPos = room.Level?.GetRandomNavMeshPos() ?? Vector3.zero;
+                Vector3 spawnPos = Vector3.zero;
 
                 MyPlayer = ObjectManager.Instance.Add<Player>();
                 {
@@ -106,7 +106,7 @@ namespace Server
                     MyPlayer.Info.PosInfo.State = CreatureState.Idle;
                     MyPlayer.Info.PosInfo.DirX = 0;
                     MyPlayer.Info.PosInfo.DirY = 0;
-                    MyPlayer.Info.PosInfo.DirZ = -1;
+                    MyPlayer.Info.PosInfo.DirZ = 0;
 
                     MyPlayer.Info.PosInfo.PosX = spawnPos.x;
                     MyPlayer.Info.PosInfo.PosY = spawnPos.y;
@@ -115,7 +115,7 @@ namespace Server
                     StatInfo stat = new StatInfo();
                     stat.Attack = 1;
                     stat.Hp = stat.MaxHp = 10;
-                    stat.Speed = 10;
+                    stat.Speed = 12;
                     MyPlayer.Stat.MergeFrom(stat);
 
                     MyPlayer.Session = this;

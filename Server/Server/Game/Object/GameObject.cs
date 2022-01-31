@@ -35,7 +35,7 @@ namespace Server.Game
 			if (Room == null)
 				return;
 
-			Room.PushAfter(100, Update);
+			Room?.PushAfter(100, Update);
 		}
 
 		public virtual void OnDamaged(GameObject attacker, int damage)
@@ -48,7 +48,7 @@ namespace Server.Game
 			S_ChangeHp changePacket = new S_ChangeHp();
 			changePacket.ObjectId = Id;
 			changePacket.Hp = Stat.Hp;
-			Room.Broadcast(changePacket);
+			Room?.Broadcast(changePacket);
 
 			if (Stat.Hp <= 0)
 			{

@@ -78,7 +78,7 @@ namespace Server.Game
 				return;
 			}
 
-            var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
+			var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
             if (nextNavMesh != null)
             {
                 _currentNavMesh = nextNavMesh;
@@ -102,9 +102,24 @@ namespace Server.Game
                 }
             }
 
-            Console.WriteLine($"next pos null : {nextPos}");
+			int id = Level.Triangles.IndexOf(_currentNavMesh);
+			_currentNavMesh.InSidePoint(nextPos, true);
 
-            _direction = Vector3.zero;
+			Console.WriteLine($"next pos null : {nextPos}");
+            Console.WriteLine($"nav Id : {id}");
+
+			var d_enum = _currentNavMesh.Siblings.GetEnumerator();
+			while (d_enum.MoveNext())
+			{
+				int navIndex = d_enum.Current.Key;
+				NavMeshTriangle sibling = d_enum.Current.Value;
+				id = Level.Triangles.IndexOf(sibling);
+				Console.WriteLine($"Sibling nav Id : {id}");
+			}
+
+			Console.WriteLine($"============================");
+
+			_direction = Vector3.zero;
             PosInfo.PosX = _position.x;
             PosInfo.PosY = 0;
             PosInfo.PosZ = _position.z;
@@ -112,15 +127,21 @@ namespace Server.Game
             PosInfo.DirX = _direction.x;
             PosInfo.DirY = _direction.y;
             PosInfo.DirZ = _direction.z;
-        }
+			BroadcastMove();
+		}
 
 		void BroadcastMove()
 		{
+			if (_position == Util.ProtoPositionToVector3(PosInfo))
+            {
+				_direction = Vector3.zero;
+			}
+
 			// 다른 플레이어한테도 알려준다
 			S_Move2 movePacket = new S_Move2();
 			movePacket.ObjectId = Id;
 			movePacket.PosInfo = Util.Vector3ToPosInfo(_position, _direction);
-			Room.Broadcast(movePacket);
+			Room?.Broadcast(movePacket);
 		}
 	}
 }
