@@ -903,7 +903,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: m_QualitySettings.Array.data[5].customRenderPipeline
     value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 11400000, guid: 4944a57713ea0464f8fe962cb52dd35c, type: 2}
   - target: {fileID: 0}
     propertyPath: m_QualitySettings.Array.data[5].excludedTargetPlatforms.Array.size
     value: 0
@@ -1008,3 +1008,4 @@ Preset:
     propertyPath: m_PerPlatformDefaultQuality.Array.data[11].second
     value: 2
     objectReference: {fileID: 0}
+  m_ExcludedProperties: []

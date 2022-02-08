@@ -91,8 +91,8 @@ GameObject:
   m_Name: LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 20
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 28
   m_IsActive: 1
 --- !u!4 &1722775686310388492
 Transform:
@@ -131,6 +131,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -157,6 +158,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5647875002351955960
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,8 +174,8 @@ GameObject:
   m_Name: LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 20
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 28
   m_IsActive: 1
 --- !u!4 &5868819084717067666
 Transform:
@@ -212,6 +214,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -237,6 +240,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5824522227867929298
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,8 +256,8 @@ GameObject:
   m_Name: LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 20
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 28
   m_IsActive: 1
 --- !u!4 &6575806357996784801
 Transform:
@@ -292,6 +296,7 @@ MeshRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -318,3 +323,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
