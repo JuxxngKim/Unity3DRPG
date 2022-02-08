@@ -23,6 +23,8 @@ public class ObjModel
 
     public bool IsVaild { get; private set; }
 
+    public const float kEpsilon = 0.01F;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ObjModel"/> class.
     /// </summary>
@@ -167,25 +169,7 @@ public class ObjModel
                     continue;
 
                 var other = _meshTriangles[j];
-                if (current.A == other.A || current.A == other.B || current.A == other.C)
-                {
-                    if (!siblings.ContainsKey(j))
-                    {
-                        siblings.Add(j, other);
-                    }
-                    continue;
-                }
-
-                if (current.B == other.A || current.B == other.B || current.B == other.C)
-                {
-                    if (!siblings.ContainsKey(j))
-                    {
-                        siblings.Add(j, other);
-                    }
-                    continue;
-                }
-
-                if (current.C == other.A || current.C == other.B || current.C == other.C)
+                if(TriangleEquils(current, other))
                 {
                     if (!siblings.ContainsKey(j))
                     {
@@ -214,6 +198,35 @@ public class ObjModel
     public Vector3[] GetNormals()
     {
         return norms.ToArray();
+    }
+
+    private bool TriangleEquils(NavMeshTriangle current, NavMeshTriangle other)
+    {
+        if (VectorEquils(current.A, other.A) || VectorEquils(current.A, other.B) || VectorEquils(current.A, other.C))
+        {
+            return true;
+        }
+
+        if (VectorEquils(current.B, other.A) || VectorEquils(current.B, other.B) || VectorEquils(current.B, other.C))
+        {
+            return true;
+        }
+
+        if (VectorEquils(current.C, other.A) || VectorEquils(current.C, other.B) || VectorEquils(current.C, other.C))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool VectorEquils(Vector3 lhs, Vector3 rhs)
+    {
+        float diff_x = lhs.x - rhs.x;
+        float diff_y = lhs.y - rhs.y;
+        float diff_z = lhs.z - rhs.z;
+        float sqrmag = diff_x * diff_x + diff_y * diff_y + diff_z * diff_z;
+        return sqrmag < 0.1f;
     }
 
     private bool TryParseVec(string[] values, int x, int y, int z, out Vector3 v)

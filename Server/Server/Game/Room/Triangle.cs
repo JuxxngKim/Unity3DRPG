@@ -18,17 +18,6 @@ public struct Triangle
         B = b;
         C = c;
     }
-
-    public bool InSidePoint(Vector3 point)
-    {
-        Vector3 a = Vector3.Cross(B - A, C - A);
-        Vector3 b = Vector3.Cross(B - point, C - point);
-        Vector3 c = Vector3.Cross(C - point, A - point);
-        Vector3 d = Vector3.Cross(A - point, B - point);
-
-        float r = b.magnitude + c.magnitude + d.magnitude;
-        return (int)r == (int)a.magnitude;
-    }
 }
 
 public class NavMeshTriangle

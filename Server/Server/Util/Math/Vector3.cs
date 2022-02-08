@@ -13,7 +13,7 @@ namespace UnityEngine
     public partial struct Vector3 : IEquatable<Vector3>, IFormattable
     {
         // *Undocumented*
-        public const float kEpsilon = 0.00001F;
+        public const float kEpsilon = 0.001F;
         // *Undocumented*
         public const float kEpsilonNormalSqrt = 1e-15F;
 

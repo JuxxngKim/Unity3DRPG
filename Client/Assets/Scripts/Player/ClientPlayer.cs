@@ -10,6 +10,7 @@ public class ClientPlayer : MonoBehaviour
     private Vector3 _targetPosition;
 
     private NavMeshTriangle _currentNavMesh;
+    private ObjModel _level;
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class ClientPlayer : MonoBehaviour
 
     public void InitMap(ObjModel level)
     {
+        _level = level;
+
         Vector3 myPosition = this.transform.position;
         myPosition.y = 0.0f;
 
@@ -85,12 +88,24 @@ public class ClientPlayer : MonoBehaviour
         {
             _currentNavMesh = nextNavMesh;
             this.transform.position = nextPos;
+            return;
         }
-        else
+
+        var triangles = _level.Triangles;
+        for (int i = 0; i < triangles.Count; ++i)
         {
-            // TODO 네비 밖에 있을경우 삼각형 선분 까지 땡겨와야함.
-            Debug.LogError($"!!!!!!!!!!!!!!!");
+            NavMeshTriangle navMeshTriangle = triangles[i];
+            inSide = navMeshTriangle.InSidePoint(nextPos);
+            if (inSide)
+            {
+                _currentNavMesh = navMeshTriangle;
+                this.transform.position = nextPos;
+                return;
+            }
         }
+
+        // TODO 네비 밖에 있을경우 삼각형 선분 까지 땡겨와야함.
+        Debug.LogError($"!!!!!!!!!!!!!!!");
     }
 
     private (bool isValid, Vector3 position) GetClickPosition()
