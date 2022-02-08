@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5437234963248613850}
   - component: {fileID: 7903321220271514320}
   - component: {fileID: 91485797534659049}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chest_3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5013397832793118915
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 6815026731803965718}
   - component: {fileID: 1964737646992356255}
   - component: {fileID: 9206511100377797624}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chest_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +139,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -161,6 +164,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &1964737646992356255
 LODGroup:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4446026120871999145}
   - component: {fileID: 1898129230718173795}
   - component: {fileID: 8783508293243173701}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Candles_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +60,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,6 +85,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &8783508293243173701
 LODGroup:
   m_ObjectHideFlags: 0
@@ -118,7 +120,7 @@ GameObject:
   - component: {fileID: 1130584559970022063}
   - component: {fileID: 2984312087819213221}
   - component: {fileID: 5008373423550925468}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Candles_3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +164,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -186,6 +189,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &312054568053873783
 PrefabInstance:
   m_ObjectHideFlags: 0

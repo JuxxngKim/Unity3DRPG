@@ -168,6 +168,11 @@ public class ObjModel
                 if (j == i)
                     continue;
 
+                if(i == 1670 && j == 1714)
+                {
+                    Debug.LogError("!!!!");
+                }
+
                 var other = _meshTriangles[j];
                 if(TriangleEquils(current, other))
                 {

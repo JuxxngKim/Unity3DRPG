@@ -98,7 +98,7 @@ namespace Server.Game
                     _currentNavMesh = navMeshTriangle;
 					_position = nextPos;
 					BroadcastMove();
-					break;
+					return;
                 }
             }
 

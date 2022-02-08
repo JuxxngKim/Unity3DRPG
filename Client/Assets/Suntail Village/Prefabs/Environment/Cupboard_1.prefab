@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5570912252969426539}
   - component: {fileID: 8536070478541945060}
   - component: {fileID: 8653037883760468787}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cupboard_1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4372908827855528013
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 3751469190013741970}
   - component: {fileID: 6612474018775134773}
   - component: {fileID: 6852354727703154879}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cupboard_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +140,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -162,6 +165,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &6612474018775134773
 LODGroup:
   m_ObjectHideFlags: 0
@@ -210,7 +214,7 @@ GameObject:
   - component: {fileID: 7244280419990156023}
   - component: {fileID: 4146209356152564204}
   - component: {fileID: 4584714334167917420}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cupboard_1_Box_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,6 +258,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -278,6 +283,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5624270338561297134
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +297,7 @@ GameObject:
   - component: {fileID: 7310115096243427750}
   - component: {fileID: 295709358209483372}
   - component: {fileID: 6439779219498037352}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cupboard_1_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,6 +342,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -360,6 +367,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &295709358209483372
 LODGroup:
   m_ObjectHideFlags: 0

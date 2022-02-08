@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7787650494628966185}
   - component: {fileID: 8634860551417076100}
   - component: {fileID: 4541058530907835305}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wooden_Door_1_W_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5523012492520086688
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +98,7 @@ GameObject:
   - component: {fileID: -5568095113060132716}
   - component: {fileID: -3841646947487603809}
   - component: {fileID: -212392734294158415}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wooden_Door_1_W
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -142,6 +144,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -167,6 +170,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &9219028337106412528
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -349,7 +353,7 @@ GameObject:
   - component: {fileID: 4252103365314540649}
   - component: {fileID: 622828541150506297}
   - component: {fileID: 6312611894655353239}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Wooden_Door_1_Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,6 +397,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -417,3 +422,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

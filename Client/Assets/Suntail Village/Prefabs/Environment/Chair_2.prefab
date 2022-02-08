@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2918375098086636627}
   - component: {fileID: 476417206651839405}
   - component: {fileID: 5038042442172819778}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chair_2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4440720612252770058
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +92,7 @@ GameObject:
   - component: {fileID: 2500597745479581024}
   - component: {fileID: 2329732652207659768}
   - component: {fileID: 612851384210546238}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chair_2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +136,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -158,6 +161,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7738594646080667396
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +175,7 @@ GameObject:
   - component: {fileID: 8311908615123536856}
   - component: {fileID: 1748786172919008643}
   - component: {fileID: 6095322617310296629}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chair_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,6 +221,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -241,6 +246,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &1748786172919008643
 LODGroup:
   m_ObjectHideFlags: 0

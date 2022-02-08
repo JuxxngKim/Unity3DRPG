@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1387861021165022071}
   - component: {fileID: 8673817588343211685}
   - component: {fileID: 8673817588343211687}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Stone_Wall_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,6 +85,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &8673817588343211685
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ GameObject:
   - component: {fileID: 3148651081682358475}
   - component: {fileID: 8254063718794146569}
   - component: {fileID: 5834879342471379992}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Stone_Wall_D_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,6 +178,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -201,6 +204,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &3647627286468326029
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -98,7 +98,7 @@ namespace Server
             GameLogic.Instance.Push(() =>
             {
                 GameRoom room = GameLogic.Instance.Find(1);
-                Vector3 spawnPos = Vector3.zero;
+                Vector3 spawnPos = new Vector3(144f, 0.0f, 160f);
 
                 MyPlayer = ObjectManager.Instance.Add<Player>();
                 {
@@ -115,7 +115,7 @@ namespace Server
                     StatInfo stat = new StatInfo();
                     stat.Attack = 1;
                     stat.Hp = stat.MaxHp = 10;
-                    stat.Speed = 12;
+                    stat.Speed = 7f;
                     MyPlayer.Stat.MergeFrom(stat);
 
                     MyPlayer.Session = this;

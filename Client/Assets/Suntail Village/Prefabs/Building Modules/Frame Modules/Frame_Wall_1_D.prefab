@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4196028302233578764}
   - component: {fileID: 1999598326767455387}
   - component: {fileID: 7384313022758485191}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Frame_Wall_1_D_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -80,6 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8111557651604495702
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +95,7 @@ GameObject:
   - component: {fileID: 7543209116163828106}
   - component: {fileID: 266811491837248582}
   - component: {fileID: 266811491837248576}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Frame_Wall_1_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,6 +141,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -164,6 +167,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &266811491837248582
 MeshCollider:
   m_ObjectHideFlags: 0

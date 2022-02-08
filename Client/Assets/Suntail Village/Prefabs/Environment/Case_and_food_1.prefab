@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6441589870624293851}
   - component: {fileID: 9205308680877336785}
   - component: {fileID: 1392995911451261928}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Case_and_food_1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6305819563679060674
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 5513031617295364887}
   - component: {fileID: 533447559974629323}
   - component: {fileID: 926344496461134148}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Case_and_food_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +139,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -161,6 +164,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &533447559974629323
 LODGroup:
   m_ObjectHideFlags: 0

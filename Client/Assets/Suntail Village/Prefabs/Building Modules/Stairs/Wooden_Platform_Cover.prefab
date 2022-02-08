@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 62541375310202292}
   - component: {fileID: 2943553369877683699}
   - component: {fileID: 7962039544963186751}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wooden_Platform_Cover_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8294814530529601617
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 7719679739629477005}
   - component: {fileID: 17157639774957916}
   - component: {fileID: 4668370194252986979}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wooden_Platform_Cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +139,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -161,6 +164,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &17157639774957916
 LODGroup:
   m_ObjectHideFlags: 0

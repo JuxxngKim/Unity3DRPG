@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5357661908881278035}
   - component: {fileID: 7818514743698730841}
   - component: {fileID: 30338427753725024}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Fence_5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4953369971697571146
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 6898700779850396831}
   - component: {fileID: 5223206275612908106}
   - component: {fileID: 2030082650847738129}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Fence_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +139,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -161,6 +164,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &5223206275612908106
 LODGroup:
   m_ObjectHideFlags: 0

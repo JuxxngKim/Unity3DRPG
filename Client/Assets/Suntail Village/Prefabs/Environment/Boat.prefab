@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1143511708631544331}
   - component: {fileID: 6242277562016859121}
   - component: {fileID: 3335019272147914812}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Boat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &6242277562016859121
 LODGroup:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ GameObject:
   - component: {fileID: 1889742761201517255}
   - component: {fileID: 4387486414457792973}
   - component: {fileID: 5766932691602062068}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Boat_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,6 +176,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -198,3 +201,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4093610413441778787}
   - component: {fileID: 6039986677182949821}
   - component: {fileID: 6039986677182949819}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Stone_Wall_W
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -84,6 +85,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &6039986677182949821
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ GameObject:
   - component: {fileID: 2514481586371529821}
   - component: {fileID: 6884744994601777172}
   - component: {fileID: 6010166570874712475}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Stone_Wall_W_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,6 +178,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -201,6 +204,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &264192833483520797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,17 +215,17 @@ PrefabInstance:
     - target: {fileID: 1543776989301821422, guid: b6fc78a5eb535124cbd7c85521af0774,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5584094411870440241, guid: b6fc78a5eb535124cbd7c85521af0774,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6806636049539347135, guid: b6fc78a5eb535124cbd7c85521af0774,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7506760282824229036, guid: b6fc78a5eb535124cbd7c85521af0774,
         type: 3}

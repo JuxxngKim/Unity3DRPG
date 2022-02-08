@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8293294135918162162}
   - component: {fileID: 6182738262271515640}
   - component: {fileID: 4118056625602037953}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chandelier_1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &9074869470172226027
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +94,7 @@ GameObject:
   - component: {fileID: 7417593254889685054}
   - component: {fileID: 7633707032942419574}
   - component: {fileID: 4146906977602513690}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Chandelier_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,6 +143,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -165,6 +168,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &7633707032942419574
 LODGroup:
   m_ObjectHideFlags: 0
@@ -217,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
@@ -317,7 +321,7 @@ PrefabInstance:
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
@@ -417,7 +421,7 @@ PrefabInstance:
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
@@ -517,7 +521,7 @@ PrefabInstance:
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 614785526603604003, guid: 0b68d506ba691b146929e4327ac1d18b,
         type: 3}

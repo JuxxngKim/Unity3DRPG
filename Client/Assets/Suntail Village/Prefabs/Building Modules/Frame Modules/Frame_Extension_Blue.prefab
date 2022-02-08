@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7486547408235287659}
   - component: {fileID: 3704771853769327275}
   - component: {fileID: 6668182974523441601}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Frame_Extension_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,6 +84,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &9067134617935830809
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +98,7 @@ GameObject:
   - component: {fileID: 7343181768039885765}
   - component: {fileID: 1077772029626222121}
   - component: {fileID: 1077772029626222103}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Frame_Extension_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +144,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -170,6 +173,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &1077772029626222121
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -222,7 +226,7 @@ PrefabInstance:
     - target: {fileID: 1398916868373442095, guid: 3c23e14783b221d46a1d8f6ebeae1763,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2680392341237636156, guid: 3c23e14783b221d46a1d8f6ebeae1763,
         type: 3}
@@ -282,12 +286,12 @@ PrefabInstance:
     - target: {fileID: 3777667658126839945, guid: 3c23e14783b221d46a1d8f6ebeae1763,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6653799005615023489, guid: 3c23e14783b221d46a1d8f6ebeae1763,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c23e14783b221d46a1d8f6ebeae1763, type: 3}

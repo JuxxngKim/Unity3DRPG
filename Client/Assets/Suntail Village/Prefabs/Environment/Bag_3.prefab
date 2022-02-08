@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2076480898839924218}
   - component: {fileID: 8632309196797723083}
   - component: {fileID: 751099729430881338}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Bag_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -82,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!205 &8632309196797723083
 LODGroup:
   m_ObjectHideFlags: 0
@@ -130,7 +132,7 @@ GameObject:
   - component: {fileID: 5118576308183562865}
   - component: {fileID: 7571784987248403855}
   - component: {fileID: 3054083007871922016}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Bag_3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,6 +176,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -198,3 +201,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

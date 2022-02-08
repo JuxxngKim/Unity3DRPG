@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameObject _model;
     [SerializeField] Animator _animator;
+    [SerializeField] float _groundedRayDistance = 30f;
 
     protected PositionInfo2 _posInfo;
     public PositionInfo2 PosInfo { get { return _posInfo; } set { _posInfo = value; } }
@@ -39,7 +40,6 @@ public class Player : MonoBehaviour
     {
         ServerDir = new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
         ServerPos = new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
-        Debug.LogError($"ServerDir : {ServerDir}");
     }
 
     protected virtual void Update()
@@ -52,6 +52,9 @@ public class Player : MonoBehaviour
     {
         _animator.SetFloat("Velocity", ServerDir.magnitude);
 
+        var currentPosition = this.transform.position;
+        currentPosition.y = 0.0f;
+
         if (ServerDir != Vector3.zero)
         {
             float targetX = ServerPos.x + ServerDir.x * Time.deltaTime * Stat.Speed;
@@ -59,14 +62,30 @@ public class Player : MonoBehaviour
             float targetZ = ServerPos.z + ServerDir.z * Time.deltaTime * Stat.Speed;
 
             var targetPos = new Vector3(targetX, targetY, targetZ);
-            this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPos, ref _currentVelocity, Time.deltaTime, Stat.Speed * 1.4f);
+            this.transform.position = Vector3.SmoothDamp(currentPosition, targetPos, ref _currentVelocity, Time.deltaTime, Stat.Speed * 1.4f);
+            UpdateHeight();
             return;
         }
 
         if (ServerPos != this.transform.position)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, ServerPos, Time.deltaTime * Stat.Speed);
+            this.transform.position = Vector3.MoveTowards(currentPosition, ServerPos, Time.deltaTime * Stat.Speed);
+            UpdateHeight();
             return;
+        }
+    }
+
+    public virtual void UpdateHeight()
+    {
+        var layerMask = LayerMask.NameToLayer("Ground");
+
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position + Vector3.up * _groundedRayDistance, -Vector3.up);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~layerMask))
+        {
+            var currentPosition = this.transform.position;
+            currentPosition.y = hit.point.y;
+            this.transform.position = currentPosition;
         }
     }
 
@@ -78,5 +97,6 @@ public class Player : MonoBehaviour
     public void SyncPos()
     {
         transform.position = new Vector3(PosInfo.PosX, PosInfo.PosY, PosInfo.PosZ);
+        UpdateHeight();
     }
 }
