@@ -18,7 +18,7 @@ namespace Server.Game
 			ObjectType = GameObjectType.Player;
 		}
 
-        public void InitMap(ObjModel level)
+        public void Init(ObjModel level)
         {
             if (level == null)
                 return;

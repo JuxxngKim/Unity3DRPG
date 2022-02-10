@@ -124,7 +124,7 @@ namespace Server
                     MyPlayer.Session = this;
 
                     MyPlayer.SyncPos();
-                    MyPlayer.InitMap(room.Level);
+                    MyPlayer.Init(room.Level);
                 }
 
                 room.Push(room.EnterGame, MyPlayer);
