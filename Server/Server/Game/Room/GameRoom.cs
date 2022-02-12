@@ -41,11 +41,11 @@ namespace Server.Game
 
 				// 본인한테 정보 전송
 				{
-                    S_EnterGame2 enterPacket = new S_EnterGame2();
+                    S_EnterGame enterPacket = new S_EnterGame();
                     enterPacket.Player = player.Info;
                     player.Session.Send(enterPacket);
 
-                    S_Spawn2 spawnPacket = new S_Spawn2();
+                    S_Spawn spawnPacket = new S_Spawn();
                     foreach (Player p in _players.Values)
                     {
                         if (player != p)
@@ -60,7 +60,7 @@ namespace Server.Game
 			
 			// 타인한테 정보 전송
 			{
-                S_Spawn2 spawnPacket = new S_Spawn2();
+                S_Spawn spawnPacket = new S_Spawn();
                 spawnPacket.Objects.Add(gameObject.Info);
                 foreach (Player p in _players.Values)
                 {
@@ -102,10 +102,10 @@ namespace Server.Game
 			}
 		}
 
-		public void HandleMove2(Player player, C_Move2 movePacket)
+		public void HandleMove(Player player, C_Move movePacket)
         {
-			PositionInfo2 movePosInfo = movePacket.PosInfo;
-			ObjectInfo2 info = player.Info;
+			PositionInfo movePosInfo = movePacket.PosInfo;
+			ObjectInfo info = player.Info;
 
 			info.PosInfo.State = movePosInfo.State;
 			info.PosInfo.PosX = movePosInfo.PosX;

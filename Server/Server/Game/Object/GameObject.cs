@@ -17,12 +17,14 @@ namespace Server.Game
 
 		public GameRoom Room { get; set; }
 
-		public ObjectInfo2 Info { get; set; } = new ObjectInfo2();
-		public PositionInfo2 PosInfo { get; private set; } = new PositionInfo2();
+		public ObjectInfo Info { get; set; } = new ObjectInfo();
+		public PositionInfo PosInfo { get; private set; } = new PositionInfo();
 		public StatInfo Stat { get; private set; } = new StatInfo();
 
 		protected Vector3 _position;
 		protected Vector3 _direction;
+
+		protected float _timeStamp = 0.1f;
 
 		public GameObject()
 		{
@@ -35,7 +37,7 @@ namespace Server.Game
 			if (Room == null)
 				return;
 
-			Room?.PushAfter(100, Update);
+			Room?.PushAfter((int)(_timeStamp * 1000), Update);
 		}
 
 		public virtual void OnDamaged(GameObject attacker, int damage)

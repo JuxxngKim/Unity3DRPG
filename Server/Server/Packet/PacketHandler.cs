@@ -15,9 +15,9 @@ class PacketHandler
 		clientSession.HandlePong();
 	}
 
-	public static void C_Move2Handler(PacketSession session, IMessage packet)
+	public static void C_MoveHandler(PacketSession session, IMessage packet)
 	{
-		C_Move2 movePacket = packet as C_Move2;
+		C_Move movePacket = packet as C_Move;
 		ClientSession clientSession = session as ClientSession;
 
 		Player player = clientSession.MyPlayer;
@@ -28,6 +28,6 @@ class PacketHandler
 		if (room == null)
 			return;
 
-        room.Push(room.HandleMove2, player, movePacket);
+        room.Push(room.HandleMove, player, movePacket);
     }
 }

@@ -15,7 +15,7 @@ public class ObjectManager
 		return (GameObjectType)type;
 	}
 
-	public void Add(ObjectInfo2 info, bool myPlayer = false)
+	public void Add(ObjectInfo info, bool myPlayer = false)
 	{
 		GameObjectType objectType = GetObjectTypeById(info.ObjectId);
 		if (objectType == GameObjectType.Player)

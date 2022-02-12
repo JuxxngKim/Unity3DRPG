@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     [SerializeField] Animator _animator;
     [SerializeField] float _groundedRayDistance = 30f;
 
-    protected PositionInfo2 _posInfo;
-    public PositionInfo2 PosInfo { get { return _posInfo; } set { _posInfo = value; } }
+    protected PositionInfo _posInfo;
+    public PositionInfo PosInfo { get { return _posInfo; } set { _posInfo = value; } }
 
     public Vector3 ServerDir
     {
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     private Vector3 _currentVelocity = Vector3.zero;
 
-    public void SetServerPos(PositionInfo2 posInfo)
+    public void SetServerPos(PositionInfo posInfo)
     {
         ServerDir = new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
         ServerPos = new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);

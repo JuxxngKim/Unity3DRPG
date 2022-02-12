@@ -22,7 +22,7 @@ public class MyPlayer : Player
                 return;
             }
 
-            C_Move2 movePacket = new C_Move2();
+            C_Move movePacket = new C_Move();
             movePacket.PosInfo = PosInfo.Clone();
             movePacket.PosInfo.PosX = result.position.x;
             movePacket.PosInfo.PosY = 0;

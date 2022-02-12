@@ -13,6 +13,9 @@ namespace Server.Game
 
 		private NavMeshTriangle _currentNavMesh;
 
+		private delegate void UpdateCommnad();
+		private UpdateCommnad _updateCommand = null;
+
 		public Player()
 		{
 			ObjectType = GameObjectType.Player;
@@ -38,6 +41,8 @@ namespace Server.Game
 					break;
 				}
 			}
+
+			_updateCommand = UpdateCommandMove;
 		}
 
         public override void OnDamaged(GameObject attacker, int damage)
@@ -54,22 +59,29 @@ namespace Server.Game
 		{
             base.Update();
 
-			if (_position == Util.ProtoPositionToVector3(PosInfo))
+			if (_updateCommand == null)
 				return;
 
-            UpdateMove(0.1f);
+			_updateCommand();
 		}
 
-		private void UpdateMove(float deltaTime)
-        {
-			if (_currentNavMesh == null)
+		public void UpdateCommandMove()
+		{
+			if (_position == Util.ProtoPositionToVector3(PosInfo))
+			{
 				return;
+			}
+
+			if (_currentNavMesh == null)
+			{
+				return;
+			}
 
 			var targetPos = Util.ProtoPositionToVector3(PosInfo);
 			_direction = targetPos - _position;
 			_direction.Normalize();
 
-			var nextPos = Vector3.MoveTowards(_position, targetPos, deltaTime * Stat.Speed);
+			var nextPos = Vector3.MoveTowards(_position, targetPos, _timeStamp * Stat.Speed);
 			bool inSide = _currentNavMesh.InSidePoint(nextPos);
 			if (inSide)
 			{
@@ -79,34 +91,33 @@ namespace Server.Game
 			}
 
 			var nextNavMesh = _currentNavMesh.CalcInSideSiblingNavMesh(nextPos);
-            if (nextNavMesh != null)
-            {
-                _currentNavMesh = nextNavMesh;
-                _position = nextPos;
+			if (nextNavMesh != null)
+			{
+				_currentNavMesh = nextNavMesh;
+				_position = nextPos;
 				BroadcastMove();
 				return;
 			}
 
-
-            var triangles = Level.Triangles;
-            for (int i = 0; i < triangles.Count; ++i)
-            {
-                NavMeshTriangle navMeshTriangle = triangles[i];
-                inSide = navMeshTriangle.InSidePoint(nextPos);
-                if (inSide)
-                {
-                    _currentNavMesh = navMeshTriangle;
+			var triangles = Level.Triangles;
+			for (int i = 0; i < triangles.Count; ++i)
+			{
+				NavMeshTriangle navMeshTriangle = triangles[i];
+				inSide = navMeshTriangle.InSidePoint(nextPos);
+				if (inSide)
+				{
+					_currentNavMesh = navMeshTriangle;
 					_position = nextPos;
 					BroadcastMove();
 					return;
-                }
-            }
+				}
+			}
 
 			int id = Level.Triangles.IndexOf(_currentNavMesh);
 			_currentNavMesh.InSidePoint(nextPos, true);
 
 			Console.WriteLine($"next pos null : {nextPos}");
-            Console.WriteLine($"nav Id : {id}");
+			Console.WriteLine($"nav Id : {id}");
 
 			var d_enum = _currentNavMesh.Siblings.GetEnumerator();
 			while (d_enum.MoveNext())
@@ -120,13 +131,13 @@ namespace Server.Game
 			Console.WriteLine($"============================");
 
 			_direction = Vector3.zero;
-            PosInfo.PosX = _position.x;
-            PosInfo.PosY = 0;
-            PosInfo.PosZ = _position.z;
+			PosInfo.PosX = _position.x;
+			PosInfo.PosY = 0;
+			PosInfo.PosZ = _position.z;
 
-            PosInfo.DirX = _direction.x;
-            PosInfo.DirY = _direction.y;
-            PosInfo.DirZ = _direction.z;
+			PosInfo.DirX = _direction.x;
+			PosInfo.DirY = _direction.y;
+			PosInfo.DirZ = _direction.z;
 			BroadcastMove();
 		}
 
@@ -137,8 +148,17 @@ namespace Server.Game
 				_direction = Vector3.zero;
 			}
 
+			if(_direction == Vector3.zero)
+            {
+				PosInfo.State = ActorState.Idle;
+            }
+			else
+            {
+				PosInfo.State = ActorState.Moving;
+			}
+
 			// 다른 플레이어한테도 알려준다
-			S_Move2 movePacket = new S_Move2();
+			S_Move movePacket = new S_Move();
 			movePacket.ObjectId = Id;
 			movePacket.PosInfo = Util.Vector3ToPosInfo(_position, _direction);
 			Room?.Broadcast(movePacket);

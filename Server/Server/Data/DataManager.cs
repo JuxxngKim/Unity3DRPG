@@ -19,7 +19,7 @@ namespace Server.Data
 		public static void LoadData()
 		{
 			StatDict = LoadJson<Data.StatData, int, StatInfo>("StatData").MakeDict();
-			SkillDict = LoadJson<Data.SkillData, int, Data.Skill>("SkillData").MakeDict();
+			//SkillDict = LoadJson<Data.SkillData, int, Data.Skill>("SkillData").MakeDict();
 		}
 
 		static Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

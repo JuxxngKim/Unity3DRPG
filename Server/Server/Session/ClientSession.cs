@@ -106,7 +106,7 @@ namespace Server
                 MyPlayer = ObjectManager.Instance.Add<Player>();
                 {
                     MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
-                    MyPlayer.Info.PosInfo.State = CreatureState.Idle;
+                    MyPlayer.Info.PosInfo.State = ActorState.Idle;
                     MyPlayer.Info.PosInfo.DirX = 0;
                     MyPlayer.Info.PosInfo.DirY = 0;
                     MyPlayer.Info.PosInfo.DirZ = 0;
