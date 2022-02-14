@@ -113,6 +113,11 @@ namespace Server.Game
 			info.PosInfo.PosZ = movePosInfo.PosZ;
 		}
 
+		//public void HandleSkill(Player player, C_Skill skillPacket)
+  //      {
+
+  //      }
+
 		public void Broadcast(IMessage packet)
 		{
 			foreach (Player p in _players.Values)

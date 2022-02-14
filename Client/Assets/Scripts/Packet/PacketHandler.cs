@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YeongJ.Inagme;
 
 class PacketHandler
 {
@@ -98,5 +99,9 @@ class PacketHandler
         }
 
         myPlayer.SetLatency(latency);
+    }
+
+    public static void S_SkillHandler(PacketSession session, IMessage packet)
+    {
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YeongJ.Inagme;
 
 public class ObjectManager
 {
@@ -27,7 +28,7 @@ public class ObjectManager
                 _objects.Add(info.ObjectId, go);
 
                 MyPlayer = go.GetComponent<MyPlayer>();
-				MyPlayer.Id = info.ObjectId;
+				MyPlayer.Init(info.ObjectId);
 				MyPlayer.PosInfo = info.PosInfo;
                 MyPlayer.Stat = info.StatInfo;
                 MyPlayer.SyncPos();
@@ -39,7 +40,7 @@ public class ObjectManager
                 _objects.Add(info.ObjectId, go);
 
                 var player = go.GetComponent<Player>();
-				player.Id = info.ObjectId;
+				player.Init(info.ObjectId);
 				player.PosInfo = info.PosInfo;
 				player.Stat = info.StatInfo;
 				player.SyncPos();

@@ -3,46 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyPlayer : Player
+namespace YeongJ.Inagme
 {
-    private float _latency;
-
-    public void SetLatency(float latency)
+    public class MyPlayer : Player
     {
-        _latency = latency;
-    }
+        private float _latency;
 
-    protected override void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
+        public void SetLatency(float latency)
         {
-            var result = GetClickPosition();
-            if (!result.result)
+            _latency = latency;
+        }
+
+        public override void Init(int Id)
+        {
+            base.Init(Id);
+            _inputHandle = UpdateKeyInput;
+        }
+
+        public void UpdateKeyInput()
+        {
+            if (Input.GetMouseButtonDown(1))
             {
-                return;
+                var result = GetClickPosition();
+                if (!result.result)
+                {
+                    return;
+                }
+
+                C_Move movePacket = new C_Move();
+                movePacket.PosInfo = PosInfo.Clone();
+                movePacket.PosInfo.PosX = result.position.x;
+                movePacket.PosInfo.PosY = 0;
+                movePacket.PosInfo.PosZ = result.position.z;
+                Managers.Network.Send(movePacket);
+            }
+        }
+
+        private (bool result, Vector3 position) GetClickPosition()
+        {
+            var layerMask = LayerMask.NameToLayer("Ground");
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, ~layerMask))
+            {
+                return (true, hit.point);
             }
 
-            C_Move movePacket = new C_Move();
-            movePacket.PosInfo = PosInfo.Clone();
-            movePacket.PosInfo.PosX = result.position.x;
-            movePacket.PosInfo.PosY = 0;
-            movePacket.PosInfo.PosZ = result.position.z;
-            Managers.Network.Send(movePacket);
+            return (false, Vector3.zero);
         }
-
-        base.Update();
-    }
-
-    private (bool result, Vector3 position) GetClickPosition()
-    {
-        var layerMask = LayerMask.NameToLayer("Ground");
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, ~layerMask))
-        {
-            return (true, hit.point);
-        }
-
-        return (false, Vector3.zero);
     }
 }
