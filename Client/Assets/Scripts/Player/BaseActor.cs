@@ -124,6 +124,7 @@ namespace YeongJ.Inagme
                 return;
             }
         }
+
         protected virtual void UpdateHeight()
         {
             var layerMask = LayerMask.NameToLayer("Ground");

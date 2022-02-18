@@ -723,7 +723,6 @@ namespace UnityEngine.UI
             }
             else
             {
-                //nextItem = prefabSource.GetObject().transform as RectTransform;
                 nextItem = GameObjectCache.Make<RectTransform>(prefabSource.GetComponent<RectTransform>(), content);
 
                 nextItem.transform.SetParent(content, false);

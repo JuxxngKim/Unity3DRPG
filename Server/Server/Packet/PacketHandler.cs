@@ -33,17 +33,17 @@ class PacketHandler
 
 	public static void C_SkillHandler(PacketSession session, IMessage packet)
 	{
-		//C_Skill skillPacket = packet as C_Skill;
-		//ClientSession clientSession = session as ClientSession;
+        C_Skill skillPacket = packet as C_Skill;
+        ClientSession clientSession = session as ClientSession;
 
-		//Player player = clientSession.MyPlayer;
-		//if (player == null)
-		//	return;
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
 
-		//GameRoom room = player.Room;
-		//if (room == null)
-		//	return;
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
 
-		//room.Push(room.HandleSkill, player, skillPacket);
-	}
+        room.Push(room.HandleSkill, player, skillPacket);
+    }
 }

@@ -22,7 +22,7 @@ namespace Server.Game
 
 		protected int _stateEndFrame = 0;
 
-		public void Init(ObjModel level)
+		public virtual void Init(ObjModel level)
 		{
 			if (level == null)
 				return;
@@ -48,23 +48,18 @@ namespace Server.Game
 			_commandHandle = UpdateCommandIdleMove;
 		}
 
-		public override void OnDamaged(GameObject attacker, int damage)
-		{
-			base.OnDamaged(attacker, damage);
-		}
+		public virtual void OnSkill()
+        {
 
-		public override void OnDead(GameObject attacker)
-		{
-			base.OnDead(attacker);
-		}
+        }
 
 		public override void Update()
 		{
-			base.Update();
-
 			ProcessCommand();
 			ProcessState();
 			PostPocess();
+
+			base.Update();
 		}
 
 		public virtual void ProcessCommand()
