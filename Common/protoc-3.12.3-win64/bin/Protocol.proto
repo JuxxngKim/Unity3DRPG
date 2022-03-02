@@ -23,13 +23,13 @@ enum GameObjectType {
   NONE = 0;
   PLAYER = 1;
   MONSTER = 2;
-  PROJECTILE = 3;
+  SKILL = 3;
 }
 
 enum ActorState {
   IDLE = 0;
   MOVING = 1;
-  SKILL = 2;
+  ATTACK = 2;
   DEAD = 3;
 }
 

@@ -12,19 +12,20 @@ namespace Server.Game.Object
 
         protected List<BaseActor> _alreadyAttackTargets;
 
-        public SkillObject(BaseActor Owner)
+        public SkillObject()
         {
-            this.ObjectType = GameObjectType.Projectile;
-            this.Owener = Owener;
-
+            this.ObjectType = GameObjectType.Skill;
             _alreadyAttackTargets = new List<BaseActor>();
         }
 
-        public override void Init(ObjModel level)
+        public void Init(ObjModel level, BaseActor owner)
         {
             base.Init(level);
-
             
+            Owener = owner;
+
+            _commandHandle = null;
+            _stateHandle = ProcessSkill;
         }
 
         public override void Remove()
@@ -39,7 +40,10 @@ namespace Server.Game.Object
             if (--_stateEndFrame > 0)
                 return;
 
-            _commandHandle = null;
+            _stateHandle = null;
+
+            var room = Room;
+            room.LeaveGame(Id);
         }
 
     }

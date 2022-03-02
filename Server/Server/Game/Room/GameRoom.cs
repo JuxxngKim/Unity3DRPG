@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server.Data;
+using Server.Game.Object;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Server.Game
 		public ObjModel Level { get; private set; }
 
 		private Dictionary<int, Player> _players = new Dictionary<int, Player>();
+		Dictionary<int, SkillObject> _skills = new Dictionary<int, SkillObject>();
 
 		public void Init(int mapId)
 		{
@@ -57,9 +59,16 @@ namespace Server.Game
 
 				player.Update();
 			}
-			
-			// 타인한테 정보 전송
+            else if (type == GameObjectType.Skill)
 			{
+				SkillObject skillObject = gameObject as SkillObject;
+				_skills.Add(gameObject.Id, skillObject);
+
+				skillObject.Update();
+			}
+
+            // 타인한테 정보 전송
+            {
                 S_Spawn spawnPacket = new S_Spawn();
                 spawnPacket.Objects.Add(gameObject.Info);
                 foreach (Player p in _players.Values)
@@ -78,7 +87,6 @@ namespace Server.Game
 			{
 				Player player = null;
 				if (_players.Remove(objectId, out player) == false)
-
 					return;
 
 				player.Room = null;
@@ -88,6 +96,12 @@ namespace Server.Game
 					S_LeaveGame leavePacket = new S_LeaveGame();
 					player.Session.Send(leavePacket);
 				}
+			}
+			else if(type == GameObjectType.Skill)
+            {
+				SkillObject skillObject = null;
+				if (_skills.Remove(objectId, out skillObject) == false)
+					return;
 			}
 
 			// 타인한테 정보 전송
@@ -115,7 +129,17 @@ namespace Server.Game
 
         public void HandleSkill(Player player, C_Skill skillPacket)
         {
-			player.OnSkill();
+			if (player == null)
+				return;
+
+			ObjectInfo info = player.Info;
+			if (info.PosInfo.State == ActorState.Attack)
+				return;
+
+			var skillObject = ObjectManager.Instance.Add<SkillObject>();
+			skillObject.Init(Level, player);
+
+			Push(EnterGame, skillObject);
 		}
 
 		public void Broadcast(IMessage packet)

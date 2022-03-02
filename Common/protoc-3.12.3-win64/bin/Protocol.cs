@@ -49,11 +49,11 @@ namespace Google.Protobuf.Protocol {
             "RU5URVJfR0FNRRAAEhAKDFNfTEVBVkVfR0FNRRABEgsKB1NfU1BBV04QAhIN",
             "CglTX0RFU1BBV04QAxIPCgtTX0NIQU5HRV9IUBAEEgkKBVNfRElFEAUSCgoG",
             "U19QSU5HEAYSCgoGQ19QT05HEAcSCgoGQ19NT1ZFEAgSCgoGU19NT1ZFEAkS",
-            "CwoHQ19TS0lMTBAKEgsKB1NfU0tJTEwQCypDCg5HYW1lT2JqZWN0VHlwZRII",
-            "CgROT05FEAASCgoGUExBWUVSEAESCwoHTU9OU1RFUhACEg4KClBST0pFQ1RJ",
-            "TEUQAyo3CgpBY3RvclN0YXRlEggKBElETEUQABIKCgZNT1ZJTkcQARIJCgVT",
-            "S0lMTBACEggKBERFQUQQA0IbqgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29s",
-            "YgZwcm90bzM="));
+            "CwoHQ19TS0lMTBAKEgsKB1NfU0tJTEwQCyo+Cg5HYW1lT2JqZWN0VHlwZRII",
+            "CgROT05FEAASCgoGUExBWUVSEAESCwoHTU9OU1RFUhACEgkKBVNLSUxMEAMq",
+            "OAoKQWN0b3JTdGF0ZRIICgRJRExFEAASCgoGTU9WSU5HEAESCgoGQVRUQUNL",
+            "EAISCAoEREVBRBADQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.ActorState), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -98,13 +98,13 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("NONE")] None = 0,
     [pbr::OriginalName("PLAYER")] Player = 1,
     [pbr::OriginalName("MONSTER")] Monster = 2,
-    [pbr::OriginalName("PROJECTILE")] Projectile = 3,
+    [pbr::OriginalName("SKILL")] Skill = 3,
   }
 
   public enum ActorState {
     [pbr::OriginalName("IDLE")] Idle = 0,
     [pbr::OriginalName("MOVING")] Moving = 1,
-    [pbr::OriginalName("SKILL")] Skill = 2,
+    [pbr::OriginalName("ATTACK")] Attack = 2,
     [pbr::OriginalName("DEAD")] Dead = 3,
   }
 
