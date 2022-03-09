@@ -155,10 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9b015b945563445ad3808460de4860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
   _model: {fileID: 7611137459959884309}
   _animator: {fileID: 8876864887301893112}
   _groundedRayDistance: 30
+  _makerEffect: {fileID: 1167685827400720, guid: 860a00df38bb45747863505b9e88f7fd,
+    type: 3}
 --- !u!1001 &8426738256409381181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -241,7 +242,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ganyu
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2643003807100464311, guid: 8f4cf21977e0042428bc6f56bb05d580, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8f4cf21977e0042428bc6f56bb05d580, type: 3}
 --- !u!1 &7611137459959884309 stripped
 GameObject:

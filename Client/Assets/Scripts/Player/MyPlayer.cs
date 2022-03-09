@@ -7,10 +7,13 @@ namespace YeongJ.Inagme
 {
     public class MyPlayer : Player
     {
-        private const float INPUT_DELAY = 0.1f;
+        // Effect
+        [SerializeField] GameObject _makerEffect;
 
-        private float _latency;
-        private float _inputCheckTime = 0.0f;
+        const float INPUT_DELAY = 0.1f;
+
+        float _latency;
+        float _inputCheckTime = 0.0f;
 
         public void SetLatency(float latency)
         {
@@ -60,6 +63,8 @@ namespace YeongJ.Inagme
                 return;
             }
 
+            MakeMakerEffect(result.position);
+
             C_Move movePacket = new C_Move();
             movePacket.PosInfo = PosInfo.Clone();
             movePacket.PosInfo.PosX = result.position.x;
@@ -89,6 +94,13 @@ namespace YeongJ.Inagme
             }
 
             return (false, Vector3.zero);
+        }
+
+        private void MakeMakerEffect(Vector3 spawnPosition)
+        {
+            var makerEffect = GameObjectCache.Make(_makerEffect.transform, this.transform.parent);
+            makerEffect.transform.position = spawnPosition;
+            GameObjectCache.DeleteDelayed(makerEffect, delayTime: 1.0f);
         }
     }
 }

@@ -95,7 +95,7 @@ namespace YeongJ
 
         public static typeT Make<typeT>(typeT source, Transform parent) where typeT : Component
         {
-            Transform new_t = _instance.Make(source.transform);
+            Transform new_t = Instance.Make(source.transform);
             new_t.SetParent(parent, false);
             new_t.gameObject.SetActive(true);
 
@@ -119,7 +119,7 @@ namespace YeongJ
             clone.gameObject.SetActive(false);
 
             Cache cache = null;
-            _instance._cacheMapForInstances.TryGetValue(clone.gameObject.GetInstanceID(), out cache);
+            Instance._cacheMapForInstances.TryGetValue(clone.gameObject.GetInstanceID(), out cache);
             if (cache == null || cache.root == null)
             {
                 GameObject.Destroy(clone.gameObject);
@@ -132,6 +132,18 @@ namespace YeongJ
             {
                 cache.freeStack.Push(clone);
             }
+        }
+
+        public static void DeleteDelayed(Transform tr, float delayTime)
+        {
+            Instance.StartCoroutine(Instance._DeleteDelayed(tr, delayTime));
+        }
+
+        public IEnumerator _DeleteDelayed(Transform tr, float delayTime)
+        {
+            yield return new WaitForSeconds(delayTime);
+
+            Delete(tr);
         }
 
         private Cache PrepareCache(Transform source)
