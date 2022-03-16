@@ -143,5 +143,6 @@ namespace YeongJ.Inagme
         {
             _model.transform.rotation = Quaternion.Lerp(_model.transform.rotation, Quaternion.LookRotation(_currentVelocity), Time.deltaTime * 10f);
         }
+        public virtual void UseSkill(int skillId) { }
     }
 }

@@ -47,11 +47,8 @@ class PacketHandler
         if (go == null)
             return;
 
-        var player = go?.GetComponent<Player>();
-        if (player == null)
-            return;
-
-        player.SetServerPos(movePacket.PosInfo);
+        var baseActor = go?.GetComponent<BaseActor>();
+        baseActor?.SetServerPos(movePacket.PosInfo);
     }
 
     public static void S_ChangeHpHandler(PacketSession session, IMessage packet)
@@ -103,5 +100,10 @@ class PacketHandler
 
     public static void S_SkillHandler(PacketSession session, IMessage packet)
     {
+        S_Skill skillPacket = packet as S_Skill;
+
+        GameObject go = Managers.Object?.FindById(skillPacket.ObjectId);
+        BaseActor baseActor = go.GetComponent<BaseActor>();
+        baseActor.UseSkill(skillPacket.Info.SkillId);
     }
 }

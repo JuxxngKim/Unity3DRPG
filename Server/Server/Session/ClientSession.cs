@@ -114,6 +114,7 @@ namespace Server
                     MyPlayer.Info.PosInfo.PosX = spawnPos.x;
                     MyPlayer.Info.PosInfo.PosY = spawnPos.y;
                     MyPlayer.Info.PosInfo.PosZ = spawnPos.z;
+                    MyPlayer.Info.TeamType = TeamType.Friendly;
 
                     StatInfo stat = new StatInfo();
                     stat.Attack = 1;
@@ -127,7 +128,7 @@ namespace Server
                     MyPlayer.Init(room.Level);
                 }
 
-                room.Push(room.EnterGame, MyPlayer);
+                room.Push(room.EnterGame, MyPlayer, TeamType.Friendly);
             });
 
             Ping();

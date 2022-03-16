@@ -172,7 +172,7 @@ namespace Server.Game
 			_commandHandle = UpdateCommandIdleMove;
 		}
 
-		private void BroadcastMove()
+		protected void BroadcastMove()
 		{
 			if (_position == Util.ProtoPositionToVector3(PosInfo))
 			{

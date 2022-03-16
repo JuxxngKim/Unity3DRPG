@@ -81,6 +81,7 @@ namespace YeongJ.Inagme
             var skillPacket = new C_Skill();
             skillPacket.Info = new SkillInfo();
             skillPacket.Info.SkillId = skillId;
+            Managers.Network.Send(skillPacket);
         }
 
         private (bool result, Vector3 position) GetClickPosition()

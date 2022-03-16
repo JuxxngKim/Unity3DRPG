@@ -18,7 +18,7 @@ namespace Server.Game.Object
             _alreadyAttackTargets = new List<BaseActor>();
         }
 
-        public void Init(ObjModel level, BaseActor owner)
+        public virtual void Init(ObjModel level, BaseActor owner)
         {
             base.Init(level);
             
@@ -45,6 +45,5 @@ namespace Server.Game.Object
             var room = Room;
             room.LeaveGame(Id);
         }
-
     }
 }

@@ -33,6 +33,11 @@ enum ActorState {
   DEAD = 3;
 }
 
+enum TeamType {
+  Friendly = 0;
+  Opponent = 1;
+}
+
 message S_EnterGame {
   ObjectInfo player = 1;
 }
@@ -108,6 +113,7 @@ message ObjectInfo {
   string name = 2;
   PositionInfo posInfo = 3;
   StatInfo statInfo = 4;
+  TeamType teamType = 5;
 }
 
 message SkillInfo {
