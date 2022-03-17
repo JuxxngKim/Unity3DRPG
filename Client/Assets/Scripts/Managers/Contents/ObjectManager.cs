@@ -48,7 +48,14 @@ public class ObjectManager
 		}
 		else if(objectType == GameObjectType.Skill)
 		{
-			// TODO Projectile
+			GameObject go = Managers.Resource.Instantiate("Skill/Projectile");
+			go.name = info.Name;
+			_objects.Add(info.ObjectId, go);
+
+			SkillObject skillObject = go.GetComponent<SkillObject>();
+			skillObject.PosInfo = info.PosInfo;
+			skillObject.Stat = info.StatInfo;
+			skillObject.SyncPos();
 		}
 	}
 
@@ -57,6 +64,9 @@ public class ObjectManager
 		GameObject go = FindById(id);
 		if (go == null)
 			return;
+
+		var baseActor = go.GetComponent<BaseActor>();
+		baseActor?.Remove();
 
 		_objects.Remove(id);
 		Managers.Resource.Destroy(go);

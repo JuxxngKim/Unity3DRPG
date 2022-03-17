@@ -14,7 +14,7 @@ namespace YeongJ.Inagme
         public int Id { get; private set; }
         public StatInfo Stat { get { return _stat; } set { _stat = value; } }
         public PositionInfo PosInfo { get { return _posInfo; } set { _posInfo = value; } }
-        
+
         public Vector3 ServerDir
         {
             get { return new Vector3(_posInfo.DirX, _posInfo.DirY, _posInfo.DirZ); }
@@ -29,11 +29,11 @@ namespace YeongJ.Inagme
         public Vector3 ServerPos
         {
             get { return new Vector3(_posInfo.PosX, _posInfo.PosY, _posInfo.PosZ); }
-            set 
-            { 
-                _posInfo.PosX = value.x; 
-                _posInfo.PosY = value.y; 
-                _posInfo.PosZ = value.z; 
+            set
+            {
+                _posInfo.PosX = value.x;
+                _posInfo.PosY = value.y;
+                _posInfo.PosZ = value.z;
             }
         }
 
@@ -58,6 +58,8 @@ namespace YeongJ.Inagme
             ServerDir = new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
             ServerPos = new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
         }
+
+        public virtual void Remove() { }
 
         public void Update()
         {
@@ -141,8 +143,12 @@ namespace YeongJ.Inagme
 
         protected virtual void UpdateRotation()
         {
+            if (_model == null)
+                return;
+
             _model.transform.rotation = Quaternion.Lerp(_model.transform.rotation, Quaternion.LookRotation(_currentVelocity), Time.deltaTime * 10f);
         }
+
         public virtual void UseSkill(int skillId) { }
     }
 }

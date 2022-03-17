@@ -57,25 +57,29 @@ namespace YeongJ.Inagme
 
         private void SendMovePacket()
         {
-            var result = GetClickPosition();
-            if (!result.result)
+            var clickResult = GetClickPosition();
+            if (!clickResult.result)
             {
                 return;
             }
 
-            MakeMakerEffect(result.position);
+            MakeMakerEffect(clickResult.position);
 
             C_Move movePacket = new C_Move();
             movePacket.PosInfo = PosInfo.Clone();
-            movePacket.PosInfo.PosX = result.position.x;
+            movePacket.PosInfo.PosX = clickResult.position.x;
             movePacket.PosInfo.PosY = 0;
-            movePacket.PosInfo.PosZ = result.position.z;
+            movePacket.PosInfo.PosZ = clickResult.position.z;
             Managers.Network.Send(movePacket);
         }
 
         private void SendSkillPacket(int skillId = 1)
         {
             if (PosInfo.State != ActorState.Idle && PosInfo.State != ActorState.Moving)
+                return;
+
+            var clickResult = GetClickPosition();
+            if (!clickResult.result)
                 return;
 
             var skillPacket = new C_Skill();

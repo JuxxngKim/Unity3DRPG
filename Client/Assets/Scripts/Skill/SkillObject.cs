@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using YeongJ.Inagme;
 
-public class SkillObject : MonoBehaviour
+namespace YeongJ.Inagme
 {
-    BaseActor _owner;
-
-    public void Init (BaseActor owner)
+    public class SkillObject : BaseActor
     {
-        _owner = owner;
+        [SerializeField] GameObject _hitEffect;
+
+        public override void Remove()
+        {
+            base.Remove();
+
+            var hitEffect = GameObjectCache.Make(_hitEffect.transform, this.transform.parent);
+            GameObjectCache.DeleteDelayed(hitEffect, delayTime: 1.08f);
+        }
     }
 }
