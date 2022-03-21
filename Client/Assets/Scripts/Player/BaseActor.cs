@@ -7,9 +7,9 @@ namespace YeongJ.Inagme
 {
     public class BaseActor : MonoBehaviour
     {
-        [SerializeField] GameObject _model;
-        [SerializeField] Animator _animator;
-        [SerializeField] float _groundedRayDistance = 30f;
+        [SerializeField] protected GameObject _model;
+        [SerializeField] protected Animator _animator;
+        [SerializeField] protected float _groundedRayDistance = 30f;
 
         public int Id { get; private set; }
         public StatInfo Stat { get { return _stat; } set { _stat = value; } }
@@ -149,6 +149,6 @@ namespace YeongJ.Inagme
             _model.transform.rotation = Quaternion.Lerp(_model.transform.rotation, Quaternion.LookRotation(_currentVelocity), Time.deltaTime * 10f);
         }
 
-        public virtual void UseSkill(int skillId) { }
+        public virtual void UseSkill(SkillInfo skillInfo) { }
     }
 }

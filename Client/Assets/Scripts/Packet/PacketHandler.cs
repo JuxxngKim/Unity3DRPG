@@ -104,6 +104,6 @@ class PacketHandler
 
         GameObject go = Managers.Object?.FindById(skillPacket.ObjectId);
         BaseActor baseActor = go.GetComponent<BaseActor>();
-        baseActor.UseSkill(skillPacket.Info.SkillId);
+        baseActor.UseSkill(skillPacket.Info);
     }
 }

@@ -21,4 +21,9 @@ public static class Extension
 
 		return float3;
 	}
+
+	public static Vector3 ToVector3(this Float3 float3)
+	{
+		return new Vector3(float3.X, float3.Y, float3.Z);
+	}
 }

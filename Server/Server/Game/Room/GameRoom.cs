@@ -147,7 +147,7 @@ namespace Server.Game
             }
 
             skillObject.Init(Level, player, skillPacket.Info);
-			player.UseSkill(skillId);
+			player.UseSkill(skillPacket.Info);
 
 			PushAfter(250, EnterGame, skillObject, info.TeamType);
 		}

@@ -27,7 +27,7 @@ namespace Server.Game
 			Room.Push(BroadcastMove);
 		}
 
-		public void UseSkill(int skillId)
+		public void UseSkill(SkillInfo skillInfo)
         {
 			_stateHandle = ProcessSkill;
 			_commandHandle = null;
@@ -46,13 +46,15 @@ namespace Server.Game
 			_stateEndFrame = 10;
 
 			Room.Push(BroadcastMove);
-			Room.Push(BroadCastSkill, skillId);
+			Room.Push(BroadCastSkill, skillInfo);
 		}
 
-		protected void BroadCastSkill(int skillId)
+		protected void BroadCastSkill(SkillInfo skillInfo)
 		{
-			SkillInfo skillInfo = new SkillInfo();
-			skillInfo.SkillId = skillId;
+			SkillInfo sendSkillInfo = new SkillInfo();
+			sendSkillInfo.SkillId = skillInfo.SkillId;
+			sendSkillInfo.SpawnPosition = skillInfo.SpawnPosition.Clone();
+			sendSkillInfo.SkillDirection = skillInfo.SkillDirection.Clone();
 
 			// 다른 플레이어한테도 알려준다
 			S_Skill skillPacket = new S_Skill();

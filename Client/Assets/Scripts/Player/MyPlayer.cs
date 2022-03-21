@@ -51,11 +51,11 @@ namespace YeongJ.Inagme
             _inputCheckTime = INPUT_DELAY;
             if (Input.GetMouseButton(1))
             {
-                SendMovePacket();
+                SendMovePacket(makeMaker: false);
             }
         }
 
-        private void SendMovePacket()
+        private void SendMovePacket(bool makeMaker = true)
         {
             var clickResult = GetClickPosition();
             if (!clickResult.result)
@@ -63,7 +63,10 @@ namespace YeongJ.Inagme
                 return;
             }
 
-            MakeMakerEffect(clickResult.position);
+            if (makeMaker)
+            {
+                MakeMakerEffect(clickResult.position);
+            }
 
             C_Move movePacket = new C_Move();
             movePacket.PosInfo = PosInfo.Clone();
