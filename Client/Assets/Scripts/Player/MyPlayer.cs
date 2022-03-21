@@ -73,7 +73,7 @@ namespace YeongJ.Inagme
             Managers.Network.Send(movePacket);
         }
 
-        private void SendSkillPacket(int skillId = 1)
+        private void SendSkillPacket(int skillId = 0)
         {
             if (PosInfo.State != ActorState.Idle && PosInfo.State != ActorState.Moving)
                 return;
@@ -82,9 +82,15 @@ namespace YeongJ.Inagme
             if (!clickResult.result)
                 return;
 
+            var skillDir = clickResult.position - this.transform.position;
+            skillDir.Normalize();
+
             var skillPacket = new C_Skill();
             skillPacket.Info = new SkillInfo();
             skillPacket.Info.SkillId = skillId;
+            skillPacket.Info.SpawnPosition = transform.position.ToFloat3();
+            skillPacket.Info.SkillDirection = skillDir.ToFloat3();
+
             Managers.Network.Send(skillPacket);
         }
 

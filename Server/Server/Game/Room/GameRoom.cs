@@ -64,10 +64,8 @@ namespace Server.Game
 				SkillObject skillObject = gameObject as SkillObject;
 				_skills.Add(gameObject.Id, skillObject);
 
-				skillObject.Te
 				skillObject.Room = this;
 				skillObject.Update();
-				return;
 			}
 
             // 타인한테 정보 전송
@@ -140,17 +138,18 @@ namespace Server.Game
 				return;
 
 			SkillObject skillObject = null;
-			int skillId = skillPacket.Info.SkillId;
+            int skillId = skillPacket.Info.SkillId;
             switch (skillId)
             {
                 case 0: skillObject = ObjectManager.Instance.Add<Projectile>(); break;
                 case 1: skillObject = ObjectManager.Instance.Add<SkillObject>(); break;
+                default: return;
             }
 
-			skillObject.Init(Level, player);
+            skillObject.Init(Level, player, skillPacket.Info);
 			player.UseSkill(skillId);
 
-			Push(EnterGame, skillObject, info.TeamType);
+			PushAfter(250, EnterGame, skillObject, info.TeamType);
 		}
 
 		public void Broadcast(IMessage packet)

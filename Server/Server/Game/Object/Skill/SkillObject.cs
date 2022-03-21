@@ -1,8 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 
 namespace Server.Game.Object
 {
@@ -11,6 +8,7 @@ namespace Server.Game.Object
         public BaseActor Owener { get; private set; }
 
         protected List<BaseActor> _alreadyAttackTargets;
+        protected SkillInfo _skillInfo;
 
         public SkillObject()
         {
@@ -18,7 +16,7 @@ namespace Server.Game.Object
             _alreadyAttackTargets = new List<BaseActor>();
         }
 
-        public virtual void Init(ObjModel level, BaseActor owner)
+        public virtual void Init(ObjModel level, BaseActor owner, SkillInfo skillInfo)
         {
             base.Init(level);
             
@@ -26,6 +24,7 @@ namespace Server.Game.Object
 
             _commandHandle = null;
             _stateHandle = ProcessSkill;
+            _skillInfo = skillInfo;
         }
 
         public override void Remove()

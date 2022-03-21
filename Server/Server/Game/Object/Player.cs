@@ -21,6 +21,10 @@ namespace Server.Game
 				return;
 
 			_stateHandle = null;
+			_commandHandle = UpdateCommandIdleMove;
+
+			PosInfo.State = ActorState.Idle;
+			Room.Push(BroadcastMove);
 		}
 
 		public void UseSkill(int skillId)
@@ -38,6 +42,8 @@ namespace Server.Game
 			PosInfo.DirX = _direction.x;
 			PosInfo.DirY = _direction.y;
 			PosInfo.DirZ = _direction.z;
+
+			_stateEndFrame = 10;
 
 			Room.Push(BroadcastMove);
 			Room.Push(BroadCastSkill, skillId);

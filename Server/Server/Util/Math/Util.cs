@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-class Util
+static class Util
 {
     public static Vector3 ProtoPositionToVector3(PositionInfo posInfo)
     {
         return new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
+    }
+
+    public static Vector3 ToVector3(this Float3 float3)
+    {
+        return new Vector3(float3.X, float3.Y, float3.Z);
     }
 
     public static Vector3 ProtoDirectionToVector3(PositionInfo posInfo)

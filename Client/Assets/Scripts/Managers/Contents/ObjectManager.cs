@@ -53,6 +53,7 @@ public class ObjectManager
 			_objects.Add(info.ObjectId, go);
 
 			SkillObject skillObject = go.GetComponent<SkillObject>();
+			skillObject.Init(info.ObjectId);
 			skillObject.PosInfo = info.PosInfo;
 			skillObject.Stat = info.StatInfo;
 			skillObject.SyncPos();

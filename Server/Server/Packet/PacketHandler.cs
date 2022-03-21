@@ -21,7 +21,7 @@ class PacketHandler
 		ClientSession clientSession = session as ClientSession;
 
 		Player player = clientSession.MyPlayer;
-		if (player == null)
+		if (player == null || player.PosInfo.State == ActorState.Attack)
 			return;
 
 		GameRoom room = player.Room;
@@ -37,7 +37,7 @@ class PacketHandler
         ClientSession clientSession = session as ClientSession;
 
         Player player = clientSession.MyPlayer;
-        if (player == null)
+        if (player == null || player.PosInfo.State == ActorState.Attack)
             return;
 
         GameRoom room = player.Room;
