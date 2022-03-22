@@ -6,38 +6,37 @@ using UnityEngine.Events;
 
 namespace YeongJ.UI
 {
-    public class UIChatWindow : UISingleton<UIChatWindow>, IRecyclableScrollDataSource
+    public class UIChatWindow : UISingleton<UIChatWindow>
     {
         [SerializeField] InputField _inputField;
-        [SerializeField] RecyclableScrollRect _scrollRect;
+        [SerializeField] Text _templateChatText;
+        [SerializeField] RectTransform _contentRoot;
 
-        private List<string> _chatList;
+        List<Text> _chatList = new List<Text>();
 
-        public void SendChat()
+        public override void InitSingleton()
         {
-            var userChat = _inputField.text;
-            if (string.Empty == userChat)
+            _inputField.onEndEdit.AddListener(SendChat);
+        }
+
+        public void SendChat(string text)
+        {
+            var userChat = text;
+            if (userChat == string.Empty)
                 return;
 
-            Managers.Network.Send(null);
+            //Managers.Network.Send(null);
+            AddChat(userChat);
             _inputField.text = string.Empty;
         }
 
         public void AddChat(string userChat)
         {
-            _chatList.Add(userChat);
+            var newText =  GameObjectCache.Make<Text>(_templateChatText, _contentRoot);
+            newText.text = userChat;
+            _chatList.Add(newText);
 
-            _scrollRect.totalCount = _chatList.Count;
-            _scrollRect.RefillCells();
-        }
-
-        public void ProvideData(Transform transform, int idx)
-        {
-            if (_chatList.Count <= idx)
-                return;
-
-            var chatText = transform.GetComponent<Text>();
-            chatText.text = _chatList[idx];
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRoot);
         }
     }
 }

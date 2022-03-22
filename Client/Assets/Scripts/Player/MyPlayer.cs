@@ -57,6 +57,9 @@ namespace YeongJ.Inagme
 
         private void SendMovePacket(bool makeMaker = true)
         {
+            if (PosInfo.State == ActorState.Attack)
+                return;
+
             var clickResult = GetClickPosition();
             if (!clickResult.result)
             {
@@ -78,7 +81,7 @@ namespace YeongJ.Inagme
 
         private void SendSkillPacket(int skillId = 0)
         {
-            if (PosInfo.State != ActorState.Idle && PosInfo.State != ActorState.Moving)
+            if (PosInfo.State == ActorState.Attack)
                 return;
 
             var clickResult = GetClickPosition();
