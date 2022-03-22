@@ -142,6 +142,7 @@ public class ObjModel
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Load NavMesh : {ex}");
             }
         }
     }

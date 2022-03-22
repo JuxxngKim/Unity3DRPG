@@ -2,10 +2,9 @@
 using Google.Protobuf.Protocol;
 using ServerCore;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using YeongJ.Inagme;
+using YeongJ.UI;
 
 class PacketHandler
 {
@@ -106,4 +105,11 @@ class PacketHandler
         BaseActor baseActor = go.GetComponent<BaseActor>();
         baseActor.UseSkill(skillPacket.Info);
     }
+
+    public static void S_ChatHandler(PacketSession session, IMessage packet)
+    {
+        S_Chat chatPacket = packet as S_Chat;
+        UIChatWindow.Instance?.AddChat(chatPacket?.UserName ?? string.Empty, chatPacket?.Chat ?? string.Empty);
+    }
+
 }

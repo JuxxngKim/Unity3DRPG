@@ -1,8 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using Google.Protobuf.Protocol;
+
 
 namespace YeongJ.UI
 {
@@ -16,6 +16,8 @@ namespace YeongJ.UI
 
         public override void InitSingleton()
         {
+            base.InitSingleton();
+
             _inputField.onEndEdit.AddListener(SendChat);
         }
 
@@ -25,15 +27,19 @@ namespace YeongJ.UI
             if (userChat == string.Empty)
                 return;
 
-            //Managers.Network.Send(null);
-            AddChat(userChat);
+            C_Chat chatPacket = new C_Chat();
+            chatPacket.Chat = text;
+            Managers.Network.Send(chatPacket);
+            
             _inputField.text = string.Empty;
         }
 
-        public void AddChat(string userChat)
+        public void AddChat(string userName, string userChat)
         {
+            string chat = $"[{System.DateTime.Now.Hour:D2}:{System.DateTime.Now.Minute:D2}] {userName} : {userChat}";
+
             var newText =  GameObjectCache.Make<Text>(_templateChatText, _contentRoot);
-            newText.text = userChat;
+            newText.text = chat;
             _chatList.Add(newText);
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRoot);
