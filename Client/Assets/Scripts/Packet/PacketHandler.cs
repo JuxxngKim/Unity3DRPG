@@ -109,7 +109,7 @@ class PacketHandler
     public static void S_ChatHandler(PacketSession session, IMessage packet)
     {
         S_Chat chatPacket = packet as S_Chat;
-        UIChatWindow.Instance?.AddChat(chatPacket?.UserName ?? string.Empty, chatPacket?.Chat ?? string.Empty);
+        //UIChatWindow.Instance?.AddChat(chatPacket?.UserName ?? string.Empty, chatPacket?.Chat ?? string.Empty);
     }
 
 }

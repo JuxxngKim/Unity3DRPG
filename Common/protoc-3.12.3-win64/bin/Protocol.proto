@@ -96,8 +96,9 @@ message C_Chat {
 }
 
 message S_Chat {
-  string userName = 1;
-  string chat = 2;
+  int32 objectId = 1;
+  string userName = 2;
+  string chat = 3;
 }
 
 message StatInfo {
