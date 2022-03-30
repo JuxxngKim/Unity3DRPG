@@ -34,7 +34,7 @@ namespace YeongJ.Inagme
             if (ServerPos == this.transform.position)
                 return;
 
-            transform.position = Vector3.SmoothDamp(transform.position, ServerPos, ref _currentVelocity, 0.1f, maxSpeed: Stat.Speed);
+            transform.position = Vector3.SmoothDamp(currentPosition, ServerPos, ref _currentVelocity, 0.101f, maxSpeed: Stat.Speed);
             UpdateHeight();
         }
 

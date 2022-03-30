@@ -29,7 +29,6 @@ public class ObjectManager
 					{
 						GameObject go = Managers.Resource.Instantiate("Actor/MyPlayer");
 						go.name = info.Name;
-						_objects.Add(info.ObjectId, go);
 
 						MyPlayer = go.GetComponent<MyPlayer>();
 						baseActor = MyPlayer;
@@ -38,8 +37,6 @@ public class ObjectManager
 					{
 						GameObject go = Managers.Resource.Instantiate("Actor/Player");
 						go.name = info.Name;
-						_objects.Add(info.ObjectId, go);
-
 						baseActor = go.GetComponent<Player>();
 					}
 				}
@@ -48,7 +45,7 @@ public class ObjectManager
 			case GameObjectType.Monster:
 				{
 					GameObject go = Managers.Resource.Instantiate("Actor/Monster");
-					baseActor = go.GetComponent<SkillObject>();
+					baseActor = go.GetComponent<BaseActor>();
 				}
 				break;
 
@@ -56,8 +53,6 @@ public class ObjectManager
 				{
 					GameObject go = Managers.Resource.Instantiate("Skill/Projectile");
 					go.name = info.Name;
-					_objects.Add(info.ObjectId, go);
-
 					baseActor = go.GetComponent<SkillObject>();
 				}
 				break;

@@ -20,6 +20,7 @@ namespace Server.Game
 		public ObjectInfo Info { get; set; } = new ObjectInfo();
 		public PositionInfo PosInfo { get; private set; } = new PositionInfo();
 		public StatInfo Stat { get; private set; } = new StatInfo();
+		public Vector3 Position => _position;
 
 		protected Vector3 _position;
 		protected Vector3 _direction;

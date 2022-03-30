@@ -84,17 +84,23 @@ namespace Server.Game
                             spawnPacket.Objects.Add(p.Info);
                     }
 
+                    foreach (var monster in _monsters.Values)
+                    {
+                        spawnPacket.Objects.Add(monster.Info);
+                    }
+
                     player.Session.Send(spawnPacket);
                 }
 
-				player.Update();
+                player.Update();
 			}
 			else if (type == GameObjectType.Monster)
             {
 				Monster monster = gameObject as Monster;
+				_monsters.Add(gameObject.Id, monster);
 
-				_monsters
-
+				monster.Room = this;
+				monster.Update();
 			}
             else if (type == GameObjectType.Skill)
 			{
@@ -123,8 +129,7 @@ namespace Server.Game
 
 			if (type == GameObjectType.Player)
 			{
-				Player player = null;
-				if (_players.Remove(objectId, out player) == false)
+				if (!_players.Remove(objectId, out var player))
 					return;
 
 				player.Room = null;
@@ -134,6 +139,11 @@ namespace Server.Game
 					S_LeaveGame leavePacket = new S_LeaveGame();
 					player.Session.Send(leavePacket);
 				}
+			}
+			else if(type == GameObjectType.Monster)
+            {
+				if (!_monsters.Remove(objectId, out var monster))
+					return;
 			}
 			else if(type == GameObjectType.Skill)
             {
@@ -188,6 +198,32 @@ namespace Server.Game
 
 			PushAfter(250, EnterGame, skillObject, info.TeamType);
 		}
+
+		public List<BaseActor> IsCollisition(TeamType teamType, Vector3 position, float radius)
+        {
+			List<BaseActor> targets = new List<BaseActor>();
+
+            if (teamType == TeamType.Friendly)
+            {
+				var d_enum = _monsters.GetEnumerator();
+				while(d_enum.MoveNext())
+                {
+					var monster = d_enum.Current.Value;
+                    var targetPosition = monster.Position;
+                    var dir = targetPosition - position;
+					if (dir.magnitude <= radius)
+                    {
+						targets.Add(monster);
+					}
+                }
+            }
+			else if(teamType == TeamType.Opponent)
+            {
+
+            }
+
+			return targets;
+        }
 
 		public void Broadcast(IMessage packet)
 		{
