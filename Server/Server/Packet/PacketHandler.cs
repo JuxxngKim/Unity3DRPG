@@ -58,6 +58,7 @@ class PacketHandler
             return;
 
         S_Chat sendPacket = new S_Chat();
+        sendPacket.ObjectId = player?.Id ?? 0;
         sendPacket.UserName = player?.Info.Name ?? string.Empty;
         sendPacket.Chat = chatPacket.Chat;
 

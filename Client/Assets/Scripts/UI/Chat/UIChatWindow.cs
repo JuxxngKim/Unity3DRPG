@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Google.Protobuf.Protocol;
-
+using YeongJ.Inagme;
 
 namespace YeongJ.UI
 {
@@ -11,6 +11,8 @@ namespace YeongJ.UI
         [SerializeField] InputField _inputField;
         [SerializeField] Text _templateChatText;
         [SerializeField] RectTransform _contentRoot;
+        [SerializeField] RectTransform _bubbleRoot;
+        [SerializeField] ChatBubble _templateChatBubble;
 
         List<Text> _chatList = new List<Text>();
         Dictionary<int, ChatBubble> _chatBubbles = new Dictionary<int, ChatBubble>();
@@ -47,7 +49,27 @@ namespace YeongJ.UI
 
             if (_chatBubbles.ContainsKey(objectId))
             {
-                //_chatBubbles[objectId].SetData()
+                _chatBubbles[objectId].UpdateData(userChat);
+            }
+            else
+            {
+                var baseActor = Managers.Object.FindById(objectId)?.GetComponent<BaseActor>();
+                if (baseActor == null)
+                    return;
+
+                var newBubble = GameObjectCache.Make<ChatBubble>(_templateChatBubble, _bubbleRoot);
+                _chatBubbles.Add(objectId, newBubble);
+
+                _chatBubbles[objectId].SetData(baseActor, userName, userChat, RemoveBubbleChat);
+            }
+        }
+
+        private void RemoveBubbleChat(int objectId)
+        {
+            if (_chatBubbles.ContainsKey(objectId))
+            {
+                GameObjectCache.Delete(_chatBubbles[objectId].transform);
+                _chatBubbles.Remove(objectId);
             }
         }
     }

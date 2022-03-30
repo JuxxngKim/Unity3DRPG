@@ -12,12 +12,13 @@ namespace YeongJ.UI
         [SerializeField] RectTransform _bubbleRoot;
         [SerializeField] Text _nameText;
         [SerializeField] Text _chatText;
+        [SerializeField] float _remainTime;
 
-        float _remainTime;
+        int _objectId;
         BaseActor _baseActor;
-        UnityAction<ChatBubble> _completeCallback;
+        UnityAction<int> _completeCallback;
 
-        public void SetData(BaseActor baseActor, string userName, string chatText, UnityAction<ChatBubble> completeCallback)
+        public void SetData(BaseActor baseActor, string userName, string chatText, UnityAction<int> completeCallback)
         {
             _baseActor = baseActor;
             _nameText.text = userName;
@@ -25,7 +26,11 @@ namespace YeongJ.UI
             _remainTime = 3.0f;
             _completeCallback = completeCallback;
 
+            _objectId = baseActor?.Id ?? 0;
+
             LayoutRebuilder.ForceRebuildLayoutImmediate(_bubbleRoot);
+
+            Update();
         }
 
         public void UpdateData(string chatText)
@@ -38,10 +43,16 @@ namespace YeongJ.UI
 
         void Update()
         {
+            if (_baseActor != null)
+            {
+                var screenPoint = Camera.main.WorldToScreenPoint(_baseActor.transform.position);
+                this.transform.position = screenPoint;
+            }
+
             _remainTime -= Time.deltaTime;
             if(_remainTime <= 0f)
             {
-                _completeCallback?.Invoke(this);
+                _completeCallback?.Invoke(_objectId);
                 _completeCallback = null;
             }
         }
@@ -52,6 +63,7 @@ namespace YeongJ.UI
                 return;
 
             var screenPoint = Camera.main.WorldToScreenPoint(_baseActor.transform.position);
+            this.transform.position = screenPoint;
         }
     }
 }
