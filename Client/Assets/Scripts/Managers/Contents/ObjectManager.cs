@@ -18,46 +18,61 @@ public class ObjectManager
 
 	public void Add(ObjectInfo info, bool myPlayer = false)
 	{
+		BaseActor baseActor = null;
+
 		GameObjectType objectType = GetObjectTypeById(info.ObjectId);
-		if (objectType == GameObjectType.Player)
-		{
-            if (myPlayer)
-            {
-                GameObject go = Managers.Resource.Instantiate("Actor/MyPlayer");
-                go.name = info.Name;
-                _objects.Add(info.ObjectId, go);
+        switch (objectType)
+        {
+			case GameObjectType.Player:
+                {
+					if (myPlayer)
+					{
+						GameObject go = Managers.Resource.Instantiate("Actor/MyPlayer");
+						go.name = info.Name;
+						_objects.Add(info.ObjectId, go);
 
-                MyPlayer = go.GetComponent<MyPlayer>();
-				MyPlayer.Init(info.ObjectId);
-				MyPlayer.PosInfo = info.PosInfo;
-                MyPlayer.Stat = info.StatInfo;
-                MyPlayer.SyncPos();
-            }
-			else
-            {
-                GameObject go = Managers.Resource.Instantiate("Actor/Player");
-                go.name = info.Name;
-                _objects.Add(info.ObjectId, go);
+						MyPlayer = go.GetComponent<MyPlayer>();
+						baseActor = MyPlayer;
+					}
+					else
+					{
+						GameObject go = Managers.Resource.Instantiate("Actor/Player");
+						go.name = info.Name;
+						_objects.Add(info.ObjectId, go);
 
-                var player = go.GetComponent<Player>();
-				player.Init(info.ObjectId);
-				player.PosInfo = info.PosInfo;
-				player.Stat = info.StatInfo;
-				player.SyncPos();
-			}
+						baseActor = go.GetComponent<Player>();
+					}
+				}
+				break;
+
+			case GameObjectType.Monster:
+				{
+					GameObject go = Managers.Resource.Instantiate("Actor/Monster");
+					baseActor = go.GetComponent<SkillObject>();
+				}
+				break;
+
+			case GameObjectType.Skill:
+				{
+					GameObject go = Managers.Resource.Instantiate("Skill/Projectile");
+					go.name = info.Name;
+					_objects.Add(info.ObjectId, go);
+
+					baseActor = go.GetComponent<SkillObject>();
+				}
+				break;
 		}
-		else if(objectType == GameObjectType.Skill)
-		{
-			GameObject go = Managers.Resource.Instantiate("Skill/Projectile");
-			go.name = info.Name;
-			_objects.Add(info.ObjectId, go);
 
-			SkillObject skillObject = go.GetComponent<SkillObject>();
-			skillObject.Init(info.ObjectId);
-			skillObject.PosInfo = info.PosInfo;
-			skillObject.Stat = info.StatInfo;
-			skillObject.SyncPos();
-		}
+		if (baseActor == null)
+			return;
+
+		baseActor.gameObject.name = info.Name;
+		baseActor.Init(info.ObjectId);
+		baseActor.PosInfo = info.PosInfo;
+		baseActor.Stat = info.StatInfo;
+		baseActor.SyncPos();
+
+		_objects.Add(info.ObjectId, baseActor.gameObject);
 	}
 
 	public void Remove(int id)

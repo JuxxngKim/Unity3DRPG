@@ -5,6 +5,7 @@ using Server.Game.Object;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace Server.Game
 {
@@ -13,13 +14,42 @@ namespace Server.Game
 		public int RoomId { get; set; }
 		public ObjModel Level { get; private set; }
 
-		private Dictionary<int, Player> _players = new Dictionary<int, Player>();
+		Dictionary<int, Player> _players = new Dictionary<int, Player>();
+		Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
 		Dictionary<int, SkillObject> _skills = new Dictionary<int, SkillObject>();
 
 		public void Init(int mapId)
 		{
 			string path = $"NavMesh{mapId:D2}.obj";
 			Level = new ObjModel(path);
+
+			// TODO : Monster Load
+			//path = $"Monster{mapId:D2}.obj";
+
+			Vector3 spawnPos = new Vector3(147f, 0.0f, 160f);
+			Monster monster = ObjectManager.Instance.Add<Monster>();
+
+			monster.Info.Name = $"Player_{monster.Info.ObjectId}";
+			monster.Info.PosInfo.State = ActorState.Idle;
+			monster.Info.PosInfo.DirX = 0;
+			monster.Info.PosInfo.DirY = 0;
+			monster.Info.PosInfo.DirZ = 0;
+
+			monster.Info.PosInfo.PosX = spawnPos.x;
+			monster.Info.PosInfo.PosY = spawnPos.y;
+			monster.Info.PosInfo.PosZ = spawnPos.z;
+			monster.Info.TeamType = TeamType.Friendly;
+
+			StatInfo stat = new StatInfo();
+			stat.Attack = 1;
+			stat.Hp = stat.MaxHp = 10;
+			stat.Speed = 7f;
+			monster.Stat.MergeFrom(stat);
+
+			monster.SyncPos();
+			monster.Init(Level);
+
+			Push(EnterGame, monster, TeamType.Opponent);
 		}
 
 		// 누군가 주기적으로 호출해줘야 한다
@@ -58,6 +88,13 @@ namespace Server.Game
                 }
 
 				player.Update();
+			}
+			else if (type == GameObjectType.Monster)
+            {
+				Monster monster = gameObject as Monster;
+
+				_monsters
+
 			}
             else if (type == GameObjectType.Skill)
 			{
