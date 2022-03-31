@@ -211,7 +211,7 @@ namespace Server.Game
 					var monster = d_enum.Current.Value;
                     var targetPosition = monster.Position;
                     var dir = targetPosition - position;
-					if (dir.magnitude <= radius)
+					if (dir.magnitude <= radius + monster.Radius)
                     {
 						targets.Add(monster);
 					}

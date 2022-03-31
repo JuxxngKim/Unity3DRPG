@@ -19,6 +19,7 @@ enum MsgId {
   S_SKILL = 11;
   C_CHAT = 12;
   S_CHAT = 13;
+  S_HIT = 14;
 }
 
 enum GameObjectType {
@@ -99,6 +100,11 @@ message S_Chat {
   int32 objectId = 1;
   string userName = 2;
   string chat = 3;
+}
+
+message S_Hit {
+  int32 attackerId = 1;
+  int32 defenderId = 2;
 }
 
 message StatInfo {

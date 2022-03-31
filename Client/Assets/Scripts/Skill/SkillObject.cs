@@ -20,6 +20,9 @@ namespace YeongJ.Inagme
         {
             base.Remove();
 
+            if (_hitEffect == null)
+                return;
+
             var hitEffect = GameObjectCache.Make(_hitEffect.transform, this.transform.parent);
             hitEffect.transform.position = transform.position;
 
@@ -38,12 +41,6 @@ namespace YeongJ.Inagme
             UpdateHeight();
         }
 
-        protected override void UpdateRotation()
-        {
-            if (_rootTransform == null)
-                return;
-
-            _rootTransform.transform.rotation = Quaternion.Lerp(_rootTransform.transform.rotation, Quaternion.LookRotation(_currentVelocity), Time.deltaTime * 10f);
-        }
+        protected override void UpdateRotation() { }
     }
 }

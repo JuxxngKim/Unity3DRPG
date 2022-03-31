@@ -9,6 +9,7 @@ namespace Server.Game
     public abstract class BaseActor : GameObject
     {
 		public ObjModel Level { get; private set; }
+		public float Radius => _radius;
 
 		private NavMeshTriangle _currentNavMesh;
 
@@ -21,7 +22,8 @@ namespace Server.Game
 		protected List<PostProcessHandle> _postProcessHandles = new List<PostProcessHandle>();
 
 		protected int _stateEndFrame = 0;
-
+		protected float _radius;
+		
 		public virtual void Init(ObjModel level)
 		{
 			if (level == null)
@@ -46,6 +48,7 @@ namespace Server.Game
 			_stateHandle = null;
 			_postProcessHandles.Clear();
 			_commandHandle = UpdateCommandIdleMove;
+			_radius = 0.7f;
 		}
 
 		public virtual void OnSkill()

@@ -43,12 +43,6 @@ namespace YeongJ.UI
 
         void Update()
         {
-            if (_baseActor != null)
-            {
-                var screenPoint = Camera.main.WorldToScreenPoint(_baseActor.transform.position);
-                this.transform.position = screenPoint;
-            }
-
             _remainTime -= Time.deltaTime;
             if(_remainTime <= 0f)
             {

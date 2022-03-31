@@ -54,7 +54,7 @@ namespace Server.Game.Object
             if (_collision)
                 return;
 
-            var targets = Room?.IsCollisition(Info.TeamType, _position, 1f);
+            var targets = Room?.IsCollisition(Info.TeamType, _position, 0.8f);
             if (targets == null || targets.Count <= 0)
                 return;
 
@@ -62,7 +62,7 @@ namespace Server.Game.Object
             target.OnDamaged(this, 1);
             
             _collision = true;
-            _stateEndFrame = 2;
+            _stateEndFrame = 3;
         }
 
         protected override void BroadcastMove()
