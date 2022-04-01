@@ -21,6 +21,7 @@ namespace Server.Game
 		public PositionInfo PosInfo { get; private set; } = new PositionInfo();
 		public StatInfo Stat { get; private set; } = new StatInfo();
 		public Vector3 Position => _position;
+		public float Radius => Stat.Radius;
 
 		protected Vector3 _position;
 		protected Vector3 _direction;
@@ -66,7 +67,6 @@ namespace Server.Game
 		{
 			if (Room == null)
 				return;
-
 		}
 
 		public virtual void SyncPos()

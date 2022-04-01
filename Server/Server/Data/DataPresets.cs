@@ -12,9 +12,9 @@ namespace Server.Data
             StatInfo stat = new StatInfo();
             stat.Level = level;
             stat.Attack = level * 10;
-            stat.Hp = stat.MaxHp = 10 * level;
+            stat.Hp = stat.MaxHp = 100 * level;
             stat.Speed = 7.0f;
-            stat.Radius = 0.7f;
+            stat.Radius = 0.5f;
             return stat;
         }
 
@@ -23,9 +23,9 @@ namespace Server.Data
             StatInfo stat = new StatInfo();
             stat.Level = level;
             stat.Attack = level * 2;
-            stat.Hp = stat.MaxHp = 5 * level;
+            stat.Hp = stat.MaxHp = 50 * level;
             stat.Speed = 5.0f;
-            stat.Radius = 1.0f;
+            stat.Radius = 0.5f;
             return stat;
         }
 
@@ -39,11 +39,13 @@ namespace Server.Data
                     Type = SkillType.Projectile,
                     Damage = 10,
                     CoolTimeFrame = 10,
-                    StateFrame = 10,
+                    StateFrame = 20,
                     MoveSpeed = 20,
                     Range = 0.7f,
+                    SpawnDelayTick = 250,
+                    Name = "Projectile",
                 };
-
+                
                 return skillData;
             }
         }
@@ -58,11 +60,14 @@ namespace Server.Data
                     Type = SkillType.Area,
                     Damage = 30,
                     CoolTimeFrame = 10,
-                    StateFrame = 15,
+                    StateFrame = 50,
                     MoveSpeed = 0,
                     Range = 4.0f,
+                    HitDelayFrame = 10,
+                    SpawnDelayTick = 0,
+                    Name = "Meteo",
                 };
-
+                
                 return skillData;
             }
         }
@@ -77,5 +82,8 @@ namespace Server.Data
         public int StateFrame;
         public int MoveSpeed;
         public float Range;
+        public int SpawnDelayTick;
+        public int HitDelayFrame;
+        public string Name;
     }
 }

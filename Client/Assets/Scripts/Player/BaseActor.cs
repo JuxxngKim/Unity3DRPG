@@ -54,7 +54,6 @@ namespace YeongJ.Inagme
         protected StatInfo _stat;
         protected PositionInfo _serverPosInfo;
         protected Vector3 _currentVelocity = Vector3.zero;
-        protected float _heightOffset = 0.0f;
 
         protected delegate void InputHandle();
         protected delegate void CommandHandle();
@@ -150,7 +149,7 @@ namespace YeongJ.Inagme
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~layerMask))
             {
                 var currentPosition = this.transform.position;
-                currentPosition.y = hit.point.y + _heightOffset;
+                currentPosition.y = hit.point.y;
                 this.transform.position = currentPosition;
             }
         }

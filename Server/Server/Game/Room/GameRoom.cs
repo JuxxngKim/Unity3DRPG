@@ -29,16 +29,13 @@ namespace Server.Game
 			Vector3 spawnPos = new Vector3(147f, 0.0f, 160f);
 			Monster monster = ObjectManager.Instance.Add<Monster>();
 
-			monster.Info.Name = $"Player_{monster.Info.ObjectId}";
+			monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
 			monster.Info.PosInfo.State = ActorState.Idle;
 			monster.Info.PosInfo.Position = spawnPos.ToFloat3();
 			monster.Info.PosInfo.Direction = Vector3.down.ToFloat3();
 			monster.Info.TeamType = TeamType.Friendly;
 
-			StatInfo stat = new StatInfo();
-			stat.Attack = 1;
-			stat.Hp = stat.MaxHp = 10;
-			stat.Speed = 7f;
+			StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
 			monster.Stat.MergeFrom(stat);
 
 			monster.SyncPos();
@@ -181,15 +178,15 @@ namespace Server.Game
             int skillId = skillPacket.Info.SkillId;
             switch (skillId)
             {
-                case 0: skillObject = ObjectManager.Instance.Add<Projectile>(); break;
-                case 1: skillObject = ObjectManager.Instance.Add<SkillObject>(); break;
-                default: return;
+                case 1: skillObject = ObjectManager.Instance.Add<Projectile>(); break;
+                case 2: skillObject = ObjectManager.Instance.Add<AreaSkill>(); break;
+				default: return;
             }
 
             skillObject.Init(Level, player, skillPacket.Info);
 			player.UseSkill(skillPacket.Info);
 
-			PushAfter(250, EnterGame, skillObject, info.TeamType);
+			PushAfter(skillObject.SpawnDelay, EnterGame, skillObject, info.TeamType);
 		}
 
 		public List<BaseActor> IsCollisition(TeamType teamType, Vector3 position, float radius)

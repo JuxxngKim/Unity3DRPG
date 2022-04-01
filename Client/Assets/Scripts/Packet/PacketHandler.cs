@@ -118,7 +118,7 @@ class PacketHandler
     public static void S_HitHandler(PacketSession session, IMessage packet)
     {
         S_Hit hitPacket = packet as S_Hit;
-
+        Debug.LogError("!HIt!");
     }
 
 }

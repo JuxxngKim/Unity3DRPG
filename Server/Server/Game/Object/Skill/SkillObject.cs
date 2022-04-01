@@ -6,9 +6,11 @@ namespace Server.Game.Object
     public class SkillObject : BaseActor
     {
         public BaseActor Owener { get; private set; }
+        public int SpawnDelay => _spawnDelay;
 
         protected List<BaseActor> _alreadyAttackTargets;
         protected SkillInfo _skillInfo;
+        protected int _spawnDelay;
 
         public SkillObject()
         {
@@ -25,6 +27,14 @@ namespace Server.Game.Object
             _commandHandle = null;
             _stateHandle = ProcessSkill;
             _skillInfo = skillInfo;
+
+            _position = skillInfo.SpawnPosition.ToVector3();
+            _direction = skillInfo.SkillDirection.ToVector3();
+
+            PosInfo.Position = _position.ToFloat3();
+            PosInfo.Direction = _direction.ToFloat3();
+
+            //Room.PushAfter(_spawnDelay, Room.EnterGame, this, Info.TeamType);
         }
 
         public override void Remove()
@@ -39,6 +49,7 @@ namespace Server.Game.Object
             if (--_stateEndFrame > 0)
                 return;
 
+            _commandHandle = null;
             _stateHandle = null;
 
             var room = Room;

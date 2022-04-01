@@ -1,3 +1,4 @@
+using Cinemachine;
 using Google.Protobuf.Protocol;
 using UnityEngine;
 
@@ -5,13 +6,17 @@ namespace YeongJ.Inagme
 {
     public class MyPlayer : Player
     {
-        // Effect
+        [SerializeField] CinemachineVirtualCamera _virtualCamera;
         [SerializeField] GameObject _makerEffect;
 
         const float INPUT_DELAY = 0.1f;
 
         float _latency;
         float _inputCheckTime = 0.0f;
+
+        float _currentDistance = _camDistanceMax;
+        const float _camDistanceMin = 2.0f;
+        const float _camDistanceMax = 12.0f;
 
         public void SetLatency(float latency)
         {
@@ -21,15 +26,24 @@ namespace YeongJ.Inagme
         public override void Init(int Id)
         {
             base.Init(Id);
+
             _inputHandle = UpdateKeyInput;
             _inputCheckTime = INPUT_DELAY;
         }
 
         public void UpdateKeyInput()
         {
-            if(Input.GetMouseButtonDown(0))
+            UpdateMouseScroll();
+
+            if (Input.GetMouseButtonDown(0))
             {
-                SendSkillPacket();
+                SendSkillPacket(skillId: 1);
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                SendSkillPacket(skillId: 2, isCliektSpawn: true);
                 return;
             }
 
@@ -51,6 +65,11 @@ namespace YeongJ.Inagme
             {
                 SendMovePacket(makeMaker: false);
             }
+        }
+
+        private void UpdateMouseScroll()
+        {
+            //float scroll = Input.GetAxis("Mouse ScrollWhell") * 10.0f;
         }
 
         private void SendMovePacket(bool makeMaker = true)
@@ -75,7 +94,7 @@ namespace YeongJ.Inagme
             Managers.Network.Send(movePacket);
         }
 
-        private void SendSkillPacket(int skillId = 0)
+        private void SendSkillPacket(int skillId = 0, bool isCliektSpawn = false)
         {
             if (ServerPosInfo.State == ActorState.Attack)
                 return;
@@ -87,10 +106,12 @@ namespace YeongJ.Inagme
             var skillDir = clickResult.position - this.transform.position;
             skillDir.Normalize();
 
+            var spawnPosition = isCliektSpawn ? clickResult.position.ToFloat3() : transform.position.ToFloat3();
+
             var skillPacket = new C_Skill();
             skillPacket.Info = new SkillInfo();
             skillPacket.Info.SkillId = skillId;
-            skillPacket.Info.SpawnPosition = transform.position.ToFloat3();
+            skillPacket.Info.SpawnPosition = spawnPosition;
             skillPacket.Info.SkillDirection = skillDir.ToFloat3();
 
             Managers.Network.Send(skillPacket);

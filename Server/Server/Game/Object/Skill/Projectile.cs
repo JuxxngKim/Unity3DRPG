@@ -13,31 +13,17 @@ namespace Server.Game.Object
             base.Init(level, owner, skillInfo);
 
             _commandHandle = UpdateCommandProjectile;
-            _stateHandle = ProcessSkill;
 
-            _position = skillInfo.SpawnPosition.ToVector3();
-            _direction = skillInfo.SkillDirection.ToVector3();
+            var skillData = DataPresets.BasicProjectile;
+            Info.StatInfo.Attack = skillData.Damage;
+            Info.StatInfo.Speed = skillData.MoveSpeed;
+            Info.StatInfo.Radius = skillData.Range;
+            Info.Name = skillData.Name;
 
-            PosInfo.Position = _position.ToFloat3();
-            PosInfo.Direction = _direction.ToFloat3();
+            _spawnDelay = skillData.SpawnDelayTick;
+            _stateEndFrame = skillData.StateFrame;
 
-            var projectileData = DataPresets.BasicProjectile;
-            Info.StatInfo.Attack = projectileData.Damage;
-            Info.StatInfo.Speed = projectileData.MoveSpeed;
-
-            _stateEndFrame = projectileData.StateFrame;
-        }
-
-        protected override void ProcessSkill()
-        {
-            if (--_stateEndFrame > 0)
-                return;
-
-            _commandHandle = null;
-            _stateHandle = null;
-
-            var room = Room;
-            room.LeaveGame(Id);
+            //Room.PushAfter(_spawnDelay, Room.EnterGame, this, Info.TeamType);
         }
 
         protected virtual void UpdateCommandProjectile()
@@ -51,15 +37,15 @@ namespace Server.Game.Object
             if (_collision)
                 return;
 
-            var targets = Room?.IsCollisition(Info.TeamType, _position, 0.8f);
+            var targets = Room?.IsCollisition(Info.TeamType, _position, Stat.Radius);
             if (targets == null || targets.Count <= 0)
                 return;
 
             var target = targets[0];
-            target.OnDamaged(this, 1);
+            target.OnDamaged(this, Stat.Attack);
             
             _collision = true;
-            _stateEndFrame = 3;
+            _stateEndFrame = 2;
         }
 
         protected override void BroadcastMove()

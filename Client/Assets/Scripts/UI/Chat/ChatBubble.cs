@@ -15,9 +15,11 @@ namespace YeongJ.UI
         [SerializeField] float _remainTime;
 
         int _objectId;
+        Vector3 _currentVelocity = Vector3.zero;
+        
         BaseActor _baseActor;
         UnityAction<int> _completeCallback;
-
+        
         public void SetData(BaseActor baseActor, string userName, string chatText, UnityAction<int> completeCallback)
         {
             _baseActor = baseActor;
@@ -43,6 +45,8 @@ namespace YeongJ.UI
 
         void Update()
         {
+            UpdateChat();
+
             _remainTime -= Time.deltaTime;
             if(_remainTime <= 0f)
             {
@@ -51,13 +55,15 @@ namespace YeongJ.UI
             }
         }
 
-        void LateUpdate()
+        void UpdateChat()
         {
             if (_baseActor == null)
                 return;
 
-            var screenPoint = Camera.main.WorldToScreenPoint(_baseActor.transform.position);
-            this.transform.position = screenPoint;
+            var velocity = Vector3.zero;
+
+            var targetPosition = Camera.main.WorldToScreenPoint(_baseActor.transform.position);
+            this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, Time.deltaTime);
         }
     }
 }

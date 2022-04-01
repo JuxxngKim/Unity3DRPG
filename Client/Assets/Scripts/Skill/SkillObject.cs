@@ -7,13 +7,20 @@ namespace YeongJ.Inagme
 {
     public class SkillObject : BaseActor
     {
-        [SerializeField] Transform _rootTransform;
         [SerializeField] GameObject _hitEffect;
+        [SerializeField] float _heightOffset = 1f;
+        [SerializeField] bool _isShake;
+        [SerializeField] float _shakeDelay;
+        [SerializeField] float _shakeIntensity;
 
         public override void Init(int Id)
         {
             base.Init(Id);
-            _heightOffset = 1f;
+
+            if (!_isShake)
+                return;
+
+            CameraShaker.Instance.StartShake(_shakeDelay, _shakeIntensity, 0.5f);
         }
 
         public override void Remove()
@@ -39,6 +46,20 @@ namespace YeongJ.Inagme
 
             transform.position = Vector3.SmoothDamp(currentPosition, ServerPos, ref _currentVelocity, 0.101f, maxSpeed: Stat.Speed);
             UpdateHeight();
+        }
+
+        protected override void UpdateHeight()
+        {
+            var layerMask = LayerMask.NameToLayer("Ground");
+
+            RaycastHit hit;
+            Ray ray = new Ray(transform.position + Vector3.up * _groundedRayDistance, -Vector3.up);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~layerMask))
+            {
+                var currentPosition = this.transform.position;
+                currentPosition.y = hit.point.y + _heightOffset;
+                this.transform.position = currentPosition;
+            }
         }
 
         protected override void UpdateRotation() { }

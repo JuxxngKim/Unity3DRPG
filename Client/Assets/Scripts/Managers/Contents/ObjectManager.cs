@@ -45,13 +45,14 @@ public class ObjectManager
 			case GameObjectType.Monster:
 				{
 					GameObject go = Managers.Resource.Instantiate("Actor/Monster");
+					go.name = info.Name;
 					baseActor = go.GetComponent<BaseActor>();
 				}
 				break;
 
 			case GameObjectType.Skill:
 				{
-					GameObject go = Managers.Resource.Instantiate("Skill/Projectile");
+					GameObject go = Managers.Resource.Instantiate($"Skill/{info.Name}");
 					go.name = info.Name;
 					baseActor = go.GetComponent<SkillObject>();
 				}
