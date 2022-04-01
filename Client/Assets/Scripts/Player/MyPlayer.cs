@@ -25,7 +25,7 @@ namespace YeongJ.Inagme
         float _inputCheckTime = 0.0f;
 
         const float _inputDelay = 0.1f;
-        const float _camDistanceMin = 2.0f;
+        const float _camDistanceMin = 2.6f;
         const float _camDistanceMax = 14.0f;
         const float _camAngleMin = 15.0f;
         const float _camAngleMax = 45.0f;
@@ -90,12 +90,18 @@ namespace YeongJ.Inagme
             var distance = Transposer.m_CameraDistance + scroll;
             Transposer.m_CameraDistance = Mathf.Clamp(distance, _camDistanceMin, _camDistanceMax);
 
-            if(Transposer.m_CameraDistance <= _camDistanceMin)
+            float angleVelocity = 0.0f;
+            var angles = _virtualCamera.transform.eulerAngles;
+
+            if (Transposer.m_CameraDistance <= _camDistanceMin)
             {
+                angles.x = Mathf.SmoothDamp(angles.x, _camAngleMin, ref angleVelocity, 0.04f);
+                _virtualCamera.transform.eulerAngles = angles;
             }
             else
             {
-
+                angles.x = Mathf.SmoothDamp(angles.x, _camAngleMax, ref angleVelocity, 0.04f);
+                _virtualCamera.transform.eulerAngles = angles;
             }
         }
 

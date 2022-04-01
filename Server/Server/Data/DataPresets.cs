@@ -60,7 +60,7 @@ namespace Server.Data
                     Type = SkillType.Area,
                     Damage = 30,
                     CoolTimeFrame = 10,
-                    StateFrame = 50,
+                    StateFrame = 100,
                     MoveSpeed = 0,
                     Range = 4.0f,
                     HitDelayFrame = 10,
