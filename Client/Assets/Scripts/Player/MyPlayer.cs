@@ -9,14 +9,28 @@ namespace YeongJ.Inagme
         [SerializeField] CinemachineVirtualCamera _virtualCamera;
         [SerializeField] GameObject _makerEffect;
 
-        const float INPUT_DELAY = 0.1f;
+        public CinemachineFramingTransposer Transposer
+        {
+            get 
+            {
+                if(_transposer == null)
+                    _transposer = _virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+                return _transposer;
+            }
+        }
+
 
         float _latency;
         float _inputCheckTime = 0.0f;
 
-        float _currentDistance = _camDistanceMax;
+        const float _inputDelay = 0.1f;
         const float _camDistanceMin = 2.0f;
-        const float _camDistanceMax = 12.0f;
+        const float _camDistanceMax = 14.0f;
+        const float _camAngleMin = 15.0f;
+        const float _camAngleMax = 45.0f;
+
+        CinemachineFramingTransposer _transposer;
 
         public void SetLatency(float latency)
         {
@@ -28,7 +42,7 @@ namespace YeongJ.Inagme
             base.Init(Id);
 
             _inputHandle = UpdateKeyInput;
-            _inputCheckTime = INPUT_DELAY;
+            _inputCheckTime = _inputDelay;
         }
 
         public void UpdateKeyInput()
@@ -50,7 +64,7 @@ namespace YeongJ.Inagme
             if (Input.GetMouseButtonDown(1))
             {
                 SendMovePacket();
-                _inputCheckTime = INPUT_DELAY;
+                _inputCheckTime = _inputDelay;
                 return;
             }
 
@@ -60,7 +74,7 @@ namespace YeongJ.Inagme
                 return;
             }
 
-            _inputCheckTime = INPUT_DELAY;
+            _inputCheckTime = _inputDelay;
             if (Input.GetMouseButton(1))
             {
                 SendMovePacket(makeMaker: false);
@@ -69,7 +83,20 @@ namespace YeongJ.Inagme
 
         private void UpdateMouseScroll()
         {
-            //float scroll = Input.GetAxis("Mouse ScrollWhell") * 10.0f;
+            if (Transposer == null)
+                return;
+
+            float scroll = -Input.mouseScrollDelta.y * 3.0f;
+            var distance = Transposer.m_CameraDistance + scroll;
+            Transposer.m_CameraDistance = Mathf.Clamp(distance, _camDistanceMin, _camDistanceMax);
+
+            if(Transposer.m_CameraDistance <= _camDistanceMin)
+            {
+            }
+            else
+            {
+
+            }
         }
 
         private void SendMovePacket(bool makeMaker = true)
