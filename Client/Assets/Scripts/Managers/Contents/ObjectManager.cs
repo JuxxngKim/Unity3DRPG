@@ -63,7 +63,7 @@ public class ObjectManager
 
 		baseActor.gameObject.name = info.Name;
 		baseActor.Init(info.ObjectId);
-		baseActor.PosInfo = info.PosInfo;
+		baseActor.ServerPosInfo = info.PosInfo;
 		baseActor.Stat = info.StatInfo;
 		baseActor.SyncPos();
 

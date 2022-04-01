@@ -31,13 +31,8 @@ namespace Server.Game
 
 			monster.Info.Name = $"Player_{monster.Info.ObjectId}";
 			monster.Info.PosInfo.State = ActorState.Idle;
-			monster.Info.PosInfo.DirX = 0;
-			monster.Info.PosInfo.DirY = 0;
-			monster.Info.PosInfo.DirZ = 0;
-
-			monster.Info.PosInfo.PosX = spawnPos.x;
-			monster.Info.PosInfo.PosY = spawnPos.y;
-			monster.Info.PosInfo.PosZ = spawnPos.z;
+			monster.Info.PosInfo.Position = spawnPos.ToFloat3();
+			monster.Info.PosInfo.Direction = Vector3.down.ToFloat3();
 			monster.Info.TeamType = TeamType.Friendly;
 
 			StatInfo stat = new StatInfo();
@@ -170,9 +165,7 @@ namespace Server.Game
 			ObjectInfo info = player.Info;
 
 			info.PosInfo.State = movePosInfo.State;
-			info.PosInfo.PosX = movePosInfo.PosX;
-			info.PosInfo.PosY = 0;
-			info.PosInfo.PosZ = movePosInfo.PosZ;
+			info.PosInfo.Position = movePosInfo.Position;
 		}
 
         public void HandleSkill(Player player, C_Skill skillPacket)

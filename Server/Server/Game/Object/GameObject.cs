@@ -31,6 +31,9 @@ namespace Server.Game
 		{
 			Info.PosInfo = PosInfo;
 			Info.StatInfo = Stat;
+
+			Info.PosInfo.Position = Vector3.zero.ToFloat3();
+			Info.PosInfo.Direction = Vector3.zero.ToFloat3();
 		}
 
 		public virtual void Update()
@@ -68,8 +71,8 @@ namespace Server.Game
 
 		public virtual void SyncPos()
 		{
-			_position = Util.ProtoPositionToVector3(PosInfo);
-			_direction = Util.ProtoDirectionToVector3(PosInfo);
+			_position = PosInfo.Position.ToVector3();
+			_direction = PosInfo.Direction.ToVector3();
 		}
 
 		public virtual void Remove()

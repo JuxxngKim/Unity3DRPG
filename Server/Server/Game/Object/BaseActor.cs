@@ -31,7 +31,7 @@ namespace Server.Game
 
 			Level = level;
 
-			Vector3 myPosition = Util.ProtoPositionToVector3(PosInfo);
+			Vector3 myPosition = PosInfo.Position.ToVector3();
 
 			var triangles = level.Triangles;
 			for (int i = 0; i < triangles.Count; ++i)
@@ -96,13 +96,13 @@ namespace Server.Game
 
 		protected virtual void UpdateCommandIdleMove()
 		{
-			if (_position == Util.ProtoPositionToVector3(PosInfo))
+			if (_position == PosInfo.Position.ToVector3())
 				return;
 
 			if (_currentNavMesh == null)
 				return;
 
-			var targetPos = Util.ProtoPositionToVector3(PosInfo);
+			var targetPos = PosInfo.Position.ToVector3();
 			_direction = targetPos - _position;
 			_direction.Normalize();
 
@@ -156,13 +156,9 @@ namespace Server.Game
 			Console.WriteLine($"============================");
 
 			_direction = Vector3.zero;
-			PosInfo.PosX = _position.x;
-			PosInfo.PosY = 0;
-			PosInfo.PosZ = _position.z;
+			PosInfo.Position = _position.ToFloat3();
+			PosInfo.Direction = _direction.ToFloat3();
 
-			PosInfo.DirX = _direction.x;
-			PosInfo.DirY = _direction.y;
-			PosInfo.DirZ = _direction.z;
 			_postProcessHandles.Add(BroadcastMove);
 		}
 
@@ -177,7 +173,7 @@ namespace Server.Game
 
 		protected virtual void BroadcastMove()
 		{
-			if (_position == Util.ProtoPositionToVector3(PosInfo))
+			if (_position == PosInfo.Position.ToVector3())
 			{
 				_direction = Vector3.zero;
 			}

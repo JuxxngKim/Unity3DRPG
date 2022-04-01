@@ -115,4 +115,10 @@ class PacketHandler
         UIChatWindow.Instance?.AddChat(chatPacket.ObjectId, chatPacket.UserName, chatPacket.Chat);
     }
 
+    public static void S_HitHandler(PacketSession session, IMessage packet)
+    {
+        S_Hit hitPacket = packet as S_Hit;
+
+    }
+
 }

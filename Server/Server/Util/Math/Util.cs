@@ -6,32 +6,26 @@ using UnityEngine;
 
 static class Util
 {
-    public static Vector3 ProtoPositionToVector3(PositionInfo posInfo)
-    {
-        return new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
-    }
-
     public static Vector3 ToVector3(this Float3 float3)
     {
         return new Vector3(float3.X, float3.Y, float3.Z);
     }
 
-    public static Vector3 ProtoDirectionToVector3(PositionInfo posInfo)
+    public static Float3 ToFloat3(this Vector3 vector3)
     {
-        return new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
+        var float3 = new Float3();
+        float3.X = vector3.x;
+        float3.Y = 0.0f;
+        float3.Z = vector3.z;
+
+        return float3;
     }
 
     public static PositionInfo Vector3ToPosInfo(Vector3 position, Vector3 diretion)
     {
         var posInfo = new PositionInfo();
-        posInfo.DirX = diretion.x;
-        posInfo.DirY = diretion.y;
-        posInfo.DirZ = diretion.z;
-
-        posInfo.PosX = position.x;
-        posInfo.PosY = position.y;
-        posInfo.PosZ = position.z;
-
+        posInfo.Position = position.ToFloat3();
+        posInfo.Direction = diretion.ToFloat3();
         return posInfo;
     }
 

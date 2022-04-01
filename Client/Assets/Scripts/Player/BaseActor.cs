@@ -13,32 +13,46 @@ namespace YeongJ.Inagme
 
         public int Id { get; private set; }
         public StatInfo Stat { get { return _stat; } set { _stat = value; } }
-        public PositionInfo PosInfo { get { return _posInfo; } set { _posInfo = value; } }
+        public PositionInfo ServerPosInfo { get { return _serverPosInfo; } set { _serverPosInfo = value; } }
 
         public Vector3 ServerDir
         {
-            get { return new Vector3(_posInfo.DirX, _posInfo.DirY, _posInfo.DirZ); }
+            get 
+            {
+                if (_serverPosInfo.Direction == null)
+                    _serverPosInfo.Direction = Vector3.zero.ToFloat3();
+
+                return _serverPosInfo.Direction.ToVector3();
+            }
             set
             {
-                _posInfo.DirX = value.x;
-                _posInfo.DirY = value.y;
-                _posInfo.DirZ = value.z;
+                if(_serverPosInfo.Direction == null)
+                    _serverPosInfo.Direction = Vector3.zero.ToFloat3();
+
+                _serverPosInfo.Direction = value.ToFloat3();
             }
         }
 
         public Vector3 ServerPos
         {
-            get { return new Vector3(_posInfo.PosX, _posInfo.PosY, _posInfo.PosZ); }
+            get 
+            {
+                if (_serverPosInfo.Position == null)
+                    _serverPosInfo.Position = Vector3.zero.ToFloat3();
+
+                return _serverPosInfo.Position.ToVector3();
+            }
             set
             {
-                _posInfo.PosX = value.x;
-                _posInfo.PosY = value.y;
-                _posInfo.PosZ = value.z;
+                if (_serverPosInfo.Position == null)
+                    _serverPosInfo.Position = Vector3.zero.ToFloat3();
+
+                _serverPosInfo.Position = value.ToFloat3();
             }
         }
 
         protected StatInfo _stat;
-        protected PositionInfo _posInfo;
+        protected PositionInfo _serverPosInfo;
         protected Vector3 _currentVelocity = Vector3.zero;
         protected float _heightOffset = 0.0f;
 
@@ -56,8 +70,8 @@ namespace YeongJ.Inagme
 
         public virtual void SetServerPos(PositionInfo posInfo)
         {
-            ServerDir = new Vector3(posInfo.DirX, posInfo.DirY, posInfo.DirZ);
-            ServerPos = new Vector3(posInfo.PosX, posInfo.PosY, posInfo.PosZ);
+            ServerDir = posInfo.Direction.ToVector3();
+            ServerPos = posInfo.Position.ToVector3();
         }
 
         public virtual void Remove() { }
@@ -97,7 +111,7 @@ namespace YeongJ.Inagme
 
         public virtual void SyncPos()
         {
-            transform.position = new Vector3(PosInfo.PosX, PosInfo.PosY, PosInfo.PosZ);
+            transform.position = ServerPosInfo.Position.ToVector3();
             UpdateHeight();
         }
 

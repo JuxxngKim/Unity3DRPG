@@ -41,6 +41,11 @@ enum TeamType {
   Opponent = 1;
 }
 
+enum SkillType {
+  Projectile = 0;
+  Area = 1;
+}
+
 message S_EnterGame {
   ObjectInfo player = 1;
 }
@@ -114,16 +119,13 @@ message StatInfo {
   int32 attack = 4;
   float speed = 5;
   int32 totalExp = 6;
+  float radius = 7;
 }
 
 message PositionInfo {
   ActorState state = 1;
-  float dirX = 2;
-  float dirY = 3;
-  float dirZ = 4;
-  float posX = 5;
-  float posY = 6;
-  float posZ = 7;
+  Float3 direction = 2;
+  Float3 position = 3;
 }
 
 message ObjectInfo {

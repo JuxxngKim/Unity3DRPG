@@ -55,7 +55,7 @@ namespace YeongJ.Inagme
 
         private void SendMovePacket(bool makeMaker = true)
         {
-            if (PosInfo.State == ActorState.Attack)
+            if (ServerPosInfo.State == ActorState.Attack)
                 return;
 
             var clickResult = GetClickPosition();
@@ -70,16 +70,14 @@ namespace YeongJ.Inagme
             }
 
             C_Move movePacket = new C_Move();
-            movePacket.PosInfo = PosInfo.Clone();
-            movePacket.PosInfo.PosX = clickResult.position.x;
-            movePacket.PosInfo.PosY = 0;
-            movePacket.PosInfo.PosZ = clickResult.position.z;
+            movePacket.PosInfo = ServerPosInfo.Clone();
+            movePacket.PosInfo.Position = clickResult.position.ToFloat3();
             Managers.Network.Send(movePacket);
         }
 
         private void SendSkillPacket(int skillId = 0)
         {
-            if (PosInfo.State == ActorState.Attack)
+            if (ServerPosInfo.State == ActorState.Attack)
                 return;
 
             var clickResult = GetClickPosition();

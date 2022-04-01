@@ -107,19 +107,11 @@ namespace Server
                 {
                     MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
                     MyPlayer.Info.PosInfo.State = ActorState.Idle;
-                    MyPlayer.Info.PosInfo.DirX = 0;
-                    MyPlayer.Info.PosInfo.DirY = 0;
-                    MyPlayer.Info.PosInfo.DirZ = 0;
-
-                    MyPlayer.Info.PosInfo.PosX = spawnPos.x;
-                    MyPlayer.Info.PosInfo.PosY = spawnPos.y;
-                    MyPlayer.Info.PosInfo.PosZ = spawnPos.z;
+                    MyPlayer.Info.PosInfo.Direction = Vector3.down.ToFloat3();
+                    MyPlayer.Info.PosInfo.Position = spawnPos.ToFloat3();
                     MyPlayer.Info.TeamType = TeamType.Friendly;
 
-                    StatInfo stat = new StatInfo();
-                    stat.Attack = 1;
-                    stat.Hp = stat.MaxHp = 10;
-                    stat.Speed = 7f;
+                    StatInfo stat = DataPresets.MakeGanyuStat(level: 1);
                     MyPlayer.Stat.MergeFrom(stat);
 
                     MyPlayer.Session = this;

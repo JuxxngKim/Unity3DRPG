@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Server.Data;
 using UnityEngine;
 
 namespace Server.Game.Object
@@ -17,18 +18,14 @@ namespace Server.Game.Object
             _position = skillInfo.SpawnPosition.ToVector3();
             _direction = skillInfo.SkillDirection.ToVector3();
 
-            PosInfo.PosX = _position.x;
-            PosInfo.PosY = 0;
-            PosInfo.PosZ = _position.z;
+            PosInfo.Position = _position.ToFloat3();
+            PosInfo.Direction = _direction.ToFloat3();
 
-            PosInfo.DirX = _direction.x;
-            PosInfo.DirY = _direction.y;
-            PosInfo.DirZ = _direction.z;
+            var projectileData = DataPresets.BasicProjectile;
+            Info.StatInfo.Attack = projectileData.Damage;
+            Info.StatInfo.Speed = projectileData.MoveSpeed;
 
-            Info.StatInfo.Speed = 20f;
-            Info.StatInfo.Attack = 10;
-
-            _stateEndFrame = 15;
+            _stateEndFrame = projectileData.StateFrame;
         }
 
         protected override void ProcessSkill()
@@ -71,6 +68,7 @@ namespace Server.Game.Object
             S_Move movePacket = new S_Move();
             movePacket.ObjectId = Id;
             movePacket.PosInfo = Util.Vector3ToPosInfo(_position, _direction);
+            movePacket.PosInfo.State = ActorState.Moving;
             Room?.Broadcast(movePacket);
         }
     }

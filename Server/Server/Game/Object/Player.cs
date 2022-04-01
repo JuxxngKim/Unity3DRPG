@@ -35,13 +35,8 @@ namespace Server.Game
 			_direction = Vector3.zero;
 
 			PosInfo.State = ActorState.Attack;
-			PosInfo.PosX = _position.x;
-			PosInfo.PosY = 0;
-			PosInfo.PosZ = _position.z;
-
-			PosInfo.DirX = _direction.x;
-			PosInfo.DirY = _direction.y;
-			PosInfo.DirZ = _direction.z;
+			PosInfo.Position = _position.ToFloat3();
+			PosInfo.Direction = _direction.ToFloat3();
 
 			_stateEndFrame = 10;
 
