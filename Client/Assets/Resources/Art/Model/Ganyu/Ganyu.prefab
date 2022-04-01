@@ -251,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257687551138087815}
   - component: {fileID: 8725647866821778754}
-  - component: {fileID: 2643003807100464311}
+  - component: {fileID: 3650141399229202982}
   m_Layer: 0
   m_Name: skin
   m_TagString: Untagged
@@ -342,7 +342,7 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0000013709068, y: 0.030758161, z: -0.0042513283}
     m_Extent: {x: 0.061026827, y: 0.024783365, z: 0.009780658}
   m_DirtyAABB: 0
---- !u!114 &2643003807100464311
+--- !u!114 &3650141399229202982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -351,11 +351,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 693346236396749356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87ae00b3258b9a4e9ff9e149968f6b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cdaa48b4b5bcda4cac112f3c35bcfb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sortingOrder: 10
   _renderer: {fileID: 8725647866821778754}
+  _addSortingOrder: 20
 --- !u!1 &893586499087083341
 GameObject:
   m_ObjectHideFlags: 0
