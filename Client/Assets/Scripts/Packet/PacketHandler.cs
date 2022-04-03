@@ -12,6 +12,7 @@ class PacketHandler
     {
         S_EnterGame enterGamePacket = packet as S_EnterGame;
         Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
+        HpBarManager.Instance.AddMyHpBar(enterGamePacket.Player.ObjectId);
     }
 
     public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
@@ -26,6 +27,7 @@ class PacketHandler
         foreach (ObjectInfo obj in spawnPacket.Objects)
         {
             Managers.Object.Add(obj, myPlayer: false);
+            HpBarManager.Instance.AddHpBar(obj.ObjectId);
         }
     }
 
@@ -35,6 +37,7 @@ class PacketHandler
         foreach (int id in despawnPacket.ObjectIds)
         {
             Managers.Object.Remove(id);
+            HpBarManager.Instance.RemoveHpBar(id);
         }
     }
 
@@ -58,11 +61,12 @@ class PacketHandler
         if (go == null)
             return;
 
-        ////CreatureController cc = go.GetComponent<CreatureController>();
-        //if (cc != null)
-        //{
-        //	cc.Hp = changePacket.Hp;
-        //}
+        BaseActor baseActor = go.GetComponent<BaseActor>();
+        if (baseActor == null)
+            return;
+
+        baseActor.Stat.Hp = changePacket.Hp;
+        HpBarManager.Instance.ChangeHpBar(changePacket.ObjectId, changePacket.Hp);
     }
 
     public static void S_DieHandler(PacketSession session, IMessage packet)
@@ -70,15 +74,11 @@ class PacketHandler
         S_Die diePacket = packet as S_Die;
 
         GameObject go = Managers.Object.FindById(diePacket.ObjectId);
-        if (go == null)
+        BaseActor baseActor = go?.GetComponent<BaseActor>();
+        if (baseActor == null)
             return;
 
-        //CreatureController cc = go.GetComponent<CreatureController>();
-        //if (cc != null)
-        //{
-        //	cc.Hp = 0;
-        //	cc.OnDead();
-        //}
+        //baseActor.Stat.Hp = changePacket.Hp;
     }
 
     public static void S_PingHandler(PacketSession session, IMessage packet)
@@ -90,9 +90,7 @@ class PacketHandler
 
         var myPlayer = Managers.Object?.MyPlayer;
         if (myPlayer == null)
-        {
             return;
-        }
 
         myPlayer.SetLatency(latency);
     }
@@ -112,13 +110,12 @@ class PacketHandler
         if (chatPacket == null)
             return;
 
-        UIChatWindow.Instance?.AddChat(chatPacket.ObjectId, chatPacket.UserName, chatPacket.Chat);
+        ChatManager.Instance?.AddChat(chatPacket.ObjectId, chatPacket.UserName, chatPacket.Chat);
     }
 
     public static void S_HitHandler(PacketSession session, IMessage packet)
     {
         S_Hit hitPacket = packet as S_Hit;
-        Debug.LogError("!HIt!");
     }
 
 }

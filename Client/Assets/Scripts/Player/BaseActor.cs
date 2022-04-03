@@ -8,12 +8,14 @@ namespace YeongJ.Inagme
     public class BaseActor : MonoBehaviour
     {
         [SerializeField] protected GameObject _model;
+        [SerializeField] protected GameObject _uIRoot;
         [SerializeField] protected Animator _animator;
         [SerializeField] protected float _groundedRayDistance = 30f;
 
         public int Id { get; private set; }
         public StatInfo Stat { get { return _stat; } set { _stat = value; } }
         public PositionInfo ServerPosInfo { get { return _serverPosInfo; } set { _serverPosInfo = value; } }
+        public GameObject UIRoot => _uIRoot;
 
         public Vector3 ServerDir
         {

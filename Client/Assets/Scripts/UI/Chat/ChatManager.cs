@@ -6,7 +6,7 @@ using YeongJ.Inagme;
 
 namespace YeongJ.UI
 {
-    public class UIChatWindow : UISingleton<UIChatWindow>
+    public class ChatManager : UISingleton<ChatManager>
     {
         [SerializeField] InputField _inputField;
         [SerializeField] Text _templateChatText;

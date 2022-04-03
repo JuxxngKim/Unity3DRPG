@@ -23,7 +23,7 @@ namespace Server.Data
             StatInfo stat = new StatInfo();
             stat.Level = level;
             stat.Attack = level * 2;
-            stat.Hp = stat.MaxHp = 50 * level;
+            stat.Hp = stat.MaxHp = 100 * level;
             stat.Speed = 5.0f;
             stat.Radius = 0.5f;
             return stat;

@@ -31,8 +31,8 @@ namespace YeongJ.UI
             _objectId = baseActor?.Id ?? 0;
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_bubbleRoot);
-
-            Update();
+            
+            this.transform.position = Camera.main.WorldToScreenPoint(_baseActor.UIRoot.transform.position);
         }
 
         public void UpdateData(string chatText)
@@ -62,8 +62,8 @@ namespace YeongJ.UI
 
             var velocity = Vector3.zero;
 
-            var targetPosition = Camera.main.WorldToScreenPoint(_baseActor.transform.position);
-            this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, Time.deltaTime);
+            var targetPosition = Camera.main.WorldToScreenPoint(_baseActor.UIRoot.transform.position);
+            this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, 0.01f);
         }
     }
 }
