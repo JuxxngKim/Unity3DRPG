@@ -55,9 +55,28 @@ namespace YeongJ.Inagme
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                _animator.SetTrigger(Const.TriggerDance);
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 SendSkillPacket(skillId: 2, isCliektSpawn: true);
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                SendSkillPacket(skillId: 3, isCliektSpawn: true);
+                return;
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                SendSkillPacket(skillId: 4, isCliektSpawn: true);
                 return;
             }
 

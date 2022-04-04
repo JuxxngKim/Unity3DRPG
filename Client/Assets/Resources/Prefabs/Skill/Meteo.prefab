@@ -24517,6 +24517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2842540418666017719}
   - component: {fileID: 7325921175582856897}
+  - component: {fileID: 17640115056125859}
   m_Layer: 0
   m_Name: Meteo
   m_TagString: Untagged
@@ -24553,11 +24554,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 0}
+  _uIRoot: {fileID: 0}
   _animator: {fileID: 0}
   _groundedRayDistance: 30
   _hitEffect: {fileID: 0}
   _heightOffset: 0.1
-  _isShake: 1
+--- !u!114 &17640115056125859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842540418666017718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f516964210f83740bb4cfb349cf1067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _shakeDelay: 1
   _shakeIntensity: 7
 --- !u!1 &2842540418735787457

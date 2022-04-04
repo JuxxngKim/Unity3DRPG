@@ -179,7 +179,10 @@ namespace Server.Game
             switch (skillId)
             {
                 case 1: skillObject = ObjectManager.Instance.Add<Projectile>(); break;
-                case 2: skillObject = ObjectManager.Instance.Add<AreaSkill>(); break;
+                case 2:
+				case 3:
+				case 4:
+					skillObject = ObjectManager.Instance.Add<AreaSkill>(); break;
 				default: return;
             }
 

@@ -12,18 +12,7 @@ namespace Server.Game.Object
             base.Init(level, owner, skillInfo);
 
             _commandHandle = UpdateCommandMeteo;
-
-            var skillData = DataPresets.Meteo;
-            Info.StatInfo.Attack = skillData.Damage;
-            Info.StatInfo.Speed = skillData.MoveSpeed;
-            Info.StatInfo.Radius = skillData.Range;
-            Info.Name = skillData.Name;
-            
-            _spawnDelay = skillData.SpawnDelayTick;
-            _stateEndFrame = skillData.StateFrame;
-            _hitDelayFrame = skillData.HitDelayFrame;
-
-            //Room.PushAfter(_spawnDelay, Room.EnterGame, this, Info.TeamType);
+            _hitDelayFrame = _skillData.HitDelayFrame;
         }
 
         protected virtual void UpdateCommandMeteo()

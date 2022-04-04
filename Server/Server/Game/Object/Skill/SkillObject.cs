@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Server.Data;
 using System.Collections.Generic;
 
 namespace Server.Game.Object
@@ -10,6 +11,7 @@ namespace Server.Game.Object
 
         protected List<BaseActor> _alreadyAttackTargets;
         protected SkillInfo _skillInfo;
+        protected SkillData _skillData;
         protected int _spawnDelay;
 
         public SkillObject()
@@ -34,7 +36,17 @@ namespace Server.Game.Object
             PosInfo.Position = _position.ToFloat3();
             PosInfo.Direction = _direction.ToFloat3();
 
-            //Room.PushAfter(_spawnDelay, Room.EnterGame, this, Info.TeamType);
+            DataPresets.SkillDatas.TryGetValue(skillInfo.SkillId, out _skillData);
+            if (_skillData == null)
+                return;
+
+            Info.StatInfo.Attack = _skillData.Damage;
+            Info.StatInfo.Speed = _skillData.MoveSpeed;
+            Info.StatInfo.Radius = _skillData.Range;
+            Info.Name = _skillData.Name;
+
+            _spawnDelay = _skillData.SpawnDelayTick;
+            _stateEndFrame = _skillData.LifeFrame;
         }
 
         public override void Remove()

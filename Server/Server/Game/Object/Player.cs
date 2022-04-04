@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Server.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,7 +39,12 @@ namespace Server.Game
 			PosInfo.Position = _position.ToFloat3();
 			PosInfo.Direction = _direction.ToFloat3();
 
-			_stateEndFrame = 10;
+			if (!DataPresets.SkillDatas.TryGetValue(skillInfo.SkillId, out var skilldata))
+				return;
+			if (skilldata == null)
+				return;
+
+			_stateEndFrame = skilldata.StateFrame;
 
 			Room.Push(BroadcastMove);
 			Room.Push(BroadCastSkill, skillInfo);

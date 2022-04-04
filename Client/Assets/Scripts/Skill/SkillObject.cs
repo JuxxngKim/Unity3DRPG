@@ -9,18 +9,10 @@ namespace YeongJ.Inagme
     {
         [SerializeField] GameObject _hitEffect;
         [SerializeField] float _heightOffset = 1f;
-        [SerializeField] bool _isShake;
-        [SerializeField] float _shakeDelay;
-        [SerializeField] float _shakeIntensity;
 
         public override void Init(int Id)
         {
             base.Init(Id);
-
-            if (!_isShake)
-                return;
-
-            CameraShaker.Instance.StartShake(_shakeDelay, _shakeIntensity, 0.5f);
         }
 
         public override void Remove()

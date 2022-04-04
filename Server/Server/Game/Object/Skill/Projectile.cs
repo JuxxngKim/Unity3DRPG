@@ -13,17 +13,6 @@ namespace Server.Game.Object
             base.Init(level, owner, skillInfo);
 
             _commandHandle = UpdateCommandProjectile;
-
-            var skillData = DataPresets.BasicProjectile;
-            Info.StatInfo.Attack = skillData.Damage;
-            Info.StatInfo.Speed = skillData.MoveSpeed;
-            Info.StatInfo.Radius = skillData.Range;
-            Info.Name = skillData.Name;
-
-            _spawnDelay = skillData.SpawnDelayTick;
-            _stateEndFrame = skillData.StateFrame;
-
-            //Room.PushAfter(_spawnDelay, Room.EnterGame, this, Info.TeamType);
         }
 
         protected virtual void UpdateCommandProjectile()

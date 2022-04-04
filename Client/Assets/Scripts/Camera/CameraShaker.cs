@@ -21,17 +21,6 @@ public class CameraShaker : MonoBehaviour
 
     public void StartShake(float delay, float intensity, float time)
     {
-        StopAllCoroutines();
-        StartCoroutine(_StartShake(delay, intensity, time));
-    }
-
-    System.Collections.IEnumerator _StartShake(float delay, float intensity, float time)
-    {
-        if (_perlin == null)
-            yield break;
-
-        yield return new WaitForSeconds(delay);
-
         _velocity = 0.0f;
         _perlin.m_AmplitudeGain = intensity;
         _shakeTimer = time;

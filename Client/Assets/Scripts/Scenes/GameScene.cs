@@ -13,7 +13,7 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
         //Screen.SetResolution(1280, 720, false);
 
-        //Level = new ObjModel("Assets/NavMesh.obj");
+        Level = new ObjModel("Assets/NavMesh.obj");
     }
 
     public override void Clear()

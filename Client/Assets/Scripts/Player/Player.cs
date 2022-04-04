@@ -11,7 +11,11 @@ namespace YeongJ.Inagme
         {
             base.UseSkill(skillInfo);
 
-            _animator.SetTrigger(Const.TriggerSkill);
+            switch (skillInfo.SkillId)
+            {
+                case 1: _animator.SetTrigger(Const.TriggerAttack); break;
+                default: _animator.SetTrigger(Const.TriggerSkill); break;
+            }
 
             Vector3 skillDir = skillInfo.SkillDirection.ToVector3();
             _currentVelocity = skillDir;

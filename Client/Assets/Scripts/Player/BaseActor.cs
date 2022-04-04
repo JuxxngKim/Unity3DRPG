@@ -118,8 +118,6 @@ namespace YeongJ.Inagme
 
         protected virtual void UpdateMove()
         {
-            _animator.SetFloat("Velocity", ServerDir.magnitude);
-
             var currentPosition = this.transform.position;
             currentPosition.y = 0.0f;
 
@@ -132,14 +130,19 @@ namespace YeongJ.Inagme
                 var targetPos = new Vector3(targetX, targetY, targetZ);
                 this.transform.position = Vector3.SmoothDamp(currentPosition, targetPos, ref _currentVelocity, Time.deltaTime, Stat.Speed * 1.4f);
                 UpdateHeight();
+                _animator.SetFloat("Velocity", 1.0f);
                 return;
             }
 
-            if (ServerPos != this.transform.position)
+            if (ServerPos != currentPosition)
             {
                 this.transform.position = Vector3.MoveTowards(currentPosition, ServerPos, Time.deltaTime * Stat.Speed);
                 UpdateHeight();
+                _animator.SetFloat("Velocity", 1.0f);
+                return;
             }
+
+            _animator.SetFloat("Velocity", 0.0f);
         }
 
         protected virtual void UpdateHeight()

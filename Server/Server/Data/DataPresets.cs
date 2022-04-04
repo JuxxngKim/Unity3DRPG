@@ -7,6 +7,16 @@ namespace Server.Data
 {
     public static class DataPresets
     {
+        public static Dictionary<int, SkillData> SkillDatas = new Dictionary<int, SkillData>()
+        {
+            {1,  BasicProjectile},
+            {2,  Meteo},
+            {3,  IonStrike},
+            {4,  HammerStrike},
+        };
+
+
+
         public static StatInfo MakeGanyuStat(int level)
         {
             StatInfo stat = new StatInfo();
@@ -39,7 +49,8 @@ namespace Server.Data
                     Type = SkillType.Projectile,
                     Damage = 10,
                     CoolTimeFrame = 10,
-                    StateFrame = 20,
+                    LifeFrame = 20,
+                    StateFrame = 6,
                     MoveSpeed = 20,
                     Range = 0.7f,
                     SpawnDelayTick = 250,
@@ -60,7 +71,8 @@ namespace Server.Data
                     Type = SkillType.Area,
                     Damage = 30,
                     CoolTimeFrame = 10,
-                    StateFrame = 100,
+                    LifeFrame = 100,
+                    StateFrame = 15,
                     MoveSpeed = 0,
                     Range = 4.0f,
                     HitDelayFrame = 10,
@@ -68,6 +80,52 @@ namespace Server.Data
                     Name = "Meteo",
                 };
                 
+                return skillData;
+            }
+        }
+
+        public static SkillData IonStrike
+        {
+            get
+            {
+                SkillData skillData = new SkillData()
+                {
+                    Id = 3,
+                    Type = SkillType.Area,
+                    Damage = 40,
+                    CoolTimeFrame = 10,
+                    LifeFrame = 100,
+                    StateFrame = 15,
+                    MoveSpeed = 0,
+                    Range = 4.0f,
+                    HitDelayFrame = 30,
+                    SpawnDelayTick = 1000,
+                    Name = "IonStrike",
+                };
+
+                return skillData;
+            }
+        }
+
+        public static SkillData HammerStrike
+        {
+            get
+            {
+                SkillData skillData = new SkillData()
+                {
+                    Id = 3,
+                    Type = SkillType.Area,
+                    Damage = 40,
+                    CoolTimeFrame = 10,
+                    LifeFrame = 100,
+                    StateFrame = 15,
+                    MoveSpeed = 0,
+                    Range = 4.0f,
+                    HitDelayFrame = 20,
+                    SpawnDelayTick = 0,
+                    Name = "HammerStrike",
+                };
+
                 return skillData;
             }
         }
@@ -79,6 +137,7 @@ namespace Server.Data
         public SkillType Type;
         public int Damage;
         public int CoolTimeFrame;
+        public int LifeFrame;
         public int StateFrame;
         public int MoveSpeed;
         public float Range;
