@@ -8,12 +8,20 @@ using YeongJ.Inagme;
 public class ObjectManager
 {
 	public MyPlayer MyPlayer { get; set; }
+	public ObjModel Level { get; private set; }
+
 	Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
+
 	
 	public static GameObjectType GetObjectTypeById(int id)
 	{
 		int type = (id >> 24) & 0x7F;
 		return (GameObjectType)type;
+	}
+
+	public void Init()
+    {
+		Level = new ObjModel($"{Application.dataPath}/Resources/NavMesh.obj");
 	}
 
 	public void Add(ObjectInfo info, bool myPlayer = false)
@@ -31,6 +39,7 @@ public class ObjectManager
 						go.name = info.Name;
 
 						MyPlayer = go.GetComponent<MyPlayer>();
+						MyPlayer.InitMap(Level);
 						baseActor = MyPlayer;
 					}
 					else

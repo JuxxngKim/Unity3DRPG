@@ -9,13 +9,12 @@ namespace Server.Data
     {
         public static Dictionary<int, SkillData> SkillDatas = new Dictionary<int, SkillData>()
         {
+            {-1, Teleport },
             {1,  BasicProjectile},
             {2,  Meteo},
             {3,  IonStrike},
             {4,  HammerStrike},
         };
-
-
 
         public static StatInfo MakeGanyuStat(int level)
         {
@@ -56,7 +55,7 @@ namespace Server.Data
                     SpawnDelayTick = 250,
                     Name = "Projectile",
                 };
-                
+
                 return skillData;
             }
         }
@@ -72,14 +71,14 @@ namespace Server.Data
                     Damage = 30,
                     CoolTimeFrame = 10,
                     LifeFrame = 100,
-                    StateFrame = 15,
+                    StateFrame = 25,
                     MoveSpeed = 0,
                     Range = 4.0f,
                     HitDelayFrame = 10,
                     SpawnDelayTick = 0,
                     Name = "Meteo",
                 };
-                
+
                 return skillData;
             }
         }
@@ -95,7 +94,7 @@ namespace Server.Data
                     Damage = 40,
                     CoolTimeFrame = 10,
                     LifeFrame = 100,
-                    StateFrame = 15,
+                    StateFrame = 25,
                     MoveSpeed = 0,
                     Range = 4.0f,
                     HitDelayFrame = 30,
@@ -118,12 +117,27 @@ namespace Server.Data
                     Damage = 40,
                     CoolTimeFrame = 10,
                     LifeFrame = 100,
-                    StateFrame = 15,
+                    StateFrame = 20,
                     MoveSpeed = 0,
                     Range = 4.0f,
                     HitDelayFrame = 20,
                     SpawnDelayTick = 0,
                     Name = "HammerStrike",
+                };
+
+                return skillData;
+            }
+        }
+
+        public static SkillData Teleport
+        {
+            get
+            {
+                SkillData skillData = new SkillData()
+                {
+                    Id = -1,
+                    Type = SkillType.Area,
+                    StateFrame = 4,
                 };
 
                 return skillData;

@@ -48,21 +48,21 @@ namespace Google.Protobuf.Protocol {
             "b2NvbC5GbG9hdDMioQEKCk9iamVjdEluZm8SEAoIb2JqZWN0SWQYASABKAUS",
             "DAoEbmFtZRgCIAEoCRInCgdwb3NJbmZvGAMgASgLMhYuUHJvdG9jb2wuUG9z",
             "aXRpb25JbmZvEiQKCHN0YXRJbmZvGAQgASgLMhIuUHJvdG9jb2wuU3RhdElu",
-            "Zm8SJAoIdGVhbVR5cGUYBSABKA4yEi5Qcm90b2NvbC5UZWFtVHlwZSJvCglT",
-            "a2lsbEluZm8SDwoHc2tpbGxJZBgBIAEoBRInCg1zcGF3blBvc2l0aW9uGAMg",
-            "ASgLMhAuUHJvdG9jb2wuRmxvYXQzEigKDnNraWxsRGlyZWN0aW9uGAQgASgL",
-            "MhAuUHJvdG9jb2wuRmxvYXQzIikKBkZsb2F0MxIJCgFYGAEgASgCEgkKAVkY",
-            "AiABKAISCQoBWhgDIAEoAirQAQoFTXNnSWQSEAoMU19FTlRFUl9HQU1FEAAS",
-            "EAoMU19MRUFWRV9HQU1FEAESCwoHU19TUEFXThACEg0KCVNfREVTUEFXThAD",
-            "Eg8KC1NfQ0hBTkdFX0hQEAQSCQoFU19ESUUQBRIKCgZTX1BJTkcQBhIKCgZD",
-            "X1BPTkcQBxIKCgZDX01PVkUQCBIKCgZTX01PVkUQCRILCgdDX1NLSUxMEAoS",
-            "CwoHU19TS0lMTBALEgoKBkNfQ0hBVBAMEgoKBlNfQ0hBVBANEgkKBVNfSElU",
-            "EA4qPgoOR2FtZU9iamVjdFR5cGUSCAoETk9ORRAAEgoKBlBMQVlFUhABEgsK",
-            "B01PTlNURVIQAhIJCgVTS0lMTBADKjgKCkFjdG9yU3RhdGUSCAoESURMRRAA",
-            "EgoKBk1PVklORxABEgoKBkFUVEFDSxACEggKBERFQUQQAyomCghUZWFtVHlw",
-            "ZRIMCghGcmllbmRseRAAEgwKCE9wcG9uZW50EAEqJQoJU2tpbGxUeXBlEg4K",
-            "ClByb2plY3RpbGUQABIICgRBcmVhEAFCG6oCGEdvb2dsZS5Qcm90b2J1Zi5Q",
-            "cm90b2NvbGIGcHJvdG8z"));
+            "Zm8SJAoIdGVhbVR5cGUYBSABKA4yEi5Qcm90b2NvbC5UZWFtVHlwZSKCAQoJ",
+            "U2tpbGxJbmZvEg8KB3NraWxsSWQYASABKAUSJwoNc3Bhd25Qb3NpdGlvbhgC",
+            "IAEoCzIQLlByb3RvY29sLkZsb2F0MxIoCg5za2lsbERpcmVjdGlvbhgDIAEo",
+            "CzIQLlByb3RvY29sLkZsb2F0MxIRCglzdGF0ZVRpbWUYBCABKAIiKQoGRmxv",
+            "YXQzEgkKAVgYASABKAISCQoBWRgCIAEoAhIJCgFaGAMgASgCKtABCgVNc2dJ",
+            "ZBIQCgxTX0VOVEVSX0dBTUUQABIQCgxTX0xFQVZFX0dBTUUQARILCgdTX1NQ",
+            "QVdOEAISDQoJU19ERVNQQVdOEAMSDwoLU19DSEFOR0VfSFAQBBIJCgVTX0RJ",
+            "RRAFEgoKBlNfUElORxAGEgoKBkNfUE9ORxAHEgoKBkNfTU9WRRAIEgoKBlNf",
+            "TU9WRRAJEgsKB0NfU0tJTEwQChILCgdTX1NLSUxMEAsSCgoGQ19DSEFUEAwS",
+            "CgoGU19DSEFUEA0SCQoFU19ISVQQDio+Cg5HYW1lT2JqZWN0VHlwZRIICgRO",
+            "T05FEAASCgoGUExBWUVSEAESCwoHTU9OU1RFUhACEgkKBVNLSUxMEAMqOAoK",
+            "QWN0b3JTdGF0ZRIICgRJRExFEAASCgoGTU9WSU5HEAESCgoGQVRUQUNLEAIS",
+            "CAoEREVBRBADKiYKCFRlYW1UeXBlEgwKCEZyaWVuZGx5EAASDAoIT3Bwb25l",
+            "bnQQASolCglTa2lsbFR5cGUSDgoKUHJvamVjdGlsZRAAEggKBEFyZWEQAUIb",
+            "qgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.ActorState), typeof(global::Google.Protobuf.Protocol.TeamType), typeof(global::Google.Protobuf.Protocol.SkillType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -84,7 +84,7 @@ namespace Google.Protobuf.Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.StatInfo), global::Google.Protobuf.Protocol.StatInfo.Parser, new[]{ "Level", "Hp", "MaxHp", "Attack", "Speed", "TotalExp", "Radius" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PositionInfo), global::Google.Protobuf.Protocol.PositionInfo.Parser, new[]{ "State", "Direction", "Position" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.ObjectInfo), global::Google.Protobuf.Protocol.ObjectInfo.Parser, new[]{ "ObjectId", "Name", "PosInfo", "StatInfo", "TeamType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SkillInfo), global::Google.Protobuf.Protocol.SkillInfo.Parser, new[]{ "SkillId", "SpawnPosition", "SkillDirection" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SkillInfo), global::Google.Protobuf.Protocol.SkillInfo.Parser, new[]{ "SkillId", "SpawnPosition", "SkillDirection", "StateTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.Float3), global::Google.Protobuf.Protocol.Float3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
           }));
     }
@@ -3030,6 +3030,7 @@ namespace Google.Protobuf.Protocol {
       skillId_ = other.skillId_;
       spawnPosition_ = other.spawnPosition_ != null ? other.spawnPosition_.Clone() : null;
       skillDirection_ = other.skillDirection_ != null ? other.skillDirection_.Clone() : null;
+      stateTime_ = other.stateTime_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3050,7 +3051,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "spawnPosition" field.</summary>
-    public const int SpawnPositionFieldNumber = 3;
+    public const int SpawnPositionFieldNumber = 2;
     private global::Google.Protobuf.Protocol.Float3 spawnPosition_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.Float3 SpawnPosition {
@@ -3061,13 +3062,24 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "skillDirection" field.</summary>
-    public const int SkillDirectionFieldNumber = 4;
+    public const int SkillDirectionFieldNumber = 3;
     private global::Google.Protobuf.Protocol.Float3 skillDirection_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Google.Protobuf.Protocol.Float3 SkillDirection {
       get { return skillDirection_; }
       set {
         skillDirection_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "stateTime" field.</summary>
+    public const int StateTimeFieldNumber = 4;
+    private float stateTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float StateTime {
+      get { return stateTime_; }
+      set {
+        stateTime_ = value;
       }
     }
 
@@ -3087,6 +3099,7 @@ namespace Google.Protobuf.Protocol {
       if (SkillId != other.SkillId) return false;
       if (!object.Equals(SpawnPosition, other.SpawnPosition)) return false;
       if (!object.Equals(SkillDirection, other.SkillDirection)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(StateTime, other.StateTime)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3096,6 +3109,7 @@ namespace Google.Protobuf.Protocol {
       if (SkillId != 0) hash ^= SkillId.GetHashCode();
       if (spawnPosition_ != null) hash ^= SpawnPosition.GetHashCode();
       if (skillDirection_ != null) hash ^= SkillDirection.GetHashCode();
+      if (StateTime != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(StateTime);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3114,12 +3128,16 @@ namespace Google.Protobuf.Protocol {
         output.WriteInt32(SkillId);
       }
       if (spawnPosition_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(18);
         output.WriteMessage(SpawnPosition);
       }
       if (skillDirection_ != null) {
-        output.WriteRawTag(34);
+        output.WriteRawTag(26);
         output.WriteMessage(SkillDirection);
+      }
+      if (StateTime != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(StateTime);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -3137,6 +3155,9 @@ namespace Google.Protobuf.Protocol {
       }
       if (skillDirection_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(SkillDirection);
+      }
+      if (StateTime != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3164,6 +3185,9 @@ namespace Google.Protobuf.Protocol {
         }
         SkillDirection.MergeFrom(other.SkillDirection);
       }
+      if (other.StateTime != 0F) {
+        StateTime = other.StateTime;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -3179,18 +3203,22 @@ namespace Google.Protobuf.Protocol {
             SkillId = input.ReadInt32();
             break;
           }
-          case 26: {
+          case 18: {
             if (spawnPosition_ == null) {
               SpawnPosition = new global::Google.Protobuf.Protocol.Float3();
             }
             input.ReadMessage(SpawnPosition);
             break;
           }
-          case 34: {
+          case 26: {
             if (skillDirection_ == null) {
               SkillDirection = new global::Google.Protobuf.Protocol.Float3();
             }
             input.ReadMessage(SkillDirection);
+            break;
+          }
+          case 37: {
+            StateTime = input.ReadFloat();
             break;
           }
         }

@@ -176,17 +176,23 @@ namespace Server.Game
 
 			SkillObject skillObject = null;
             int skillId = skillPacket.Info.SkillId;
-            switch (skillId)
-            {
-                case 1: skillObject = ObjectManager.Instance.Add<Projectile>(); break;
-                case 2:
-				case 3:
-				case 4:
-					skillObject = ObjectManager.Instance.Add<AreaSkill>(); break;
-				default: return;
-            }
+			if (skillId == -1)
+			{
+				player.UseTeleportSkill(skillPacket.Info);
+				return;
+			}
 
-            skillObject.Init(Level, player, skillPacket.Info);
+			if (skillId == 1)
+            {
+				skillObject = ObjectManager.Instance.Add<Projectile>();
+			}
+			else
+            {
+				skillObject = ObjectManager.Instance.Add<AreaSkill>();
+			}
+
+
+			skillObject.Init(Level, player, skillPacket.Info);
 			player.UseSkill(skillPacket.Info);
 
 			PushAfter(skillObject.SpawnDelay, EnterGame, skillObject, info.TeamType);

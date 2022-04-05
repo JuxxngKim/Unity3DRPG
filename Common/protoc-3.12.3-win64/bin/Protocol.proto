@@ -138,8 +138,9 @@ message ObjectInfo {
 
 message SkillInfo {
   int32 skillId = 1;
-  Float3 spawnPosition = 3;
-  Float3 skillDirection = 4;
+  Float3 spawnPosition = 2;
+  Float3 skillDirection = 3;
+  float stateTime = 4;
 }
 
 message Float3 {

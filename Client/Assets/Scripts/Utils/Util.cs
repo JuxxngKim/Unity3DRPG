@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Util
 {
+    public float FrameToTime(int frame)
+    {
+        return frame * 0.1f;
+    }
+
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
     {
         T component = go.GetComponent<T>();

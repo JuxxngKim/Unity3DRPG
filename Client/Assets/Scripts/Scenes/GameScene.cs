@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-    private ObjModel Level;
+    public ObjModel Level { get; private set; }
 
     protected override void Init()
     {
         base.Init();
 
         SceneType = Define.Scene.Game;
-        //Screen.SetResolution(1280, 720, false);
-
-        Level = new ObjModel("Assets/NavMesh.obj");
+        //Level = new ObjModel("Assets/NavMesh.obj");
     }
 
     public override void Clear()

@@ -29,4 +29,9 @@ static class Util
         return posInfo;
     }
 
+    public static float FrameToTime(int frame)
+    {
+        return frame * 0.1f;
+    }
+
 }

@@ -168,11 +168,6 @@ public class ObjModel
                 if (j == i)
                     continue;
 
-                if(i == 1670 && j == 1714)
-                {
-                    Debug.LogError("!!!!");
-                }
-
                 var other = _meshTriangles[j];
                 if(TriangleEquils(current, other))
                 {
@@ -185,6 +180,19 @@ public class ObjModel
 
             current.SetSiblings(siblings);
         }
+    }
+
+    public bool IsVaildPosition(Vector3 position)
+    {
+        position.y = 0.0f;
+
+        for (int i = 0; i < Triangles.Count; ++i)
+        {
+            if (Triangles[i].InSidePoint(position))
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>

@@ -328,6 +328,8 @@ MonoBehaviour:
   _uIRoot: {fileID: 4117201662605483305}
   _animator: {fileID: 8876864887301893112}
   _groundedRayDistance: 30
+  _teleportEffect: {fileID: 2985198934076271429, guid: c2c58cb85e3cbd94aa62d2544898c946,
+    type: 3}
   _virtualCamera: {fileID: 4165647677128165922}
   _makerEffect: {fileID: 1167685827400720, guid: 860a00df38bb45747863505b9e88f7fd,
     type: 3}

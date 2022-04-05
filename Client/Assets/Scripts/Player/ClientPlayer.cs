@@ -105,7 +105,6 @@ public class ClientPlayer : MonoBehaviour
         }
 
         // TODO 네비 밖에 있을경우 삼각형 선분 까지 땡겨와야함.
-        Debug.LogError($"!!!!!!!!!!!!!!!");
     }
 
     private (bool isValid, Vector3 position) GetClickPosition()

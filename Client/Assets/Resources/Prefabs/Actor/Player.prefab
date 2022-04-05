@@ -49,6 +49,8 @@ MonoBehaviour:
   _uIRoot: {fileID: 7821753574513808897}
   _animator: {fileID: 4526265895697761081}
   _groundedRayDistance: 30
+  _teleportEffect: {fileID: 2985198934076271429, guid: c2c58cb85e3cbd94aa62d2544898c946,
+    type: 3}
 --- !u!1 &7821753574513808897
 GameObject:
   m_ObjectHideFlags: 0

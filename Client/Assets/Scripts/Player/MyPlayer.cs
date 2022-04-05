@@ -9,18 +9,6 @@ namespace YeongJ.Inagme
         [SerializeField] CinemachineVirtualCamera _virtualCamera;
         [SerializeField] GameObject _makerEffect;
 
-        public CinemachineFramingTransposer Transposer
-        {
-            get 
-            {
-                if(_transposer == null)
-                    _transposer = _virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-
-                return _transposer;
-            }
-        }
-
-
         float _latency;
         float _inputCheckTime = 0.0f;
 
@@ -31,6 +19,23 @@ namespace YeongJ.Inagme
         const float _camAngleMax = 45.0f;
 
         CinemachineFramingTransposer _transposer;
+        ObjModel _level;
+
+        public CinemachineFramingTransposer Transposer
+        {
+            get
+            {
+                if (_transposer == null)
+                    _transposer = _virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+                return _transposer;
+            }
+        }
+
+        public void InitMap(ObjModel level)
+        {
+            _level = level;
+        }
 
         public void SetLatency(float latency)
         {
@@ -48,6 +53,7 @@ namespace YeongJ.Inagme
         public void UpdateKeyInput()
         {
             UpdateMouseScroll();
+            UpdateMoveInupt();
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -73,13 +79,22 @@ namespace YeongJ.Inagme
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SendTeleportSkillPacekt();
+                return;
+            }
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 SendSkillPacket(skillId: 4, isCliektSpawn: true);
                 return;
             }
+        }
 
+
+        void UpdateMoveInupt()
+        {
             if (Input.GetMouseButtonDown(1))
             {
                 SendMovePacket();
@@ -100,7 +115,7 @@ namespace YeongJ.Inagme
             }
         }
 
-        private void UpdateMouseScroll()
+        void UpdateMouseScroll()
         {
             if (Transposer == null)
                 return;
@@ -124,7 +139,7 @@ namespace YeongJ.Inagme
             }
         }
 
-        private void SendMovePacket(bool makeMaker = true)
+        void SendMovePacket(bool makeMaker = true)
         {
             if (ServerPosInfo.State == ActorState.Attack)
                 return;
@@ -146,7 +161,7 @@ namespace YeongJ.Inagme
             Managers.Network.Send(movePacket);
         }
 
-        private void SendSkillPacket(int skillId = 0, bool isCliektSpawn = false)
+        void SendSkillPacket(int skillId = 0, bool isCliektSpawn = false)
         {
             if (ServerPosInfo.State == ActorState.Attack)
                 return;
@@ -169,7 +184,42 @@ namespace YeongJ.Inagme
             Managers.Network.Send(skillPacket);
         }
 
-        private (bool result, Vector3 position) GetClickPosition()
+        void SendTeleportSkillPacekt()
+        {
+            if (ServerPosInfo.State == ActorState.Attack)
+                return;
+
+            var clickResult = GetClickPosition();
+            if (!clickResult.result)
+                return;
+
+            var currentPosition = transform.position;
+            currentPosition.y = 0.0f;
+
+            var skillDir = clickResult.position - currentPosition;
+            skillDir.y = 0.0f;
+            skillDir.Normalize();
+
+            float teleportLength = 7.0f;
+
+            for (int length = (int)teleportLength; length > 0; --length)
+            {
+                var targetPosition = currentPosition + (skillDir * (float)length);
+                bool isVaild = _level.IsVaildPosition(targetPosition);
+                if(isVaild)
+                {
+                    var skillPacket = new C_Skill();
+                    skillPacket.Info = new SkillInfo();
+                    skillPacket.Info.SkillId = -1;
+                    skillPacket.Info.SpawnPosition = targetPosition.ToFloat3();
+                    skillPacket.Info.SkillDirection = skillDir.ToFloat3();
+                    Managers.Network.Send(skillPacket);
+                    break;
+                }
+            }
+        }
+
+        (bool result, Vector3 position) GetClickPosition()
         {
             var layerMask = LayerMask.NameToLayer("Ground");
 
@@ -182,7 +232,7 @@ namespace YeongJ.Inagme
             return (false, Vector3.zero);
         }
 
-        private void MakeMakerEffect(Vector3 spawnPosition)
+        void MakeMakerEffect(Vector3 spawnPosition)
         {
             var makerEffect = GameObjectCache.Make(_makerEffect.transform, this.transform.parent);
             makerEffect.transform.position = spawnPosition;
