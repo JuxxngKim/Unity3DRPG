@@ -25,7 +25,7 @@ namespace YeongJ.Inagme
 
             if (skillInfo.SkillId == -1)
             {
-                _animator.enabled = false;
+                //_animator.enabled = false;
                 _animator.gameObject.SetActive(false);
                 SpawnTeleportEffect();
 
@@ -56,7 +56,7 @@ namespace YeongJ.Inagme
 
             if(ratio >= 1.0f)
             {
-                _animator.enabled = true;
+                //_animator.enabled = true;
                 _animator.gameObject.SetActive(true);
                 SpawnTeleportEffect();
 
