@@ -21,8 +21,16 @@ namespace Server.Game
 		protected List<PostProcessHandle> _postProcessHandles = new List<PostProcessHandle>();
 
 		protected int _stateEndFrame = 0;
-		
-		public virtual void Init(ObjModel level)
+
+		public bool IsAlive
+        {
+            get
+            {
+				return Info?.StatInfo?.Hp > 0;
+            }
+        }
+
+        public virtual void Init(ObjModel level)
 		{
 			if (level == null)
 				return;
@@ -177,5 +185,13 @@ namespace Server.Game
 			movePacket.PosInfo.State = PosInfo.State;
 			Room?.Broadcast(movePacket);
 		}
+
+		protected virtual void LeaveGame()
+        {
+			GameRoom room = Room;
+			room.LeaveGame(Id);
+		}
+
+		protected virtual void RespawnGame(GameRoom room) { }
 	}
 }

@@ -37,7 +37,31 @@ namespace Server.Game
         {
             base.OnDead(attacker);
 
-            // TODO: AddExp
+            S_Die diePacket = new S_Die();
+            diePacket.ObjectId = Id;
+            diePacket.AttackerId = attacker.Id;
+            Room.Broadcast(diePacket);
+
+            GameRoom room = Room;
+            room.PushAfter(3000, LeaveGame);
+            room.PushAfter(8000, RespawnGame, room);
+        }
+
+        protected override void RespawnGame(GameRoom room)
+        {
+            base.RespawnGame(room);
+
+            _position = _spawnPosition;
+            _direction = _spawnDirection;
+
+            Stat.Hp = Stat.MaxHp;
+            PosInfo.State = ActorState.Idle;
+            PosInfo.Position = _position.ToFloat3();
+            PosInfo.Direction = _direction.ToFloat3();
+
+            Init(Level);
+
+            room.EnterGame(this, Info.TeamType);
         }
     }
 }

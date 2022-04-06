@@ -27,6 +27,9 @@ namespace Server.Game.Object
 
             foreach(var target in targets)
             {
+                if (!target.IsAlive)
+                    continue;
+
                 target.OnDamaged(this, Stat.Attack);
 
                 S_Hit hitPacket = new S_Hit();

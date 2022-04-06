@@ -78,7 +78,7 @@ class PacketHandler
         if (baseActor == null)
             return;
 
-        //baseActor.Stat.Hp = changePacket.Hp;
+        baseActor.OnDead();
     }
 
     public static void S_PingHandler(PacketSession session, IMessage packet)

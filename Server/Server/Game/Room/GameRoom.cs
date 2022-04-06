@@ -208,6 +208,9 @@ namespace Server.Game
 				while(d_enum.MoveNext())
                 {
 					var monster = d_enum.Current.Value;
+					if (!monster.IsAlive)
+						continue;
+
                     var targetPosition = monster.Position;
                     var dir = targetPosition - position;
 					if (dir.magnitude <= radius + monster.Radius)
