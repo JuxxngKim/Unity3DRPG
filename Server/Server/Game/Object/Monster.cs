@@ -13,5 +13,17 @@ namespace Server.Game
         {
             ObjectType = GameObjectType.Monster;
         }
+
+        public override void OnDamaged(GameObject attacker, int damage)
+        {
+            base.OnDamaged(attacker, damage);
+        }
+
+        public override void OnDead(GameObject attacker)
+        {
+            base.OnDead(attacker);
+
+            // TODO: AddExp
+        }
     }
 }
