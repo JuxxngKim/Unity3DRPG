@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YeongJ.Inagme;
+using YeongJ.UI;
 
 public class ObjectManager
 {
@@ -21,7 +22,7 @@ public class ObjectManager
 
 	public void Init()
     {
-		Level = new ObjModel($"{Application.dataPath}/Resources/NavMesh.obj");
+		Level = new ObjModel("NavMesh");
 	}
 
 	public void Add(ObjectInfo info, bool myPlayer = false)
