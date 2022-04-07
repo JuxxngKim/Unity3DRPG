@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf.Protocol;
 using Server.Data;
+using Server.Game.Object;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
@@ -13,7 +14,7 @@ namespace Server.Game
         protected Vector3 _spawnPosition;
         protected Vector3 _spawnDirection;
 
-        protected GameObject _target;
+        protected BaseActor _target;
 
         public Monster()
         {
@@ -28,14 +29,33 @@ namespace Server.Game
             _spawnDirection = _direction;
         }
 
-        public override void OnDamaged(GameObject attacker, int damage)
+        public override void OnDamaged(BaseActor attacker, int damage)
         {
             base.OnDamaged(attacker, damage);
+
+            if (_target == null && attacker is SkillObject skilObject)
+            {
+                _target = skilObject.Owener;
+            }
         }
+
+        protected override void UpdateCommandIdleMove()
+        {
+            if(_target != null && _target.IsAlive)
+            {
+                PosInfo.Position = _target.Position.ToFloat3();
+            }
+
+            base.UpdateCommandIdleMove();
+        }
+
+
 
         public override void OnDead(GameObject attacker)
         {
             base.OnDead(attacker);
+
+            _commandHandle = null;
 
             S_Die diePacket = new S_Die();
             diePacket.ObjectId = Id;

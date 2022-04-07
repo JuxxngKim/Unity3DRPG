@@ -126,6 +126,7 @@ message PositionInfo {
   ActorState state = 1;
   Float3 direction = 2;
   Float3 position = 3;
+  Float3 lookDirection = 4;
 }
 
 message ObjectInfo {

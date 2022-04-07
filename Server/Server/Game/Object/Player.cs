@@ -57,6 +57,7 @@ namespace Server.Game
 			PosInfo.State = ActorState.Attack;
 			PosInfo.Position = _position.ToFloat3();
 			PosInfo.Direction = _direction.ToFloat3();
+			PosInfo.LookDirection = skillInfo.SkillDirection.Clone();
 
 			if (!DataPresets.SkillDatas.TryGetValue(skillInfo.SkillId, out var skilldata))
 				return;

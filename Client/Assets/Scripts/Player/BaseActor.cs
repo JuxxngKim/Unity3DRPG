@@ -53,6 +53,21 @@ namespace YeongJ.Inagme
             }
         }
 
+        public Vector3 ServerLookDir
+        {
+            get
+            {
+                if (_serverPosInfo.LookDirection == null)
+                    _serverPosInfo.LookDirection = Vector3.down.ToFloat3();
+
+                return _serverPosInfo.LookDirection.ToVector3();
+            }
+            set
+            {
+                _serverPosInfo.LookDirection = value.ToFloat3();
+            }
+        }
+
         protected StatInfo _stat;
         protected PositionInfo _serverPosInfo;
         protected Vector3 _currentVelocity = Vector3.zero;
@@ -71,8 +86,7 @@ namespace YeongJ.Inagme
 
         public virtual void SetServerPos(PositionInfo posInfo)
         {
-            ServerDir = posInfo.Direction.ToVector3();
-            ServerPos = posInfo.Position.ToVector3();
+            _serverPosInfo = posInfo;
         }
 
         public virtual void Remove() { }
@@ -112,8 +126,9 @@ namespace YeongJ.Inagme
 
         public virtual void SyncPos()
         {
-            transform.position = ServerPosInfo.Position.ToVector3();
+            transform.position = ServerPos;
             UpdateHeight();
+            UpdateRotation();
         }
 
         protected virtual void UpdateMove()
@@ -159,12 +174,19 @@ namespace YeongJ.Inagme
             }
         }
 
-        protected virtual void UpdateRotation()
+        protected virtual void UpdateRotation(bool isLerp = true)
         {
             if (_model == null)
                 return;
 
-            _model.transform.rotation = Quaternion.Lerp(_model.transform.rotation, Quaternion.LookRotation(_currentVelocity), Time.deltaTime * 10f);
+            if (isLerp)
+            {
+                _model.transform.rotation = Quaternion.Lerp(_model.transform.rotation, Quaternion.LookRotation(ServerLookDir), Time.deltaTime * 10f);
+            }
+            else
+            {
+                _model.transform.rotation = Quaternion.LookRotation(ServerLookDir);
+            }
         }
 
         public virtual void OnDead()

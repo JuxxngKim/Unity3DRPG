@@ -104,14 +104,17 @@ namespace Server.Game
 
 			var targetPos = PosInfo.Position.ToVector3();
 			_direction = targetPos - _position;
-			_direction.Normalize();
+            _direction.Normalize();
 
-			var nextPos = Vector3.MoveTowards(_position, targetPos, _timeStamp * Stat.Speed);
-			bool inSide = _currentNavMesh.InSidePoint(nextPos);
-			if (inSide)
-			{
-				_position = nextPos;
-				_postProcessHandles.Add(BroadcastMove);
+            if (_direction != Vector3.zero)
+                PosInfo.LookDirection = _direction.ToFloat3();
+
+            var nextPos = Vector3.MoveTowards(_position, targetPos, _timeStamp * Stat.Speed);
+            bool inSide = _currentNavMesh.InSidePoint(nextPos);
+            if (inSide)
+            {
+                _position = nextPos;
+                _postProcessHandles.Add(BroadcastMove);
 				return;
 			}
 
@@ -181,8 +184,13 @@ namespace Server.Game
 			// 다른 플레이어한테도 알려준다
 			S_Move movePacket = new S_Move();
 			movePacket.ObjectId = Id;
-			movePacket.PosInfo = Util.Vector3ToPosInfo(_position, _direction);
+
+			movePacket.PosInfo = new PositionInfo();
+			movePacket.PosInfo.Position = _position.ToFloat3();
+			movePacket.PosInfo.Direction = _direction.ToFloat3();
+			movePacket.PosInfo.LookDirection = PosInfo.LookDirection;
 			movePacket.PosInfo.State = PosInfo.State;
+
 			Room?.Broadcast(movePacket);
 		}
 

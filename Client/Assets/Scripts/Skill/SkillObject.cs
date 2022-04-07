@@ -54,6 +54,6 @@ namespace YeongJ.Inagme
             }
         }
 
-        protected override void UpdateRotation() { }
+        protected override void UpdateRotation(bool isLerp = true) { }
     }
 }

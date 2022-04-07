@@ -35,6 +35,7 @@ namespace Server.Game
 
 			Info.PosInfo.Position = Vector3.zero.ToFloat3();
 			Info.PosInfo.Direction = Vector3.zero.ToFloat3();
+			Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
 		}
 
 		public virtual void Update()
@@ -45,7 +46,7 @@ namespace Server.Game
 			Room?.PushAfter((int)(_timeStamp * 1000), Update);
 		}
 
-		public virtual void OnDamaged(GameObject attacker, int damage)
+		public virtual void OnDamaged(BaseActor attacker, int damage)
 		{
 			if (Room == null)
 				return;

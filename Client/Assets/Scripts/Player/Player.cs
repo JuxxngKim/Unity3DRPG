@@ -20,12 +20,10 @@ namespace YeongJ.Inagme
 
             Vector3 skillDir = skillInfo.SkillDirection.ToVector3();
             _currentVelocity = skillDir;
-            _model.transform.rotation = Quaternion.LookRotation(skillDir);
             _skillInfo = skillInfo;
 
             if (skillInfo.SkillId == -1)
             {
-                //_animator.enabled = false;
                 _animator.gameObject.SetActive(false);
                 SpawnTeleportEffect();
 
@@ -41,6 +39,13 @@ namespace YeongJ.Inagme
                 case 1: _animator.SetTrigger(Const.TriggerAttack); break;
                 default: _animator.SetTrigger(Const.TriggerSkill); break;
             }
+
+            Invoke("TestAnim", _skillInfo.StateTime + 0.2f);
+        }
+
+        private void TestAnim()
+        {
+            _animator.SetTrigger("SkillEnd");
         }
 
         protected virtual void UpdateCommandTeleport()
@@ -56,7 +61,6 @@ namespace YeongJ.Inagme
 
             if(ratio >= 1.0f)
             {
-                //_animator.enabled = true;
                 _animator.gameObject.SetActive(true);
                 SpawnTeleportEffect();
 
