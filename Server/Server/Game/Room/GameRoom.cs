@@ -32,7 +32,8 @@ namespace Server.Game
 			monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
 			monster.Info.PosInfo.State = ActorState.Idle;
 			monster.Info.PosInfo.Position = spawnPos.ToFloat3();
-			monster.Info.PosInfo.Direction = Vector3.down.ToFloat3();
+			monster.Info.PosInfo.Direction = Vector3.zero.ToFloat3();
+			monster.Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
 			monster.Info.TeamType = TeamType.Friendly;
 
 			StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
@@ -136,12 +137,15 @@ namespace Server.Game
             {
 				if (!_monsters.Remove(objectId, out var monster))
 					return;
+
+				monster.Room = null;
 			}
 			else if(type == GameObjectType.Skill)
             {
-				SkillObject skillObject = null;
-				if (_skills.Remove(objectId, out skillObject) == false)
+				if (!_skills.Remove(objectId, out var skillObject))
 					return;
+
+				skillObject.Room = null;
 			}
 
 			// 타인한테 정보 전송

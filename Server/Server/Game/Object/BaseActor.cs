@@ -141,23 +141,6 @@ namespace Server.Game
 				}
 			}
 
-			int id = Level.Triangles.IndexOf(_currentNavMesh);
-			_currentNavMesh.InSidePoint(nextPos, true);
-
-			Console.WriteLine($"next pos null : {nextPos}");
-			Console.WriteLine($"nav Id : {id}");
-
-			var d_enum = _currentNavMesh.Siblings.GetEnumerator();
-			while (d_enum.MoveNext())
-			{
-				int navIndex = d_enum.Current.Key;
-				NavMeshTriangle sibling = d_enum.Current.Value;
-				id = Level.Triangles.IndexOf(sibling);
-				Console.WriteLine($"Sibling nav Id : {id}");
-			}
-
-			Console.WriteLine($"============================");
-
 			_direction = Vector3.zero;
 			PosInfo.Position = _position.ToFloat3();
 			PosInfo.Direction = _direction.ToFloat3();
