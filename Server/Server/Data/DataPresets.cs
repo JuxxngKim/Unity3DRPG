@@ -143,6 +143,28 @@ namespace Server.Data
                 return skillData;
             }
         }
+
+        public static SkillData DelayAttack
+        {
+            get
+            {
+                SkillData skillData = new SkillData()
+                {
+                    Id = 2,
+                    Type = SkillType.DelayAttack,
+                    Damage = 5,
+                    CoolTimeFrame = 10,
+                    LifeFrame = 100,
+                    StateFrame = 10,
+                    MoveSpeed = 0,
+                    Range = 4.0f,
+                    HitDelayFrame = 10,
+                    SpawnDelayTick = 0,
+                };
+
+                return skillData;
+            }
+        }
     }
 
     public class SkillData

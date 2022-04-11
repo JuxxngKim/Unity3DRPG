@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Server.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,22 +14,16 @@ namespace Server.Game
 		private NavMeshTriangle _currentNavMesh;
 
 		protected delegate void StateHandle();
+		protected delegate void StateEndHandle();
 		protected delegate void CommandHandle();
 		protected delegate void PostProcessHandle();
 
 		protected StateHandle _stateHandle = null;
+		protected StateEndHandle _stateEndHandle = null;
 		protected CommandHandle _commandHandle = null;
 		protected List<PostProcessHandle> _postProcessHandles = new List<PostProcessHandle>();
 
 		protected int _stateEndFrame = 0;
-
-		public bool IsAlive
-        {
-            get
-            {
-				return Info?.StatInfo?.Hp > 0;
-            }
-        }
 
         public virtual void Init(ObjModel level)
 		{
@@ -181,6 +176,44 @@ namespace Server.Game
         {
 			GameRoom room = Room;
 			room.LeaveGame(Id);
+		}
+
+		public virtual void UseSkill(SkillInfo skillInfo)
+		{
+			_stateHandle = ProcessSkill;
+			_commandHandle = null;
+
+			_direction = Vector3.zero;
+
+			PosInfo.State = ActorState.Attack;
+			PosInfo.Position = _position.ToFloat3();
+			PosInfo.Direction = _direction.ToFloat3();
+			PosInfo.LookDirection = skillInfo.SkillDirection.Clone();
+
+			if (!DataPresets.SkillDatas.TryGetValue(skillInfo.SkillId, out var skilldata))
+				return;
+			if (skilldata == null)
+				return;
+
+			_stateEndFrame = skilldata.StateFrame;
+
+			Room.Push(BroadcastMove);
+			Room.Push(BroadCastSkill, skillInfo, skilldata);
+		}
+
+		protected void BroadCastSkill(SkillInfo skillInfo, SkillData skilldata)
+		{
+			SkillInfo sendSkillInfo = new SkillInfo();
+			sendSkillInfo.SkillId = skillInfo.SkillId;
+			sendSkillInfo.SpawnPosition = skillInfo.SpawnPosition.Clone();
+			sendSkillInfo.SkillDirection = skillInfo.SkillDirection.Clone();
+
+			// 다른 플레이어한테도 알려준다
+			S_Skill skillPacket = new S_Skill();
+			skillPacket.ObjectId = Id;
+			skillPacket.Info = skillInfo;
+			skillPacket.Info.StateTime = Util.FrameToTime(skilldata.StateFrame);
+			Room?.Broadcast(skillPacket);
 		}
 
 		protected virtual void RespawnGame(GameRoom room) { }

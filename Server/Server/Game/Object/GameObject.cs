@@ -14,6 +14,13 @@ namespace Server.Game
 			get { return Info.ObjectId; }
 			set { Info.ObjectId = value; }
 		}
+		public bool IsAlive
+		{
+			get
+			{
+				return Info?.StatInfo?.Hp > 0;
+			}
+		}
 
 		public GameRoom Room { get; set; }
 
@@ -47,13 +54,13 @@ namespace Server.Game
 		}
 
 		public virtual void OnDamaged(BaseActor attacker, int damage)
-		{
-			if (Room == null)
-				return;
+        {
+            if (Room == null || !IsAlive)
+                return;
 
-			Stat.Hp = Math.Max(Stat.Hp - damage, 0);
+            Stat.Hp = Math.Max(Stat.Hp - damage, 0);
 
-			S_ChangeHp changePacket = new S_ChangeHp();
+            S_ChangeHp changePacket = new S_ChangeHp();
 			changePacket.ObjectId = Id;
 			changePacket.Hp = Stat.Hp;
 			Room?.Broadcast(changePacket);

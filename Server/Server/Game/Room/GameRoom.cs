@@ -183,23 +183,20 @@ namespace Server.Game
 			if (skillId == -1)
 			{
 				player.UseTeleportSkill(skillPacket.Info);
-				return;
-			}
+                return;
+            }
 
-			if (skillId == 1)
+            switch (skillId)
             {
-				skillObject = ObjectManager.Instance.Add<Projectile>();
-			}
-			else
-            {
-				skillObject = ObjectManager.Instance.Add<AreaSkill>();
-			}
+                case -1: player.UseTeleportSkill(skillPacket.Info); return;
+                case 1: skillObject = ObjectManager.Instance.Add<Projectile>(); break;
+                default: skillObject = ObjectManager.Instance.Add<AreaSkill>(); break;
+            }
 
+            skillObject.Init(Level, player, skillPacket.Info);
+            player.UseSkill(skillPacket.Info);
 
-			skillObject.Init(Level, player, skillPacket.Info);
-			player.UseSkill(skillPacket.Info);
-
-			PushAfter(skillObject.SpawnDelay, EnterGame, skillObject, info.TeamType);
+            PushAfter(skillObject.SpawnDelay, EnterGame, skillObject, info.TeamType);
 		}
 
 		public List<BaseActor> IsCollisition(TeamType teamType, Vector3 position, float radius)

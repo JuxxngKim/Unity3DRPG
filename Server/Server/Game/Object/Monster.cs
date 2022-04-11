@@ -48,35 +48,67 @@ namespace Server.Game
 
         protected override void UpdateCommandIdleMove()
         {
-            if(_target != null && _target.IsAlive)
+            if (_target != null)
             {
-                PosInfo.Position = _target.Position.ToFloat3();
+                if (_target.IsAlive)
+                {
+                    PosInfo.Position = _target.Position.ToFloat3();
+                }
+                else
+                {
+                    _target = null;
+                }
             }
 
             base.UpdateCommandIdleMove();
-        }
 
-        protected override void BroadcastMove()
-        {
-            if (_position == PosInfo.Position.ToVector3())
+            if (_target?.IsAlive ?? false)
             {
-                _direction = Vector3.zero;
+                var diff = Position - _target.Position;
+                if(diff.magnitude <= 1.0f)
+                {
+                    AttackToTarget();
+                }
             }
-
-            // 다른 플레이어한테도 알려준다
-            S_Move movePacket = new S_Move();
-            movePacket.ObjectId = Id;
-
-            movePacket.PosInfo = new PositionInfo();
-            movePacket.PosInfo.Position = _position.ToFloat3();
-            movePacket.PosInfo.Direction = _direction.ToFloat3();
-            movePacket.PosInfo.LookDirection = PosInfo.LookDirection;
-            movePacket.PosInfo.State = PosInfo.State;
-
-            Room?.Broadcast(movePacket);
         }
 
+        private void AttackToTarget()
+        {
+            _stateHandle = ProcessSkill;
+            _commandHandle = null;
 
+            _direction = Vector3.zero;
+
+            PosInfo.State = ActorState.Attack;
+            PosInfo.Position = _position.ToFloat3();
+            PosInfo.Direction = _direction.ToFloat3();
+            PosInfo.LookDirection = PosInfo.LookDirection.Clone();
+
+            var target = _target;
+
+            _stateEndFrame = DataPresets.DelayAttack.StateFrame;
+            _stateEndHandle = () =>
+            {
+                _stateHandle = null;
+                _commandHandle = UpdateCommandIdleMove;
+
+                target.OnDamaged(this, DataPresets.DelayAttack.Damage);
+
+                S_Hit hitPacket = new S_Hit();
+                hitPacket.AttackerId = Id;
+                hitPacket.DefenderId = target.Id;
+                Room?.Broadcast(hitPacket);
+            };
+
+            SkillInfo skillInfo = new SkillInfo();
+            skillInfo.SkillId = DataPresets.DelayAttack.Id;
+            skillInfo.SpawnPosition = _position.ToFloat3();
+            skillInfo.SkillDirection = PosInfo.LookDirection.Clone();
+            skillInfo.StateTime = Util.FrameToTime(DataPresets.DelayAttack.StateFrame);
+
+            Room.Push(BroadcastMove);
+            Room.Push(BroadCastSkill, skillInfo, DataPresets.DelayAttack);
+        }
 
         public override void OnDead(GameObject attacker)
         {

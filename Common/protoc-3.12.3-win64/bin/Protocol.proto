@@ -44,6 +44,7 @@ enum TeamType {
 enum SkillType {
   Projectile = 0;
   Area = 1;
+  DelayAttack = 2;
 }
 
 message S_EnterGame {
@@ -95,6 +96,7 @@ message C_Skill {
 message S_Skill {
   int32 objectId = 1;
   SkillInfo info = 2;
+  int32 skillCoolTime = 3;
 }
 
 message C_Chat {
