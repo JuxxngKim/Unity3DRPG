@@ -60,16 +60,18 @@ namespace Server.Game
                 }
             }
 
-            base.UpdateCommandIdleMove();
-
             if (_target?.IsAlive ?? false)
             {
                 var diff = Position - _target.Position;
-                if(diff.magnitude <= 1.0f)
+                if (diff.magnitude <= 1.5f)
                 {
+                    Console.WriteLine("ATTACK!");
                     AttackToTarget();
+                    return;
                 }
             }
+
+            base.UpdateCommandIdleMove();
         }
 
         private void AttackToTarget()
@@ -84,31 +86,35 @@ namespace Server.Game
             PosInfo.Direction = _direction.ToFloat3();
             PosInfo.LookDirection = PosInfo.LookDirection.Clone();
 
-            var target = _target;
-
-            _stateEndFrame = DataPresets.DelayAttack.StateFrame;
-            _stateEndHandle = () =>
-            {
-                _stateHandle = null;
-                _commandHandle = UpdateCommandIdleMove;
-
-                target.OnDamaged(this, DataPresets.DelayAttack.Damage);
-
-                S_Hit hitPacket = new S_Hit();
-                hitPacket.AttackerId = Id;
-                hitPacket.DefenderId = target.Id;
-                Room?.Broadcast(hitPacket);
-            };
-
             SkillInfo skillInfo = new SkillInfo();
             skillInfo.SkillId = DataPresets.DelayAttack.Id;
             skillInfo.SpawnPosition = _position.ToFloat3();
             skillInfo.SkillDirection = PosInfo.LookDirection.Clone();
             skillInfo.StateTime = Util.FrameToTime(DataPresets.DelayAttack.StateFrame);
 
+            _stateEndFrame = DataPresets.DelayAttack.StateFrame;
+
+            AddDamageToTarget(_target, DataPresets.DelayAttack);
             Room.Push(BroadcastMove);
             Room.Push(BroadCastSkill, skillInfo, DataPresets.DelayAttack);
         }
+
+        private void AddDamageToTarget(GameObject target, SkillData skillData)
+        {
+            float delayTime = Util.FrameToTime(skillData.HitDelayFrame);
+            int tickAfter = Util.TimeToTick(delayTime);
+
+            Room.PushAfter(tickAfter, () =>
+            {
+                target.OnDamaged(this, skillData.Damage);
+
+                S_Hit hitPacket = new S_Hit();
+                hitPacket.AttackerId = Id;
+                hitPacket.DefenderId = target.Id;
+                Room?.Broadcast(hitPacket);
+            });
+        }
+
 
         public override void OnDead(GameObject attacker)
         {

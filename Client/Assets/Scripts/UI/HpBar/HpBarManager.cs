@@ -30,6 +30,7 @@ namespace YeongJ.UI
                 return;
 
             _myHpBar.SetActor(ownerActor);
+            _hpBars.Add(objectId, _myHpBar);
         }
 
         public void AddHpBar(int objectId)

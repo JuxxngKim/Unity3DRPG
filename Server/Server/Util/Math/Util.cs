@@ -34,4 +34,9 @@ static class Util
         return frame * 0.1f;
     }
 
+    public static int TimeToTick(float time)
+    {
+        return (int)(time * 1000.0f);
+    }
+
 }

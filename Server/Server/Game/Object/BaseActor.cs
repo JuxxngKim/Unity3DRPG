@@ -148,6 +148,12 @@ namespace Server.Game
 			if (--_stateEndFrame > 0)
 				return;
 
+			if(_stateEndHandle != null)
+            {
+				_stateEndHandle();
+				_stateEndHandle = null;
+			}
+
 			_stateHandle = null;
 			_commandHandle = UpdateCommandIdleMove;
 		}

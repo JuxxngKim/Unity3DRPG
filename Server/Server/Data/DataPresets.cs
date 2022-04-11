@@ -155,10 +155,10 @@ namespace Server.Data
                     Damage = 5,
                     CoolTimeFrame = 10,
                     LifeFrame = 100,
-                    StateFrame = 10,
+                    StateFrame = 22,
                     MoveSpeed = 0,
                     Range = 4.0f,
-                    HitDelayFrame = 10,
+                    HitDelayFrame = 9,
                     SpawnDelayTick = 0,
                 };
 
