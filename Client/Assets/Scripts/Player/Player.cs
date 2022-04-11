@@ -12,7 +12,10 @@ namespace YeongJ.Inagme
 
         SkillInfo _skillInfo;
         float _currentStateTime;
+        float _skillEndRemainTime;
         Vector3 _skillStartPosition;
+
+        const float _skillDelay = 0.2f;
 
         public override void UseSkill(SkillInfo skillInfo)
         {
@@ -40,12 +43,7 @@ namespace YeongJ.Inagme
                 default: _animator.SetTrigger(Const.TriggerSkill); break;
             }
 
-            Invoke("TestAnim", _skillInfo.StateTime + 0.2f);
-        }
-
-        private void TestAnim()
-        {
-            _animator.SetTrigger("SkillEnd");
+            _skillEndRemainTime = _skillInfo.StateTime + _skillDelay;
         }
 
         protected virtual void UpdateCommandTeleport()
@@ -71,6 +69,20 @@ namespace YeongJ.Inagme
             }
 
             _currentStateTime += Time.deltaTime;
+        }
+
+        protected override void UpdateCommandIdleMove()
+        {
+            base.UpdateCommandIdleMove();
+
+            if (_skillEndRemainTime <= 0.0f)
+                return;
+
+            _skillEndRemainTime -= Time.deltaTime;
+            if (_skillEndRemainTime <= 0.0f)
+            {
+                _animator.SetTrigger("SkillEnd");
+            }
         }
 
         void SpawnTeleportEffect()
