@@ -90,7 +90,7 @@ namespace YeongJ.Inagme
         protected StatInfo _stat;
         protected PositionInfo _serverPosInfo;
         protected PositionInfo _prevServerPosInfo;
-        protected Vector3 _currentVelocity = Vector3.zero;
+        protected float _currentVelocity;
 
         protected delegate void InputHandle();
         protected delegate void CommandHandle();
@@ -165,12 +165,17 @@ namespace YeongJ.Inagme
                 float ratio = _currentPositionLerpTime <= 0.0f ? 1.0f : 1.0f - Mathf.Clamp01(_currentPositionLerpTime / _positionLerpTime);
                 newPositon = Vector3.Lerp(PrevServerPos, ServerPos, ratio);
                 transform.position = newPositon;
+                _currentVelocity = 0.1f;
                 UpdateHeight();
             }
-
-            if (currentPosition != newPositon && _animator != null)
+            else
             {
-                _animator.SetFloat("Velocity", ServerDir != Vector3.zero ? 1.0f : 0.0f);
+                _currentVelocity = Mathf.Clamp01(_currentVelocity - Time.deltaTime);
+            }
+
+            if (_animator != null)
+            {
+                _animator.SetFloat("Velocity", _currentVelocity);
             }
         }
 

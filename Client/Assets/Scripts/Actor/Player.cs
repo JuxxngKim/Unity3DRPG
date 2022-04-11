@@ -9,11 +9,13 @@ namespace YeongJ.Inagme
     public class Player : BaseActor
     {
         [SerializeField] GameObject _teleportEffect;
+        [SerializeField] float _teleportDelay = 0.2f;
 
         SkillInfo _skillInfo;
         float _currentStateTime;
         float _skillEndRemainTime;
         Vector3 _skillStartPosition;
+        Vector3 _skillTargetPosition;
 
         const float _skillDelay = 0.2f;
 
@@ -21,19 +23,24 @@ namespace YeongJ.Inagme
         {
             base.UseSkill(skillInfo);
 
-            Vector3 skillDir = skillInfo.SkillDirection.ToVector3();
-            _currentVelocity = skillDir;
             _skillInfo = skillInfo;
 
             if (skillInfo.SkillId == -1)
             {
-                _animator.gameObject.SetActive(false);
                 SpawnTeleportEffect();
 
                 _skillStartPosition = this.transform.position;
                 _skillStartPosition.y = 0.0f;
+                _skillTargetPosition = _skillInfo.SpawnPosition.ToVector3();
+                _skillTargetPosition.y = 0.0f;
+
                 _currentStateTime = 0.0f;
+                _currentVelocity = 0.3f;
                 _commandHandle = UpdateCommandTeleport;
+                _animator.SetTrigger("Dash");
+                _animator.SetFloat("Velocity", _currentVelocity);
+                _skillEndRemainTime = _teleportDelay;
+                UpdateRotation(isLerp: false);
                 return;
             }
 
@@ -52,15 +59,14 @@ namespace YeongJ.Inagme
             currentPosition.y = 0.0f;
 
             float ratio = _currentStateTime <= 0.0f ? 0.0f : _currentStateTime / _skillInfo.StateTime;
-            currentPosition = Vector3.Lerp(currentPosition, _skillInfo.SpawnPosition.ToVector3(), Mathf.Clamp01(ratio));
+            currentPosition = Vector3.Lerp(currentPosition, _skillTargetPosition, Mathf.Clamp01(ratio));
             this.transform.position = currentPosition;
 
             UpdateHeight();
 
             if(ratio >= 1.0f)
             {
-                _animator.gameObject.SetActive(true);
-                SpawnTeleportEffect();
+                //SpawnTeleportEffect();
 
                 _skillInfo = null;
                 ServerDir = Vector3.zero;
@@ -69,12 +75,17 @@ namespace YeongJ.Inagme
             }
 
             _currentStateTime += Time.deltaTime;
+            UpdateSkillEnd();
         }
 
         protected override void UpdateCommandIdleMove()
         {
             base.UpdateCommandIdleMove();
+            UpdateSkillEnd();
+        }
 
+        protected void UpdateSkillEnd()
+        {
             if (_skillEndRemainTime <= 0.0f)
                 return;
 
