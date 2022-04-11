@@ -28,17 +28,17 @@ namespace YeongJ.Inagme
             GameObjectCache.DeleteDelayed(hitEffect, delayTime: 1.08f);
         }
 
-        protected override void UpdateMove()
-        {
-            var currentPosition = this.transform.position;
-            currentPosition.y = 0.0f;
+        //protected override void UpdateMove()
+        //{
+        //    var currentPosition = this.transform.position;
+        //    currentPosition.y = 0.0f;
 
-            if (ServerPos == this.transform.position)
-                return;
+        //    if (ServerPos == currentPosition)
+        //        return;
 
-            transform.position = Vector3.SmoothDamp(currentPosition, ServerPos, ref _currentVelocity, 0.101f, maxSpeed: Stat.Speed);
-            UpdateHeight();
-        }
+        //    transform.position = Vector3.SmoothDamp(currentPosition, ServerPos, ref _currentVelocity, 0.101f, maxSpeed: Stat.Speed);
+        //    UpdateHeight();
+        //}
 
         protected override void UpdateHeight()
         {

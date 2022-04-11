@@ -17,6 +17,9 @@ namespace YeongJ.Inagme
         public PositionInfo ServerPosInfo { get { return _serverPosInfo; } set { _serverPosInfo = value; } }
         public GameObject UIRoot => _uIRoot;
 
+        protected float _positionLerpTime;
+        protected float _currentPositionLerpTime;
+
         public Vector3 ServerDir
         {
             get 
@@ -53,6 +56,22 @@ namespace YeongJ.Inagme
             }
         }
 
+        public Vector3 PrevServerPos
+        {
+            get
+            {
+                if(_prevServerPosInfo == null)
+                    _prevServerPosInfo = _serverPosInfo.Clone();
+
+                if (_prevServerPosInfo.Position == null)
+                    _prevServerPosInfo.Position = ServerPos.ToFloat3();
+
+                return _prevServerPosInfo.Position.ToVector3();
+            }
+        }
+
+
+
         public Vector3 ServerLookDir
         {
             get
@@ -70,6 +89,7 @@ namespace YeongJ.Inagme
 
         protected StatInfo _stat;
         protected PositionInfo _serverPosInfo;
+        protected PositionInfo _prevServerPosInfo;
         protected Vector3 _currentVelocity = Vector3.zero;
 
         protected delegate void InputHandle();
@@ -86,7 +106,9 @@ namespace YeongJ.Inagme
 
         public virtual void SetServerPos(PositionInfo posInfo)
         {
+            _prevServerPosInfo = _serverPosInfo;
             _serverPosInfo = posInfo;
+            _currentPositionLerpTime = _positionLerpTime = Const.FrameTime + Managers.Network.Latency + Const.MoveLerpDelay;
         }
 
         public virtual void Remove() { }
@@ -135,29 +157,21 @@ namespace YeongJ.Inagme
         {
             var currentPosition = this.transform.position;
             currentPosition.y = 0.0f;
-
-            if (ServerDir != Vector3.zero)
-            {
-                float targetX = ServerPos.x + ServerDir.x * Time.deltaTime * Stat.Speed;
-                float targetY = ServerPos.y;
-                float targetZ = ServerPos.z + ServerDir.z * Time.deltaTime * Stat.Speed;
-
-                var targetPos = new Vector3(targetX, targetY, targetZ);
-                this.transform.position = Vector3.SmoothDamp(currentPosition, targetPos, ref _currentVelocity, Time.deltaTime, Stat.Speed * 1.4f);
-                UpdateHeight();
-                _animator.SetFloat("Velocity", 1.0f);
-                return;
-            }
+            var newPositon = currentPosition;
 
             if (ServerPos != currentPosition)
             {
-                this.transform.position = Vector3.MoveTowards(currentPosition, ServerPos, Time.deltaTime * Stat.Speed);
+                _currentPositionLerpTime -= Time.deltaTime;
+                float ratio = _currentPositionLerpTime <= 0.0f ? 1.0f : 1.0f - Mathf.Clamp01(_currentPositionLerpTime / _positionLerpTime);
+                newPositon = Vector3.Lerp(PrevServerPos, ServerPos, ratio);
+                transform.position = newPositon;
                 UpdateHeight();
-                _animator.SetFloat("Velocity", 1.0f);
-                return;
             }
 
-            _animator.SetFloat("Velocity", 0.0f);
+            if (currentPosition != newPositon && _animator != null)
+            {
+                _animator.SetFloat("Velocity", ServerDir != Vector3.zero ? 1.0f : 0.0f);
+            }
         }
 
         protected virtual void UpdateHeight()

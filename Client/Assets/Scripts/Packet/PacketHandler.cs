@@ -92,7 +92,7 @@ class PacketHandler
         if (myPlayer == null)
             return;
 
-        myPlayer.SetLatency(latency);
+        Managers.Network.SetLatency(latency);
     }
 
     public static void S_SkillHandler(PacketSession session, IMessage packet)

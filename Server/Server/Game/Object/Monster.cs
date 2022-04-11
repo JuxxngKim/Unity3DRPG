@@ -73,9 +73,6 @@ namespace Server.Game
             movePacket.PosInfo.LookDirection = PosInfo.LookDirection;
             movePacket.PosInfo.State = PosInfo.State;
 
-            Console.Clear();
-            Console.WriteLine($"Pos : {_position}, Dir : {_direction}");
-
             Room?.Broadcast(movePacket);
         }
 

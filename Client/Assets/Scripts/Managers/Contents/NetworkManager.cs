@@ -10,9 +10,16 @@ public class NetworkManager
 {
 	ServerSession _session = new ServerSession();
 
+	public float Latency { get; private set; }
+
 	public void Send(IMessage packet)
 	{
 		_session.Send(packet);
+	}
+
+	public void SetLatency(float latency)
+    {
+		Latency = Mathf.Max(0, latency);
 	}
 
 	public void Init()

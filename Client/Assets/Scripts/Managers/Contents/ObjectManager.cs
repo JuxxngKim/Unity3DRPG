@@ -73,10 +73,10 @@ public class ObjectManager
 			return;
 
 		baseActor.gameObject.name = info.Name;
-		baseActor.Init(info.ObjectId);
 		baseActor.ServerPosInfo = info.PosInfo;
 		baseActor.Stat = info.StatInfo;
 		baseActor.SyncPos();
+		baseActor.Init(info.ObjectId);
 
 		_objects.Add(info.ObjectId, baseActor.gameObject);
 	}
