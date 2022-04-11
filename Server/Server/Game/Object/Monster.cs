@@ -65,7 +65,6 @@ namespace Server.Game
                 var diff = Position - _target.Position;
                 if (diff.magnitude <= 1.5f)
                 {
-                    Console.WriteLine("ATTACK!");
                     AttackToTarget();
                     return;
                 }
