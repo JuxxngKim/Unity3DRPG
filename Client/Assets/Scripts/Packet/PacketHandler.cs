@@ -119,4 +119,11 @@ class PacketHandler
         HitManager.Instance.AddDamageFont(hitPacket.DefenderId, hitPacket.Damage);
         HitManager.Instance.AddHitEffect(hitPacket.AttackerId, hitPacket.DefenderId);
     }
+
+    public static void S_DanceHandler(PacketSession session, IMessage packet)
+    {
+        S_Dance dancePacket = packet as S_Dance;
+        GameObject go = Managers.Object?.FindById(dancePacket.ObjectId);
+        go?.GetComponent<BaseActor>()?.OnDance();
+    }
 }

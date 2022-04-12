@@ -63,7 +63,7 @@ namespace YeongJ.Inagme
 
             if (Input.GetKeyDown(KeyCode.F3))
             {
-                _animator.SetTrigger(Const.TriggerDance);
+                SendDancePacket();
                 return;
             }
 
@@ -161,6 +161,14 @@ namespace YeongJ.Inagme
             Managers.Network.Send(movePacket);
         }
 
+        void SendDancePacket()
+        {
+            C_Dance dancePacket = new C_Dance();
+            dancePacket.DanceId = 1;
+
+            Managers.Network.Send(dancePacket);
+        }
+
         void SendSkillPacket(int skillId = 0, bool isCliektSpawn = false)
         {
             if (ServerPosInfo.State == ActorState.Attack)
@@ -237,6 +245,12 @@ namespace YeongJ.Inagme
             var makerEffect = GameObjectCache.Make(_makerEffect.transform, this.transform.parent);
             makerEffect.transform.position = spawnPosition;
             GameObjectCache.DeleteDelayed(makerEffect, delayTime: 1.0f);
+        }
+
+        protected override void StartTeleport(float teleportTime)
+        {
+            base.StartTeleport(teleportTime);
+            CameraEventHandler.Instance.StartMotionBlur(time: teleportTime, intensity: 5.0f);
         }
     }
 }

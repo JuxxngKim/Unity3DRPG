@@ -20,6 +20,8 @@ enum MsgId {
   C_CHAT = 12;
   S_CHAT = 13;
   S_HIT = 14;
+  C_DANCE = 15;
+  S_DANCE = 16;
 }
 
 enum GameObjectType {
@@ -108,6 +110,15 @@ message S_Chat {
   int32 objectId = 1;
   string userName = 2;
   string chat = 3;
+}
+
+message C_Dance {
+  int32 danceId = 1;
+}
+
+message S_Dance {
+  int32 objectId = 1;
+  int32 danceId = 2;
 }
 
 message S_Hit {

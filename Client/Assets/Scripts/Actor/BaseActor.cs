@@ -222,6 +222,7 @@ namespace YeongJ.Inagme
             _animator.SetTrigger(Const.TriggerDeath);
         }
 
+        public virtual void OnDance() { }
         public virtual void UseSkill(SkillInfo skillInfo) { }
     }
 }

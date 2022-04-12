@@ -25,7 +25,12 @@ namespace YeongJ.Inagme
             if (_remainTime > 0.0f)
                 return;
 
-            CameraShaker.Instance.StartShake(_shakeDelay, _shakeIntensity, 0.5f);
+            var diff = Camera.main.transform.position - transform.position;
+            if (diff.magnitude > 30.0f)
+                return;
+
+            CameraEventHandler.Instance.StartShake(_shakeDelay, _shakeIntensity, time: 0.5f);
+            CameraEventHandler.Instance.StartMotionBlur(time: 0.5f, _shakeIntensity);
         }
     }
 }

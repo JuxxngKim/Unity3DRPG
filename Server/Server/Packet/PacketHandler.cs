@@ -64,4 +64,17 @@ class PacketHandler
 
         room.Push(room.Broadcast, sendPacket);
     }
+
+    public static void C_DanceHandler(PacketSession session, IMessage packet)
+    {
+        C_Dance dancePacket = packet as C_Dance;
+        ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession?.MyPlayer;
+        GameRoom room = player?.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleDance, player, dancePacket);
+    }
 }

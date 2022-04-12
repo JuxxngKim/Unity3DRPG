@@ -24,23 +24,11 @@ namespace YeongJ.Inagme
             base.UseSkill(skillInfo);
 
             _skillInfo = skillInfo;
+            _skillEndRemainTime = _skillInfo.StateTime + _skillDelay;
 
             if (skillInfo.SkillId == -1)
             {
-                SpawnTeleportEffect();
-
-                _skillStartPosition = this.transform.position;
-                _skillStartPosition.y = 0.0f;
-                _skillTargetPosition = _skillInfo.SpawnPosition.ToVector3();
-                _skillTargetPosition.y = 0.0f;
-
-                _currentStateTime = 0.0f;
-                _currentVelocity = 0.3f;
-                _commandHandle = UpdateCommandTeleport;
-                _animator.SetTrigger("Dash");
-                _animator.SetFloat("Velocity", _currentVelocity);
-                _skillEndRemainTime = _teleportDelay;
-                UpdateRotation(isLerp: false);
+                StartTeleport(_skillInfo.StateTime);
                 return;
             }
 
@@ -49,8 +37,24 @@ namespace YeongJ.Inagme
                 case 1: _animator.SetTrigger(Const.TriggerAttack); break;
                 default: _animator.SetTrigger(Const.TriggerSkill); break;
             }
+        }
 
-            _skillEndRemainTime = _skillInfo.StateTime + _skillDelay;
+        protected virtual void StartTeleport(float teleportTime)
+        {
+            SpawnTeleportEffect();
+
+            _skillStartPosition = this.transform.position;
+            _skillStartPosition.y = 0.0f;
+            _skillTargetPosition = _skillInfo.SpawnPosition.ToVector3();
+            _skillTargetPosition.y = 0.0f;
+
+            _currentStateTime = 0.0f;
+            _currentVelocity = 0.3f;
+            _commandHandle = UpdateCommandTeleport;
+            _animator.SetTrigger("Dash");
+            _animator.SetFloat("Velocity", _currentVelocity);
+            _skillEndRemainTime = _teleportDelay;
+            UpdateRotation(isLerp: false);
         }
 
         protected virtual void UpdateCommandTeleport()
@@ -107,5 +111,11 @@ namespace YeongJ.Inagme
             makerEffect.transform.position = spawnPosition;
             GameObjectCache.DeleteDelayed(makerEffect, delayTime: 1.0f);
         }
+
+        public override void OnDance() 
+        {
+            _animator.SetTrigger(Const.TriggerDance);
+        }
+
     }
 }

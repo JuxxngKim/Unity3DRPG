@@ -163,6 +163,18 @@ namespace Server.Game
 			}
 		}
 
+		public void HandleDance(Player player, C_Dance dancePacket)
+		{
+			if (player.PosInfo.State != ActorState.Idle)
+				return;
+
+			S_Dance sendPacket = new S_Dance();
+			sendPacket.ObjectId = player.Id;
+			sendPacket.DanceId = dancePacket.DanceId;
+
+			Broadcast(sendPacket);
+		}
+
 		public void HandleMove(Player player, C_Move movePacket)
         {
 			PositionInfo movePosInfo = movePacket.PosInfo;
