@@ -154,7 +154,7 @@ namespace YeongJ.Inagme
         {
             transform.position = ServerPos;
             UpdateHeight();
-            UpdateRotation();
+            UpdateRotation(isLerp: false);
         }
 
         protected virtual void UpdateMove()

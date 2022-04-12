@@ -7,7 +7,7 @@ namespace YeongJ
     public static class Const
     {
         public static float FrameTime = 0.1f;
-        public static float MoveLerpDelay = 0.02f;
+        public static float MoveLerpDelay = 0.01f;
 
         public static int TriggerAttack = Animator.StringToHash("Attack");
         public static int TriggerSkill = Animator.StringToHash("Skill");

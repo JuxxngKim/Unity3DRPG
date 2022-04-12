@@ -35,12 +35,15 @@ public class HpBar : MonoBehaviour
 
     public void UpdateHpBar()
     {
-        if (Owner == null || _moveLock)
+        if (Owner == null)
             return;
 
-        var velocity = Vector3.zero;
-        var targetPosition = Camera.main.WorldToScreenPoint(Owner.UIRoot.transform.position);
-        this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, 0.02f);
+        if(!_moveLock)
+        {
+            var velocity = Vector3.zero;
+            var targetPosition = Camera.main.WorldToScreenPoint(Owner.UIRoot.transform.position);
+            this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, 0.005f);
+        }
 
         if(_hpSlider.value != _bgSlider.value)
         {

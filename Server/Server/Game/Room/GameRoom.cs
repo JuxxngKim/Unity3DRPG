@@ -26,23 +26,26 @@ namespace Server.Game
 			// TODO : Monster Load
 			//path = $"Monster{mapId:D2}.obj";
 
-			Vector3 spawnPos = new Vector3(147f, 0.0f, 160f);
-			Monster monster = ObjectManager.Instance.Add<Monster>();
+			for(int i = 0; i < 5; ++i)
+            {
+				Vector3 spawnPos = new Vector3(147.0f + i * 0.5f, 0.0f, 160f - i * 0.5f);
+				Monster monster = ObjectManager.Instance.Add<Monster>();
 
-			monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
-			monster.Info.PosInfo.State = ActorState.Idle;
-			monster.Info.PosInfo.Position = spawnPos.ToFloat3();
-			monster.Info.PosInfo.Direction = Vector3.zero.ToFloat3();
-			monster.Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
-			monster.Info.TeamType = TeamType.Friendly;
+				monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
+				monster.Info.PosInfo.State = ActorState.Idle;
+				monster.Info.PosInfo.Position = spawnPos.ToFloat3();
+				monster.Info.PosInfo.Direction = Vector3.zero.ToFloat3();
+				monster.Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
+				monster.Info.TeamType = TeamType.Friendly;
 
-			StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
-			monster.Stat.MergeFrom(stat);
+				StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
+				monster.Stat.MergeFrom(stat);
 
-			monster.SyncPos();
-			monster.Init(Level);
+				monster.SyncPos();
+				monster.Init(Level);
 
-			Push(EnterGame, monster, TeamType.Opponent);
+				Push(EnterGame, monster, TeamType.Opponent);
+			}
 		}
 
 		// 누군가 주기적으로 호출해줘야 한다

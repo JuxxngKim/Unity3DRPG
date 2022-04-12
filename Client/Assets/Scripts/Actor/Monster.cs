@@ -21,7 +21,6 @@ namespace YeongJ.Inagme
 
             if (posInfo.State == ActorState.Hit && _animator != null)
             {
-                Debug.LogError("!!!!!!!!!!!!!");
                 _animator.SetTrigger(Const.TriggerHit);
             }
         }

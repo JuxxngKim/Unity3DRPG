@@ -58,7 +58,13 @@ namespace Server.Game
             if (Room == null || !IsAlive)
                 return;
 
-            Stat.Hp = Math.Max(Stat.Hp - damage, 0);
+			S_Hit hitPacket = new S_Hit();
+			hitPacket.AttackerId = attacker.Id;
+			hitPacket.DefenderId = Id;
+			hitPacket.Damage = damage;
+			Room?.Broadcast(hitPacket);
+
+			Stat.Hp = Math.Max(Stat.Hp - damage, 0);
 
             S_ChangeHp changePacket = new S_ChangeHp();
 			changePacket.ObjectId = Id;

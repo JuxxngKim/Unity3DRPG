@@ -66,6 +66,10 @@ namespace Server.Game
             }
 
             _stateHandle = ProcessSkill;
+            _stateEndHandle = () =>
+            {
+                PosInfo.State = ActorState.Idle;
+            };
             _commandHandle = null;
 
             _direction = Vector3.zero;
@@ -75,7 +79,7 @@ namespace Server.Game
             PosInfo.Direction = _direction.ToFloat3();
             PosInfo.LookDirection = PosInfo.LookDirection.Clone();
 
-            _stateEndFrame = 15;
+            _stateEndFrame = 8;
 
             Room.Push(BroadcastMove);
         }
@@ -139,13 +143,7 @@ namespace Server.Game
 
             Room.PushAfter(tickAfter, () =>
             {
-                target.OnDamaged(this, skillData.Damage);
-
-                S_Hit hitPacket = new S_Hit();
-                hitPacket.AttackerId = Id;
-                hitPacket.DefenderId = target.Id;
-                hitPacket.Damage = skillData.Damage;
-                Room?.Broadcast(hitPacket);
+                target.OnDamaged(this, skillData.Damage);    
             });
         }
 
@@ -156,6 +154,12 @@ namespace Server.Game
 
             _commandHandle = null;
             _target = null;
+
+            PosInfo.State = ActorState.Dead;
+            PosInfo.Position = _position.ToFloat3();
+            PosInfo.Direction = _direction.ToFloat3();
+            PosInfo.LookDirection = PosInfo.LookDirection.Clone();
+            Room.Push(BroadcastMove);
 
             S_Die diePacket = new S_Die();
             diePacket.ObjectId = Id;

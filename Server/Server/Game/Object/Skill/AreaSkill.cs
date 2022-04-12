@@ -31,12 +31,6 @@ namespace Server.Game.Object
                     continue;
 
                 target.OnDamaged(this, Stat.Attack);
-
-                S_Hit hitPacket = new S_Hit();
-                hitPacket.AttackerId = Id;
-                hitPacket.DefenderId = target.Id;
-                hitPacket.Damage = Stat.Attack;
-                Room?.Broadcast(hitPacket);
             }
         }
     }

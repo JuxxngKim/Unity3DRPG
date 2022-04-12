@@ -33,7 +33,7 @@ namespace Server.Data
             stat.Level = level;
             stat.Attack = level * 2;
             stat.Hp = stat.MaxHp = 100 * level;
-            stat.Speed = 3.0f;
+            stat.Speed = 5.0f;
             stat.Radius = 0.5f;
             return stat;
         }
