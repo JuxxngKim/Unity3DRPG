@@ -7,7 +7,7 @@ namespace YeongJ.Inagme
 {
     public class SkillObject : BaseActor
     {
-        [SerializeField] GameObject _hitEffect;
+        [SerializeField] GameObject _attackEffect;
         [SerializeField] float _heightOffset = 1f;
 
         public override void Init(int Id)
@@ -19,26 +19,14 @@ namespace YeongJ.Inagme
         {
             base.Remove();
 
-            if (_hitEffect == null)
+            if (_attackEffect == null)
                 return;
 
-            var hitEffect = GameObjectCache.Make(_hitEffect.transform, this.transform.parent);
-            hitEffect.transform.position = transform.position;
+            var attackEffect = GameObjectCache.Make(_attackEffect.transform, this.transform.parent);
+            attackEffect.transform.position = transform.position;
 
-            GameObjectCache.DeleteDelayed(hitEffect, delayTime: 1.08f);
+            GameObjectCache.DeleteDelayed(attackEffect, delayTime: 1.1f);
         }
-
-        //protected override void UpdateMove()
-        //{
-        //    var currentPosition = this.transform.position;
-        //    currentPosition.y = 0.0f;
-
-        //    if (ServerPos == currentPosition)
-        //        return;
-
-        //    transform.position = Vector3.SmoothDamp(currentPosition, ServerPos, ref _currentVelocity, 0.101f, maxSpeed: Stat.Speed);
-        //    UpdateHeight();
-        //}
 
         protected override void UpdateHeight()
         {

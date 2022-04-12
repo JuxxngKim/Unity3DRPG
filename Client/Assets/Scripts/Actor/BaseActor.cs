@@ -1,6 +1,4 @@
 using Google.Protobuf.Protocol;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace YeongJ.Inagme
@@ -9,13 +7,19 @@ namespace YeongJ.Inagme
     {
         [SerializeField] protected GameObject _model;
         [SerializeField] protected GameObject _uIRoot;
+        [SerializeField] protected GameObject _actorRoot;
         [SerializeField] protected Animator _animator;
         [SerializeField] protected float _groundedRayDistance = 30f;
+
+        [Header("Effect")]
+        [SerializeField] protected GameObject _hitEffect;
 
         public int Id { get; private set; }
         public StatInfo Stat { get { return _stat; } set { _stat = value; } }
         public PositionInfo ServerPosInfo { get { return _serverPosInfo; } set { _serverPosInfo = value; } }
         public GameObject UIRoot => _uIRoot;
+        public GameObject ActorRoot => _actorRoot;
+        public GameObject HitEffect => _hitEffect;
 
         protected float _positionLerpTime;
         protected float _currentPositionLerpTime;

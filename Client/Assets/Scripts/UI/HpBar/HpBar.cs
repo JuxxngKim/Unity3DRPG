@@ -10,6 +10,7 @@ public class HpBar : MonoBehaviour
     [SerializeField] Slider _bgSlider;
     [SerializeField] Text _levelText;
     [SerializeField] Text _nameText;
+    [SerializeField] bool _moveLock;
 
     public BaseActor Owner { get; private set; }
 
@@ -34,7 +35,7 @@ public class HpBar : MonoBehaviour
 
     public void UpdateHpBar()
     {
-        if (Owner == null)
+        if (Owner == null || _moveLock)
             return;
 
         var velocity = Vector3.zero;
