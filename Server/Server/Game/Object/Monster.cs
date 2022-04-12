@@ -31,9 +31,18 @@ namespace Server.Game
 
         public override void OnDamaged(BaseActor attacker, int damage)
         {
+            UpdateTarget(attacker);
+
+            base.OnDamaged(attacker, damage);
+
+            OnHit();
+        }
+        
+        protected virtual void UpdateTarget(BaseActor attacker)
+        {
             if (_target == null)
             {
-                if(attacker is SkillObject skilObject)
+                if (attacker is SkillObject skilObject)
                 {
                     _target = skilObject.Owener;
                 }
@@ -42,9 +51,10 @@ namespace Server.Game
                     _target = attacker;
                 }
             }
+        }
 
-            base.OnDamaged(attacker, damage);
-
+        protected virtual void OnHit()
+        {
             switch (PosInfo.State)
             {
                 case ActorState.Attack:
@@ -55,11 +65,6 @@ namespace Server.Game
                     break;
             }
 
-            OnHit();
-        }
-        
-        protected virtual void OnHit()
-        {
             _stateHandle = ProcessSkill;
             _commandHandle = null;
 
