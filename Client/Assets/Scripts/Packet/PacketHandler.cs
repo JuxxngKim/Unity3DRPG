@@ -116,6 +116,7 @@ class PacketHandler
     public static void S_HitHandler(PacketSession session, IMessage packet)
     {
         S_Hit hitPacket = packet as S_Hit;
+        HitManager.Instance.AddDamageFont(hitPacket.DefenderId, hitPacket.Damage);
+        HitManager.Instance.AddHitEffect(hitPacket.AttackerId, hitPacket.DefenderId);
     }
-
 }

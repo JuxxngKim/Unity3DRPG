@@ -110,6 +110,7 @@ namespace Server.Game
                 S_Hit hitPacket = new S_Hit();
                 hitPacket.AttackerId = Id;
                 hitPacket.DefenderId = target.Id;
+                hitPacket.Damage = skillData.Damage;
                 Room?.Broadcast(hitPacket);
             });
         }

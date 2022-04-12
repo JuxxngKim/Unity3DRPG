@@ -28,12 +28,12 @@ namespace YeongJ.UI
 
         public void AddHitEffect(int attackerId, int defenderId)
         {
-            var defender = GetActor(defenderId);
-            if (defender == null)
-                return;
-
             var attacker = GetActor(attackerId);
             if (attacker == null)
+                return;
+
+            var defender = GetActor(defenderId);
+            if (defender == null)
                 return;
 
             Transform hitEffect = attacker.GetComponent<BaseActor>()?.HitEffect?.transform;
