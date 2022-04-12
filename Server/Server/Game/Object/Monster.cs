@@ -44,6 +44,35 @@ namespace Server.Game
             }
 
             base.OnDamaged(attacker, damage);
+
+            switch (PosInfo.State)
+            {
+                case ActorState.Attack:
+                case ActorState.Hit:
+                case ActorState.Dead:
+                    return;
+                default:
+                    break;
+            }
+
+            OnHit();
+        }
+        
+        protected virtual void OnHit()
+        {
+            _stateHandle = ProcessSkill;
+            _commandHandle = null;
+
+            _direction = Vector3.zero;
+
+            PosInfo.State = ActorState.Hit;
+            PosInfo.Position = _position.ToFloat3();
+            PosInfo.Direction = _direction.ToFloat3();
+            PosInfo.LookDirection = PosInfo.LookDirection.Clone();
+
+            _stateEndFrame = 15;
+
+            Room.Push(BroadcastMove);
         }
 
         protected override void UpdateCommandIdleMove()

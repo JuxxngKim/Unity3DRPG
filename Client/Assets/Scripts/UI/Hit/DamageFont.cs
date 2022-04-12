@@ -12,10 +12,15 @@ namespace YeongJ.UI
 
         private float _lifeTime;
         private float _remainTime;
+        private Vector3 _worldPosition;
 
-        public void Init(int damage, float lifeTime)
+        public void Init(Vector3 worldPosition, int damage, float lifeTime)
         {
+            _worldPosition = worldPosition;
+            _damageText.text = damage.ToString();
             _remainTime = _lifeTime = lifeTime;
+
+            transform.position = Camera.main.WorldToScreenPoint(_worldPosition);
         }
 
         void Update()
@@ -26,6 +31,8 @@ namespace YeongJ.UI
             newColor.a = ratio;
 
             _damageText.color = newColor;
+
+            transform.position = Camera.main.WorldToScreenPoint(_worldPosition);
         }
     }
 }

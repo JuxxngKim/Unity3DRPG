@@ -308,6 +308,7 @@ MonoBehaviour:
   _bgSlider: {fileID: 6212563416149308360}
   _levelText: {fileID: 2009903816865394406}
   _nameText: {fileID: 0}
+  _moveLock: 1
 --- !u!1 &2009903816157857822
 GameObject:
   m_ObjectHideFlags: 0

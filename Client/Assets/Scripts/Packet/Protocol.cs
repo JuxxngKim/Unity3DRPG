@@ -60,11 +60,12 @@ namespace Google.Protobuf.Protocol {
             "UElORxAGEgoKBkNfUE9ORxAHEgoKBkNfTU9WRRAIEgoKBlNfTU9WRRAJEgsK",
             "B0NfU0tJTEwQChILCgdTX1NLSUxMEAsSCgoGQ19DSEFUEAwSCgoGU19DSEFU",
             "EA0SCQoFU19ISVQQDio+Cg5HYW1lT2JqZWN0VHlwZRIICgROT05FEAASCgoG",
-            "UExBWUVSEAESCwoHTU9OU1RFUhACEgkKBVNLSUxMEAMqOAoKQWN0b3JTdGF0",
+            "UExBWUVSEAESCwoHTU9OU1RFUhACEgkKBVNLSUxMEAMqQQoKQWN0b3JTdGF0",
             "ZRIICgRJRExFEAASCgoGTU9WSU5HEAESCgoGQVRUQUNLEAISCAoEREVBRBAD",
-            "KiYKCFRlYW1UeXBlEgwKCEZyaWVuZGx5EAASDAoIT3Bwb25lbnQQASo2CglT",
-            "a2lsbFR5cGUSDgoKUHJvamVjdGlsZRAAEggKBEFyZWEQARIPCgtEZWxheUF0",
-            "dGFjaxACQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
+            "EgcKA0hpdBAEKiYKCFRlYW1UeXBlEgwKCEZyaWVuZGx5EAASDAoIT3Bwb25l",
+            "bnQQASo2CglTa2lsbFR5cGUSDgoKUHJvamVjdGlsZRAAEggKBEFyZWEQARIP",
+            "CgtEZWxheUF0dGFjaxACQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.ActorState), typeof(global::Google.Protobuf.Protocol.TeamType), typeof(global::Google.Protobuf.Protocol.SkillType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -124,6 +125,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("MOVING")] Moving = 1,
     [pbr::OriginalName("ATTACK")] Attack = 2,
     [pbr::OriginalName("DEAD")] Dead = 3,
+    [pbr::OriginalName("Hit")] Hit = 4,
   }
 
   public enum TeamType {

@@ -34,6 +34,7 @@ enum ActorState {
   MOVING = 1;
   ATTACK = 2;
   DEAD = 3;
+  Hit = 4;
 }
 
 enum TeamType {

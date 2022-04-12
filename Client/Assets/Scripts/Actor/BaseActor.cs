@@ -18,8 +18,8 @@ namespace YeongJ.Inagme
         public StatInfo Stat { get { return _stat; } set { _stat = value; } }
         public PositionInfo ServerPosInfo { get { return _serverPosInfo; } set { _serverPosInfo = value; } }
         public GameObject UIRoot => _uIRoot;
-        public GameObject ActorRoot => _actorRoot;
-        public GameObject HitEffect => _hitEffect;
+        public GameObject ActorRoot => _actorRoot ?? null;
+        public GameObject HitEffect => _hitEffect ?? null;
 
         protected float _positionLerpTime;
         protected float _currentPositionLerpTime;
@@ -210,6 +210,11 @@ namespace YeongJ.Inagme
             {
                 _model.transform.rotation = Quaternion.LookRotation(ServerLookDir);
             }
+        }
+
+        public virtual void OnHit()
+        {
+            _animator.SetTrigger(Const.TriggerHit);
         }
 
         public virtual void OnDead()

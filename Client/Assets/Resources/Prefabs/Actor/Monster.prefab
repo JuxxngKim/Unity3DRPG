@@ -47,8 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 2160430733580251456}
   _uIRoot: {fileID: 8487121807384291880}
+  _actorRoot: {fileID: 0}
   _animator: {fileID: 386885614070390248}
   _groundedRayDistance: 30
+  _hitEffect: {fileID: 1153730961705006, guid: f1aeeba2f9003904da5c0a24ba150198, type: 3}
 --- !u!1 &8487121807384291880
 GameObject:
   m_ObjectHideFlags: 0

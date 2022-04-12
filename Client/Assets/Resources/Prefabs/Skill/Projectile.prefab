@@ -4901,10 +4901,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 0}
+  _uIRoot: {fileID: 0}
+  _actorRoot: {fileID: 0}
   _animator: {fileID: 0}
   _groundedRayDistance: 30
-  _rootTransform: {fileID: 0}
-  _hitEffect: {fileID: 1348390491135638, guid: d7d554880214e644bbbbfc89aa884b26, type: 3}
+  _hitEffect: {fileID: 0}
+  _attackEffect: {fileID: 1348390491135638, guid: d7d554880214e644bbbbfc89aa884b26,
+    type: 3}
+  _heightOffset: 1
 --- !u!1 &1523578673615170
 GameObject:
   m_ObjectHideFlags: 0

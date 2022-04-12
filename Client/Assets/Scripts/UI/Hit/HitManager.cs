@@ -17,13 +17,11 @@ namespace YeongJ.UI
             if (ownerActor == null)
                 return;
 
-            var spawnPosition = Camera.main.WorldToScreenPoint(ownerActor.UIRoot.transform.position);
-            var newDamageFont = GameObjectCache.Make(_templateDamageFont, this.transform);
+            var worldPosition = ownerActor.UIRoot.transform.position;
+            var newDamageFont = GameObjectCache.Make(_templateDamageFont, transform);
+            newDamageFont.Init(worldPosition, damage, lifeTime: 0.7f);
 
-            newDamageFont.Init(damage, lifeTime: 1.0f);
-            newDamageFont.transform.position = spawnPosition;
-
-            GameObjectCache.DeleteDelayed(newDamageFont.transform, 1.0f);
+            GameObjectCache.DeleteDelayed(newDamageFont.transform, 0.7f);
         }
 
         public void AddHitEffect(int attackerId, int defenderId)
@@ -36,13 +34,13 @@ namespace YeongJ.UI
             if (defender == null)
                 return;
 
-            Transform hitEffect = attacker.GetComponent<BaseActor>()?.HitEffect?.transform;
-            if (hitEffect == null)
+            var effectRoot = defender.ActorRoot;
+            var hitEffect = attacker.GetComponent<BaseActor>()?.HitEffect;
+            if (effectRoot == null || hitEffect == null)
                 return;
-
-            var spawnPosition = defender.ActorRoot?.transform?.position ?? Vector3.zero;
-            var attackEffect = GameObjectCache.Make(hitEffect, defender.transform.parent);
-            attackEffect.transform.position = spawnPosition;
+            
+            var attackEffect = GameObjectCache.Make(hitEffect.transform, defender.transform.parent);
+            attackEffect.transform.position = effectRoot.transform.position;
 
             GameObjectCache.DeleteDelayed(attackEffect, delayTime: 1.1f);
         }

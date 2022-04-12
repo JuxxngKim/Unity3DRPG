@@ -13,5 +13,6 @@ namespace YeongJ
         public static int TriggerSkill = Animator.StringToHash("Skill");
         public static int TriggerDance = Animator.StringToHash("Dance");
         public static int TriggerDeath = Animator.StringToHash("Death");
+        public static int TriggerHit = Animator.StringToHash("Hit");
     }
 }

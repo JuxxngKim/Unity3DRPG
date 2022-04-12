@@ -33,7 +33,7 @@ namespace Server.Data
             stat.Level = level;
             stat.Attack = level * 2;
             stat.Hp = stat.MaxHp = 100 * level;
-            stat.Speed = 5.0f;
+            stat.Speed = 3.0f;
             stat.Radius = 0.5f;
             return stat;
         }
@@ -120,7 +120,7 @@ namespace Server.Data
                     StateFrame = 10,
                     MoveSpeed = 0,
                     Range = 4.0f,
-                    HitDelayFrame = 20,
+                    HitDelayFrame = 12,
                     SpawnDelayTick = 0,
                     Name = "HammerStrike",
                 };
@@ -155,10 +155,10 @@ namespace Server.Data
                     Damage = 5,
                     CoolTimeFrame = 10,
                     LifeFrame = 100,
-                    StateFrame = 22,
+                    StateFrame = 20,
                     MoveSpeed = 0,
                     Range = 4.0f,
-                    HitDelayFrame = 9,
+                    HitDelayFrame = 7,
                     SpawnDelayTick = 0,
                 };
 

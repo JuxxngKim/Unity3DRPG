@@ -40,7 +40,7 @@ public class HpBar : MonoBehaviour
 
         var velocity = Vector3.zero;
         var targetPosition = Camera.main.WorldToScreenPoint(Owner.UIRoot.transform.position);
-        this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, 0.01f);
+        this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, 0.02f);
 
         if(_hpSlider.value != _bgSlider.value)
         {
