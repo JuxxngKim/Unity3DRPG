@@ -42,7 +42,6 @@ namespace Server
 			}
 		}
 
-		public static string Name { get; } = "데포르쥬";
 		public static int Port { get; } = 7777;
 		public static string IpAddress { get; set; }
 

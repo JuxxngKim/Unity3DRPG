@@ -11,6 +11,7 @@ namespace YeongJ.UI
         [SerializeField] InputField _inputField;
         [SerializeField] ScrollRect _scrollRect;
         [SerializeField] Text _templateChatText;
+        [SerializeField] Text _imeIsSelectedText;
         [SerializeField] RectTransform _contentRoot;
         [SerializeField] RectTransform _bubbleRoot;
         [SerializeField] ChatBubble _templateChatBubble;
@@ -24,22 +25,23 @@ namespace YeongJ.UI
         {
             base.InitSingleton();
 
-            //_inputField.onEndEdit.AddListener(SendChat);
+            _inputField.onEndEdit.AddListener(SendChat);
         }
 
         public void Update()
         {
             if(Input.GetKeyDown(KeyCode.Return) && _inputField.gameObject.activeInHierarchy)
             {
-                if(_inputField.isFocused)
-                {
-                    SendChat(_inputField.text);
-                }
-                else
+                if(!_inputField.isFocused)
                 {
                     _inputField.ActivateInputField();
                     _inputField.Select();
                 }
+            }
+
+            if (_inputField.gameObject.activeInHierarchy)
+            {
+                _imeIsSelectedText.text = Input.imeIsSelected ? "°¡" : "a";
             }
 
             InputLock = _inputField.isFocused && _inputField.gameObject.activeInHierarchy;
