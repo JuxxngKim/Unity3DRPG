@@ -9,6 +9,7 @@ namespace YeongJ.UI
     public class ChatManager : UISingleton<ChatManager>
     {
         [SerializeField] InputField _inputField;
+        [SerializeField] ScrollRect _scrollRect;
         [SerializeField] Text _templateChatText;
         [SerializeField] RectTransform _contentRoot;
         [SerializeField] RectTransform _bubbleRoot;
@@ -17,11 +18,31 @@ namespace YeongJ.UI
         List<Text> _chatList = new List<Text>();
         Dictionary<int, ChatBubble> _chatBubbles = new Dictionary<int, ChatBubble>();
 
+        public static bool InputLock = false;
+
         public override void InitSingleton()
         {
             base.InitSingleton();
 
-            _inputField.onEndEdit.AddListener(SendChat);
+            //_inputField.onEndEdit.AddListener(SendChat);
+        }
+
+        public void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Return) && _inputField.gameObject.activeInHierarchy)
+            {
+                if(_inputField.isFocused)
+                {
+                    SendChat(_inputField.text);
+                }
+                else
+                {
+                    _inputField.ActivateInputField();
+                    _inputField.Select();
+                }
+            }
+
+            InputLock = _inputField.isFocused && _inputField.gameObject.activeInHierarchy;
         }
 
         public void SendChat(string text)
@@ -35,6 +56,8 @@ namespace YeongJ.UI
             Managers.Network.Send(chatPacket);
             
             _inputField.text = string.Empty;
+            _inputField.ActivateInputField();
+            _inputField.Select();
         }
 
         public void AddChat(int objectId, string userName, string userChat)
@@ -62,6 +85,16 @@ namespace YeongJ.UI
 
                 _chatBubbles[objectId].SetData(baseActor, userName, userChat, RemoveBubbleChat);
             }
+
+            StartCoroutine(RefreshScrollPoisition());
+        }
+
+        System.Collections.IEnumerator RefreshScrollPoisition()
+        {
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+
+            _scrollRect.verticalNormalizedPosition = 0.0f;
         }
 
         private void RemoveBubbleChat(int objectId)

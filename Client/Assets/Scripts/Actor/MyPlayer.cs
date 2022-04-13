@@ -1,6 +1,8 @@
 using Cinemachine;
 using Google.Protobuf.Protocol;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using YeongJ.UI;
 
 namespace YeongJ.Inagme
 {
@@ -54,9 +56,19 @@ namespace YeongJ.Inagme
         {
             UpdateMouseScroll();
             UpdateMoveInupt();
+            UpdateSkillInput();
+        }
+
+        void UpdateSkillInput()
+        {
+            if (ChatManager.InputLock)
+                return;
 
             if (Input.GetMouseButtonDown(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
                 SendSkillPacket(skillId: 1);
                 return;
             }
@@ -91,7 +103,6 @@ namespace YeongJ.Inagme
                 return;
             }
         }
-
 
         void UpdateMoveInupt()
         {
