@@ -24,7 +24,7 @@ namespace Server.Game.Object
                 return;
 
             _commandHandle = null;
-            var targets = Room?.IsCollisition(Info.TeamType, _position, Stat.Radius);
+            var targets = Room?.IsCollisition(Owener?.Id ?? 0, Info?.TeamType ?? TeamType.Friendly, _position, Stat?.Radius ?? 0.0f) ?? null;
             if (targets == null || targets.Count <= 0)
                 return;
 

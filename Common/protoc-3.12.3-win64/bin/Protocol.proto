@@ -43,6 +43,7 @@ enum ActorState {
 enum TeamType {
   Friendly = 0;
   Opponent = 1;
+  War = 2;
 }
 
 enum SkillType {

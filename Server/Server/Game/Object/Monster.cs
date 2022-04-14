@@ -153,7 +153,7 @@ namespace Server.Game
             SyncPos();
             Init(Level);
 
-            room.EnterGame(this, TeamType.Opponent);
+            room.EnterGame(this, Const.MonsterTeamType);
         }
 
         public override void OnDead(GameObject attacker)

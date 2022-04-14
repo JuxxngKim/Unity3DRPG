@@ -95,7 +95,7 @@ namespace Server
                     MyPlayer.Info.PosInfo.State = ActorState.Idle;
                     MyPlayer.Info.PosInfo.Direction = Vector3.down.ToFloat3();
                     MyPlayer.Info.PosInfo.Position = spawnPos.ToFloat3();
-                    MyPlayer.Info.TeamType = TeamType.Friendly;
+                    MyPlayer.Info.TeamType = Const.PlayerTeamType;
 
                     StatInfo stat = DataPresets.MakeGanyuStat(level: 1);
                     MyPlayer.Stat.MergeFrom(stat);
@@ -106,7 +106,7 @@ namespace Server
                     MyPlayer.Init(room.Level);
                 }
 
-                room.Push(room.EnterGame, MyPlayer, TeamType.Friendly);
+                room.Push(room.EnterGame, MyPlayer, Const.PlayerTeamType);
             });
 
             Ping();

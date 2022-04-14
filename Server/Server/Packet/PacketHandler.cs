@@ -62,7 +62,7 @@ class PacketHandler
         sendPacket.UserName = player?.Info.Name ?? string.Empty;
         sendPacket.Chat = chatPacket.Chat;
 
-        room.Push(room.Broadcast, sendPacket);
+        room?.Push(room.Broadcast, sendPacket);
     }
 
     public static void C_DanceHandler(PacketSession session, IMessage packet)

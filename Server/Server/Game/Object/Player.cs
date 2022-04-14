@@ -49,7 +49,7 @@ namespace Server.Game
 			base.OnDead(attacker);
 
 			GameRoom room = Room;
-			room.PushAfter(5000, RespawnGame, room);
+			room.PushAfter(8000, RespawnGame, room);
 		}
 
 		protected override void RespawnGame(GameRoom room)
@@ -64,7 +64,7 @@ namespace Server.Game
 			PosInfo.Position = _position.ToFloat3();
 			PosInfo.Direction = _direction.ToFloat3();
 			PosInfo.LookDirection = _spawnDirection.ToFloat3();
-			Info.TeamType = TeamType.Friendly;
+			Info.TeamType = Const.PlayerTeamType;
 			Info.PosInfo = PosInfo;
 
 			SyncPos();
@@ -74,7 +74,7 @@ namespace Server.Game
 			resurrectionPacket.ObjectId = Id;
 			resurrectionPacket.Player = Info;
 
-			Room.Broadcast(resurrectionPacket);
+			Room?.Broadcast(resurrectionPacket);
 		}
 	}
 }

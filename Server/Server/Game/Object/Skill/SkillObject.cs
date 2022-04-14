@@ -45,6 +45,7 @@ namespace Server.Game.Object
             Info.StatInfo.Speed = _skillData.MoveSpeed;
             Info.StatInfo.Radius = _skillData.Range;
             Info.Name = _skillData.Name;
+            Info.TeamType = Owener.Info.TeamType;
 
             _spawnDelay = _skillData.SpawnDelayTick;
             _stateEndFrame = _skillData.LifeFrame;

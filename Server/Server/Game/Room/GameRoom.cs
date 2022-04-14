@@ -9,66 +9,66 @@ using UnityEngine;
 
 namespace Server.Game
 {
-	public class GameRoom : JobSerializer
-	{
-		public int RoomId { get; set; }
-		public ObjModel Level { get; private set; }
+    public class GameRoom : JobSerializer
+    {
+        public int RoomId { get; set; }
+        public ObjModel Level { get; private set; }
 
-		Dictionary<int, Player> _players = new Dictionary<int, Player>();
-		Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
-		Dictionary<int, SkillObject> _skills = new Dictionary<int, SkillObject>();
+        Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
+        Dictionary<int, SkillObject> _skills = new Dictionary<int, SkillObject>();
 
-		public void Init(int mapId)
-		{
-			string path = $"NavMesh{mapId:D2}.obj";
-			Level = new ObjModel(path);
+        public void Init(int mapId)
+        {
+            string path = $"NavMesh{mapId:D2}.obj";
+            Level = new ObjModel(path);
 
-			// TODO : Monster Load
-			//path = $"Monster{mapId:D2}.obj";
+            // TODO : Monster Load
+            //path = $"Monster{mapId:D2}.obj";
 
-			for(int i = 0; i < 5; ++i)
+            for (int i = 0; i < 5; ++i)
             {
-				Vector3 spawnPos = new Vector3(147.0f + i * 0.5f, 0.0f, 160f - i * 0.5f);
-				Monster monster = ObjectManager.Instance.Add<Monster>();
+                Vector3 spawnPos = new Vector3(147.0f + i * 0.5f, 0.0f, 160f - i * 0.5f);
+                Monster monster = ObjectManager.Instance.Add<Monster>();
 
-				monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
-				monster.Info.PosInfo.State = ActorState.Idle;
-				monster.Info.PosInfo.Position = spawnPos.ToFloat3();
-				monster.Info.PosInfo.Direction = Vector3.zero.ToFloat3();
-				monster.Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
-				monster.Info.TeamType = TeamType.Friendly;
+                monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
+                monster.Info.PosInfo.State = ActorState.Idle;
+                monster.Info.PosInfo.Position = spawnPos.ToFloat3();
+                monster.Info.PosInfo.Direction = Vector3.zero.ToFloat3();
+                monster.Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
+                monster.Info.TeamType = Const.MonsterTeamType;
 
-				StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
-				monster.Stat.MergeFrom(stat);
+                StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
+                monster.Stat.MergeFrom(stat);
 
-				monster.SyncPos();
-				monster.Init(Level);
+                monster.SyncPos();
+                monster.Init(Level);
 
-				Push(EnterGame, monster, TeamType.Opponent);
-			}
-		}
+                Push(EnterGame, monster, TeamType.Opponent);
+            }
+        }
 
-		// 누군가 주기적으로 호출해줘야 한다
-		public void Update()
-		{
-			Flush();
-		}
+        // 누군가 주기적으로 호출해줘야 한다
+        public void Update()
+        {
+            Flush();
+        }
 
-		public void EnterGame(GameObject gameObject, TeamType teamType)
-		{
-			if (gameObject == null)
-				return;
+        public void EnterGame(GameObject gameObject, TeamType teamType)
+        {
+            if (gameObject == null)
+                return;
 
-			GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
+            GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
 
-			if (type == GameObjectType.Player)
-			{
-				Player player = gameObject as Player;
-				_players.Add(gameObject.Id, player);
-				player.Room = this;
+            if (type == GameObjectType.Player)
+            {
+                Player player = gameObject as Player;
+                _players.Add(gameObject.Id, player);
+                player.Room = this;
 
-				// 본인한테 정보 전송
-				{
+                // 본인한테 정보 전송
+                {
                     S_EnterGame enterPacket = new S_EnterGame();
                     enterPacket.Player = player.Info;
                     player.Session.Send(enterPacket);
@@ -89,23 +89,23 @@ namespace Server.Game
                 }
 
                 player.Update();
-			}
-			else if (type == GameObjectType.Monster)
+            }
+            else if (type == GameObjectType.Monster)
             {
-				Monster monster = gameObject as Monster;
-				_monsters.Add(gameObject.Id, monster);
+                Monster monster = gameObject as Monster;
+                _monsters.Add(gameObject.Id, monster);
 
-				monster.Room = this;
-				monster.Update();
-			}
+                monster.Room = this;
+                monster.Update();
+            }
             else if (type == GameObjectType.Skill)
-			{
-				SkillObject skillObject = gameObject as SkillObject;
-				_skills.Add(gameObject.Id, skillObject);
+            {
+                SkillObject skillObject = gameObject as SkillObject;
+                _skills.Add(gameObject.Id, skillObject);
 
-				skillObject.Room = this;
-				skillObject.Update();
-			}
+                skillObject.Room = this;
+                skillObject.Update();
+            }
 
             // 타인한테 정보 전송
             {
@@ -117,87 +117,87 @@ namespace Server.Game
                         p.Session.Send(spawnPacket);
                 }
             }
-		}
+        }
 
-		public void LeaveGame(int objectId)
-		{
-			GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
-
-			if (type == GameObjectType.Player)
-			{
-				if (!_players.Remove(objectId, out var player))
-					return;
-
-				player.Room = null;
-
-				// 본인한테 정보 전송
-				{
-					S_LeaveGame leavePacket = new S_LeaveGame();
-					player.Session.Send(leavePacket);
-				}
-			}
-			else if(type == GameObjectType.Monster)
-            {
-				if (!_monsters.Remove(objectId, out var monster))
-					return;
-
-				monster.Room = null;
-			}
-			else if(type == GameObjectType.Skill)
-            {
-				if (!_skills.Remove(objectId, out var skillObject))
-					return;
-
-				skillObject.Room = null;
-			}
-
-			// 타인한테 정보 전송
-			{
-				S_Despawn despawnPacket = new S_Despawn();
-				despawnPacket.ObjectIds.Add(objectId);
-				foreach (Player p in _players.Values)
-				{
-					if (p.Id != objectId)
-						p.Session.Send(despawnPacket);
-				}
-			}
-		}
-
-		public void HandleDance(Player player, C_Dance dancePacket)
-		{
-			if (player.PosInfo.State != ActorState.Idle)
-				return;
-
-			S_Dance sendPacket = new S_Dance();
-			sendPacket.ObjectId = player.Id;
-			sendPacket.DanceId = dancePacket.DanceId;
-
-			Broadcast(sendPacket);
-		}
-
-		public void HandleMove(Player player, C_Move movePacket)
+        public void LeaveGame(int objectId)
         {
-			PositionInfo movePosInfo = movePacket.PosInfo;
-			ObjectInfo info = player.Info;
+            GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
 
-			info.PosInfo.State = movePosInfo.State;
-			info.PosInfo.Position = movePosInfo.Position;
-		}
+            if (type == GameObjectType.Player)
+            {
+                if (!_players.Remove(objectId, out var player))
+                    return;
+
+                player.Room = null;
+
+                // 본인한테 정보 전송
+                {
+                    S_LeaveGame leavePacket = new S_LeaveGame();
+                    player.Session.Send(leavePacket);
+                }
+            }
+            else if (type == GameObjectType.Monster)
+            {
+                if (!_monsters.Remove(objectId, out var monster))
+                    return;
+
+                monster.Room = null;
+            }
+            else if (type == GameObjectType.Skill)
+            {
+                if (!_skills.Remove(objectId, out var skillObject))
+                    return;
+
+                skillObject.Room = null;
+            }
+
+            // 타인한테 정보 전송
+            {
+                S_Despawn despawnPacket = new S_Despawn();
+                despawnPacket.ObjectIds.Add(objectId);
+                foreach (Player p in _players.Values)
+                {
+                    if (p.Id != objectId)
+                        p.Session.Send(despawnPacket);
+                }
+            }
+        }
+
+        public void HandleDance(Player player, C_Dance dancePacket)
+        {
+            if (player.PosInfo.State != ActorState.Idle)
+                return;
+
+            S_Dance sendPacket = new S_Dance();
+            sendPacket.ObjectId = player.Id;
+            sendPacket.DanceId = dancePacket.DanceId;
+
+            Broadcast(sendPacket);
+        }
+
+        public void HandleMove(Player player, C_Move movePacket)
+        {
+            PositionInfo movePosInfo = movePacket.PosInfo;
+            ObjectInfo info = player.Info;
+
+            info.PosInfo.State = movePosInfo.State;
+            info.PosInfo.Position = movePosInfo.Position;
+        }
 
         public void HandleSkill(Player player, C_Skill skillPacket)
         {
-			if (player == null)
-				return;
+            if (player == null)
+                return;
 
-			ObjectInfo info = player.Info;
-			if (info.PosInfo.State == ActorState.Attack)
-				return;
+            ObjectInfo info = player.Info;
+            if (info.PosInfo.State == ActorState.Attack)
+                return;
 
-			SkillObject skillObject = null;
+            SkillObject skillObject = null;
             int skillId = skillPacket.Info.SkillId;
-			if (skillId == -1)
-			{
-				player.UseTeleportSkill(skillPacket.Info);
+            if (skillId == -1)
+            {
+                player.UseTeleportSkill(skillPacket.Info);
                 return;
             }
 
@@ -212,43 +212,71 @@ namespace Server.Game
             player.UseSkill(skillPacket.Info);
 
             PushAfter(skillObject.SpawnDelay, EnterGame, skillObject, info.TeamType);
-		}
+        }
 
-		public List<BaseActor> IsCollisition(TeamType teamType, Vector3 position, float radius)
+        public List<BaseActor> IsCollisition(int thisId, TeamType teamType, Vector3 position, float radius)
         {
-			List<BaseActor> targets = new List<BaseActor>();
+            List<BaseActor> targets = new List<BaseActor>();
 
             if (teamType == TeamType.Friendly)
             {
-				var d_enum = _monsters.GetEnumerator();
-				while(d_enum.MoveNext())
+                var d_enum = _monsters.GetEnumerator();
+                while (d_enum.MoveNext())
                 {
-					var monster = d_enum.Current.Value;
-					if (!monster.IsAlive)
-						continue;
+                    var monster = d_enum.Current.Value;
+                    if (!monster.IsAlive)
+                        continue;
 
                     var targetPosition = monster.Position;
                     var dir = targetPosition - position;
-					if (dir.magnitude <= radius + monster.Radius)
+                    if (dir.magnitude <= radius + monster.Radius)
                     {
-						targets.Add(monster);
-					}
+                        targets.Add(monster);
+                    }
                 }
             }
-			else if(teamType == TeamType.Opponent)
+            else if (teamType == TeamType.Opponent)
             {
 
             }
+            else if (teamType == TeamType.War)
+            {
+                foreach (Monster m in _monsters.Values)
+                {
+                    if (!m.IsAlive)
+                        continue;
 
-			return targets;
+                    var targetPosition = m.Position;
+                    var dir = targetPosition - position;
+                    if (dir.magnitude <= radius + m.Radius)
+                    {
+                        targets.Add(m);
+                    }
+                }
+
+                foreach (Player p in _players.Values)
+                {
+                    if (!p.IsAlive || p.Id == thisId)
+                        continue;
+
+                    var targetPosition = p.Position;
+                    var dir = targetPosition - position;
+                    if (dir.magnitude <= radius + p.Radius)
+                    {
+                        targets.Add(p);
+                    }
+                }
+            }
+
+            return targets;
         }
 
-		public void Broadcast(IMessage packet)
-		{
-			foreach (Player p in _players.Values)
-			{
-				p.Session.Send(packet);
-			}
-		}
-	}
+        public void Broadcast(IMessage packet)
+        {
+            foreach (Player p in _players.Values)
+            {
+                p.Session.Send(packet);
+            }
+        }
+    }
 }

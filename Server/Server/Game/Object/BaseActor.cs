@@ -237,7 +237,7 @@ namespace Server.Game
 			S_Die diePacket = new S_Die();
 			diePacket.ObjectId = Id;
 			diePacket.AttackerId = attacker.Id;
-			Room.Broadcast(diePacket);
+			Room?.Broadcast(diePacket);
 		}
 
 		protected virtual void RespawnGame(GameRoom room) { }

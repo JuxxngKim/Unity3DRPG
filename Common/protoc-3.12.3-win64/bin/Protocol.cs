@@ -66,10 +66,10 @@ namespace Google.Protobuf.Protocol {
             "REFOQ0UQEBISCg5TX1JFU1VSUkVDVElPThARKj4KDkdhbWVPYmplY3RUeXBl",
             "EggKBE5PTkUQABIKCgZQTEFZRVIQARILCgdNT05TVEVSEAISCQoFU0tJTEwQ",
             "AypBCgpBY3RvclN0YXRlEggKBElETEUQABIKCgZNT1ZJTkcQARIKCgZBVFRB",
-            "Q0sQAhIICgRERUFEEAMSBwoDSGl0EAQqJgoIVGVhbVR5cGUSDAoIRnJpZW5k",
-            "bHkQABIMCghPcHBvbmVudBABKjYKCVNraWxsVHlwZRIOCgpQcm9qZWN0aWxl",
-            "EAASCAoEQXJlYRABEg8KC0RlbGF5QXR0YWNrEAJCG6oCGEdvb2dsZS5Qcm90",
-            "b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
+            "Q0sQAhIICgRERUFEEAMSBwoDSGl0EAQqLwoIVGVhbVR5cGUSDAoIRnJpZW5k",
+            "bHkQABIMCghPcHBvbmVudBABEgcKA1dhchACKjYKCVNraWxsVHlwZRIOCgpQ",
+            "cm9qZWN0aWxlEAASCAoEQXJlYRABEg8KC0RlbGF5QXR0YWNrEAJCG6oCGEdv",
+            "b2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.ActorState), typeof(global::Google.Protobuf.Protocol.TeamType), typeof(global::Google.Protobuf.Protocol.SkillType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -141,6 +141,7 @@ namespace Google.Protobuf.Protocol {
   public enum TeamType {
     [pbr::OriginalName("Friendly")] Friendly = 0,
     [pbr::OriginalName("Opponent")] Opponent = 1,
+    [pbr::OriginalName("War")] War = 2,
   }
 
   public enum SkillType {

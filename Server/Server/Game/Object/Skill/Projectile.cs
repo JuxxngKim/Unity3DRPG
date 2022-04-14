@@ -18,7 +18,7 @@ namespace Server.Game.Object
             var targetPos = _position + _direction;
             var nextPos = Vector3.MoveTowards(_position, targetPos, _timeStamp * Stat.Speed);
 
-            var targets = Room?.IsCollisition(Info.TeamType, _position, Stat.Radius);
+            var targets = Room?.IsCollisition(Owener.Id, Info.TeamType, _position, Stat.Radius);
             if (targets == null || targets.Count <= 0)
             {
                 _position = nextPos;
