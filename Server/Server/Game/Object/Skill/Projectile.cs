@@ -6,8 +6,6 @@ namespace Server.Game.Object
 {
     class Projectile : SkillObject
     {
-        bool _collision;
-
         public override void Init(ObjModel level, BaseActor owner, SkillInfo skillInfo)
         {
             base.Init(level, owner, skillInfo);
@@ -20,21 +18,23 @@ namespace Server.Game.Object
             var targetPos = _position + _direction;
             var nextPos = Vector3.MoveTowards(_position, targetPos, _timeStamp * Stat.Speed);
 
-            _position = nextPos;
-            _postProcessHandles.Add(BroadcastMove);
-
-            if (_collision)
-                return;
-
             var targets = Room?.IsCollisition(Info.TeamType, _position, Stat.Radius);
             if (targets == null || targets.Count <= 0)
+            {
+                _position = nextPos;
+                _postProcessHandles.Add(BroadcastMove);
                 return;
+            }
 
+            _stateEndFrame = 0;
             var target = targets[0];
             target.OnDamaged(this, Stat.Attack);
-            
-            _collision = true;
-            _stateEndFrame = 2;
+
+            _commandHandle = null;
+            _stateHandle = null;
+
+            var room = Room;
+            room.LeaveGame(Id);
         }
 
         protected override void BroadcastMove()

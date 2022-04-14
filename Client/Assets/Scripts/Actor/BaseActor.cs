@@ -23,6 +23,19 @@ namespace YeongJ.Inagme
 
         protected float _positionLerpTime;
         protected float _currentPositionLerpTime;
+        protected Vector3 _currentVelocity;
+
+        protected StatInfo _stat;
+        protected PositionInfo _serverPosInfo;
+        protected PositionInfo _prevServerPosInfo;
+        protected float _currentAnimatorVelocity;
+
+        protected delegate void InputHandle();
+        protected delegate void CommandHandle();
+
+        protected InputHandle _inputHandle = null;
+        protected CommandHandle _commandHandle = null;
+
 
         public Vector3 ServerDir
         {
@@ -91,17 +104,6 @@ namespace YeongJ.Inagme
             }
         }
 
-        protected StatInfo _stat;
-        protected PositionInfo _serverPosInfo;
-        protected PositionInfo _prevServerPosInfo;
-        protected float _currentVelocity;
-
-        protected delegate void InputHandle();
-        protected delegate void CommandHandle();
-
-        protected InputHandle _inputHandle = null;
-        protected CommandHandle _commandHandle = null;
-
         public virtual void Init(int Id)
         {
             this.Id = Id;
@@ -161,25 +163,27 @@ namespace YeongJ.Inagme
         {
             var currentPosition = this.transform.position;
             currentPosition.y = 0.0f;
-            var newPositon = currentPosition;
+            Vector3 newPositon;
 
-            if (ServerPos != currentPosition)
+            if(ServerDir != Vector3.zero)
             {
-                _currentPositionLerpTime -= Time.deltaTime;
-                float ratio = _currentPositionLerpTime <= 0.0f ? 1.0f : 1.0f - Mathf.Clamp01(_currentPositionLerpTime / _positionLerpTime);
-                newPositon = Vector3.Lerp(PrevServerPos, ServerPos, ratio);
-                transform.position = newPositon;
-                _currentVelocity = 0.1f;
-                UpdateHeight();
+                float speed = Time.deltaTime * Mathf.Max(1.0f, (Stat.Speed - Stat.Speed * 0.1f));
+                newPositon = currentPosition + ServerDir * speed;
+                _currentAnimatorVelocity = 0.2f;
             }
             else
             {
-                _currentVelocity = Mathf.Clamp01(_currentVelocity - Time.deltaTime);
+                newPositon = Vector3.SmoothDamp(currentPosition, ServerPos, ref _currentVelocity, 0.05f);
+                _currentAnimatorVelocity = Mathf.Clamp01(_currentAnimatorVelocity - Time.deltaTime);
             }
+
+            transform.position = newPositon;
+            UpdateHeight();
+
 
             if (_animator != null)
             {
-                _animator.SetFloat("Velocity", _currentVelocity);
+                _animator.SetFloat("Velocity", _currentAnimatorVelocity);
             }
         }
 

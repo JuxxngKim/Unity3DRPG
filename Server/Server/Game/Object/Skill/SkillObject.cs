@@ -32,6 +32,7 @@ namespace Server.Game.Object
 
             _position = skillInfo.SpawnPosition.ToVector3();
             _direction = skillInfo.SkillDirection.ToVector3();
+            _direction.Normalize();
 
             PosInfo.Position = _position.ToFloat3();
             PosInfo.Direction = _direction.ToFloat3();

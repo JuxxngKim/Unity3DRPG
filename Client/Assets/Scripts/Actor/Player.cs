@@ -49,10 +49,10 @@ namespace YeongJ.Inagme
             _skillTargetPosition.y = 0.0f;
 
             _currentStateTime = 0.0f;
-            _currentVelocity = 0.3f;
+            _currentAnimatorVelocity = 0.3f;
             _commandHandle = UpdateCommandTeleport;
             _animator.SetTrigger("Dash");
-            _animator.SetFloat("Velocity", _currentVelocity);
+            _animator.SetFloat("Velocity", _currentAnimatorVelocity);
             _skillEndRemainTime = _teleportDelay;
             UpdateRotation(isLerp: false);
         }

@@ -22,7 +22,7 @@ namespace Server.Data
             stat.Level = level;
             stat.Attack = level * 10;
             stat.Hp = stat.MaxHp = 100 * level;
-            stat.Speed = 7.0f;
+            stat.Speed = 5.0f;
             stat.Radius = 0.5f;
             return stat;
         }
@@ -33,7 +33,7 @@ namespace Server.Data
             stat.Level = level;
             stat.Attack = level * 2;
             stat.Hp = stat.MaxHp = 100 * level;
-            stat.Speed = 5.0f;
+            stat.Speed = 4.0f;
             stat.Radius = 0.5f;
             return stat;
         }
@@ -50,7 +50,7 @@ namespace Server.Data
                     CoolTimeFrame = 10,
                     LifeFrame = 20,
                     StateFrame = 6,
-                    MoveSpeed = 20,
+                    MoveSpeed = 10,
                     Range = 0.7f,
                     SpawnDelayTick = 250,
                     Name = "Projectile",

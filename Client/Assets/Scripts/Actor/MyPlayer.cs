@@ -219,7 +219,7 @@ namespace YeongJ.Inagme
             skillDir.y = 0.0f;
             skillDir.Normalize();
 
-            float teleportLength = 7.0f;
+            float teleportLength = 4.0f;
 
             for (int length = (int)teleportLength; length > 0; --length)
             {
