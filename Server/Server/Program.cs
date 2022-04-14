@@ -49,11 +49,13 @@ namespace Server
 		{
 			GameLogic.Instance.Push(() => { GameLogic.Instance.Add(1); });
 
-			// DNS (Domain Name System)
-			string host = Dns.GetHostName();
-			IPHostEntry ipHost = Dns.GetHostEntry(host);
-			IPAddress ipAddr = ipHost.AddressList[0];
-			IPEndPoint endPoint = new IPEndPoint(ipAddr, Port);
+            // DNS (Domain Name System)
+            string host = Dns.GetHostName();
+            IPHostEntry ipHost = Dns.GetHostEntry(host);
+            IPAddress ipAddr = ipHost.AddressList[1];
+
+            //IPAddress ipAddr = IPAddress.Parse("116.33.42.67");
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, Port);
 
 			IpAddress = ipAddr.ToString();
 
