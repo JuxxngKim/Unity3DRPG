@@ -22,6 +22,7 @@ enum MsgId {
   S_HIT = 14;
   C_DANCE = 15;
   S_DANCE = 16;
+  S_RESURRECTION = 17;
 }
 
 enum GameObjectType {
@@ -119,6 +120,11 @@ message C_Dance {
 message S_Dance {
   int32 objectId = 1;
   int32 danceId = 2;
+}
+
+message S_Resurrection {
+  int32 objectId = 1;
+  ObjectInfo player = 2;
 }
 
 message S_Hit {

@@ -87,6 +87,9 @@ public class ObjectManager
 		if (go == null)
 			return;
 
+		if(MyPlayer != null && MyPlayer.Id == id)
+			MyPlayer = null;
+
 		var baseActor = go.GetComponent<BaseActor>();
 		baseActor?.Remove();
 

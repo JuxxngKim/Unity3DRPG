@@ -116,6 +116,5 @@ namespace YeongJ.Inagme
         {
             _animator.SetTrigger(Const.TriggerDance);
         }
-
     }
 }

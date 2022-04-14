@@ -33,6 +33,9 @@ namespace Server.Game
 		protected Vector3 _position;
 		protected Vector3 _direction;
 
+		protected Vector3 _spawnPosition;
+		protected Vector3 _spawnDirection;
+
 		protected float _timeStamp = 0.1f;
 
 		public GameObject()
@@ -87,6 +90,9 @@ namespace Server.Game
 		{
 			_position = PosInfo.Position.ToVector3();
 			_direction = PosInfo.Direction.ToVector3();
+
+			_spawnPosition = _position;
+			_spawnDirection = PosInfo.LookDirection.ToVector3();
 		}
 
 		public virtual void Remove()

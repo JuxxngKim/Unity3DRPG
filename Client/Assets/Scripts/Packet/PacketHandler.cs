@@ -126,4 +126,24 @@ class PacketHandler
         GameObject go = Managers.Object?.FindById(dancePacket.ObjectId);
         go?.GetComponent<BaseActor>()?.OnDance();
     }
+
+
+    public static void S_ResurrectionHandler(PacketSession session, IMessage packet)
+    {
+        S_Resurrection resurrectionPacekt = packet as S_Resurrection;
+        GameObject go = Managers.Object?.FindById(resurrectionPacekt.ObjectId);
+        BaseActor baseActor = go?.GetComponent<BaseActor>();
+
+        if (baseActor == null)
+            return;
+        
+        baseActor.gameObject.SetActive(false);
+        baseActor.gameObject.SetActive(true);
+        baseActor.SetServerPos(resurrectionPacekt.Player.PosInfo);
+        baseActor.SyncPos();
+        baseActor.OnResurrection();
+        baseActor.Stat.Hp = resurrectionPacekt.Player.StatInfo.Hp;
+
+        HpBarManager.Instance.ChangeHpBar(resurrectionPacekt.ObjectId, resurrectionPacekt.Player.StatInfo.Hp);
+    }
 }

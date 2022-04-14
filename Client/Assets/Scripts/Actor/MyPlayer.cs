@@ -263,5 +263,18 @@ namespace YeongJ.Inagme
             base.StartTeleport(teleportTime);
             CameraEventHandler.Instance.StartMotionBlur(time: teleportTime, intensity: 5.0f);
         }
+
+        public override void OnDead()
+        {
+            base.OnDead();
+
+            _inputHandle = null;
+        }
+
+        public override void OnResurrection()
+        {
+            _inputHandle = UpdateKeyInput;
+            _inputCheckTime = _inputDelay;
+        }
     }
 }

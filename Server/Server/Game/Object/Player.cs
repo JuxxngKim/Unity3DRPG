@@ -43,5 +43,38 @@ namespace Server.Game
 				_position = PosInfo.Position.ToVector3();
 			};
 		}
+
+		public override void OnDead(GameObject attacker)
+		{
+			base.OnDead(attacker);
+
+			GameRoom room = Room;
+			room.PushAfter(5000, RespawnGame, room);
+		}
+
+		protected override void RespawnGame(GameRoom room)
+		{
+			base.RespawnGame(room);
+
+			_position = _spawnPosition;
+			_direction = Vector3.zero;
+
+			Stat.Hp = Stat.MaxHp;
+			PosInfo.State = ActorState.Idle;
+			PosInfo.Position = _position.ToFloat3();
+			PosInfo.Direction = _direction.ToFloat3();
+			PosInfo.LookDirection = _spawnDirection.ToFloat3();
+			Info.TeamType = TeamType.Friendly;
+			Info.PosInfo = PosInfo;
+
+			SyncPos();
+			Init(Level);
+
+			S_Resurrection resurrectionPacket = new S_Resurrection();
+			resurrectionPacket.ObjectId = Id;
+			resurrectionPacket.Player = Info;
+
+			Room.Broadcast(resurrectionPacket);
+		}
 	}
 }

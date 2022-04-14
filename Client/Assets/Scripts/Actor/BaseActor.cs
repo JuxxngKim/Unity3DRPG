@@ -39,7 +39,7 @@ namespace YeongJ.Inagme
 
         public Vector3 ServerDir
         {
-            get 
+            get
             {
                 if (_serverPosInfo.Direction == null)
                     _serverPosInfo.Direction = Vector3.zero.ToFloat3();
@@ -48,7 +48,7 @@ namespace YeongJ.Inagme
             }
             set
             {
-                if(_serverPosInfo.Direction == null)
+                if (_serverPosInfo.Direction == null)
                     _serverPosInfo.Direction = Vector3.zero.ToFloat3();
 
                 _serverPosInfo.Direction = value.ToFloat3();
@@ -57,7 +57,7 @@ namespace YeongJ.Inagme
 
         public Vector3 ServerPos
         {
-            get 
+            get
             {
                 if (_serverPosInfo.Position == null)
                     _serverPosInfo.Position = Vector3.zero.ToFloat3();
@@ -77,7 +77,7 @@ namespace YeongJ.Inagme
         {
             get
             {
-                if(_prevServerPosInfo == null)
+                if (_prevServerPosInfo == null)
                     _prevServerPosInfo = _serverPosInfo.Clone();
 
                 if (_prevServerPosInfo.Position == null)
@@ -130,14 +130,14 @@ namespace YeongJ.Inagme
             ProcessCommand();
         }
 
-        public virtual void ProcessCommand() 
+        public virtual void ProcessCommand()
         {
             if (_commandHandle == null)
                 return;
 
             _commandHandle();
         }
-        
+
         public virtual void ProcessInput()
         {
             if (_inputHandle == null)
@@ -165,7 +165,7 @@ namespace YeongJ.Inagme
             currentPosition.y = 0.0f;
             Vector3 newPositon;
 
-            if(ServerDir != Vector3.zero)
+            if (ServerDir != Vector3.zero)
             {
                 float speed = Time.deltaTime * Mathf.Max(1.0f, (Stat.Speed - Stat.Speed * 0.1f));
                 newPositon = currentPosition + ServerDir * speed;
@@ -225,6 +225,8 @@ namespace YeongJ.Inagme
         {
             _animator.SetTrigger(Const.TriggerDeath);
         }
+
+        public virtual void OnResurrection() { }
 
         public virtual void OnDance() { }
         public virtual void UseSkill(SkillInfo skillInfo) { }

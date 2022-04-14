@@ -11,22 +11,11 @@ namespace Server.Game
 {
     public class Monster : BaseActor
     {
-        protected Vector3 _spawnPosition;
-        protected Vector3 _spawnDirection;
-
         protected BaseActor _target;
 
         public Monster()
         {
             ObjectType = GameObjectType.Monster;
-        }
-
-        public override void SyncPos()
-        {
-            base.SyncPos();
-
-            _spawnPosition = _position;
-            _spawnDirection = PosInfo.LookDirection.ToVector3();
         }
 
         public override void OnDamaged(BaseActor attacker, int damage)
@@ -148,29 +137,6 @@ namespace Server.Game
         }
 
 
-        public override void OnDead(GameObject attacker)
-        {
-            base.OnDead(attacker);
-
-            _commandHandle = null;
-            _target = null;
-
-            PosInfo.State = ActorState.Dead;
-            PosInfo.Position = _position.ToFloat3();
-            PosInfo.Direction = _direction.ToFloat3();
-            PosInfo.LookDirection = PosInfo.LookDirection.Clone();
-            Room.Push(BroadcastMove);
-
-            S_Die diePacket = new S_Die();
-            diePacket.ObjectId = Id;
-            diePacket.AttackerId = attacker.Id;
-            Room.Broadcast(diePacket);
-
-            GameRoom room = Room;
-            room.PushAfter(3000, LeaveGame);
-            room.PushAfter(8000, RespawnGame, room);
-        }
-
         protected override void RespawnGame(GameRoom room)
         {
             base.RespawnGame(room);
@@ -187,7 +153,18 @@ namespace Server.Game
             SyncPos();
             Init(Level);
 
-            room.EnterGame(this, Info.TeamType);
+            room.EnterGame(this, TeamType.Opponent);
+        }
+
+        public override void OnDead(GameObject attacker)
+        {
+            base.OnDead(attacker);
+
+            _target = null;
+
+            GameRoom room = Room;
+            room.PushAfter(3000, LeaveGame);
+            room.PushAfter(8000, RespawnGame, room);
         }
     }
 }

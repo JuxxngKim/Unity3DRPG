@@ -11,6 +11,9 @@ namespace Server.Game.Object
         {
             base.Init(level, owner, skillInfo);
 
+            _direction = UnityEngine.Vector3.zero;
+            PosInfo.Direction = _direction.ToFloat3();
+
             _commandHandle = UpdateCommandMeteo;
             _hitDelayFrame = _skillData.HitDelayFrame;
         }

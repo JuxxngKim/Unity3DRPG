@@ -25,7 +25,7 @@ namespace Server.Game
 
 		protected int _stateEndFrame = 0;
 
-        public virtual void Init(ObjModel level)
+		public virtual void Init(ObjModel level)
 		{
 			if (level == null)
 				return;
@@ -220,6 +220,24 @@ namespace Server.Game
 			skillPacket.Info = skillInfo;
 			skillPacket.Info.StateTime = Util.FrameToTime(skilldata.StateFrame);
 			Room?.Broadcast(skillPacket);
+		}
+
+		public override void OnDead(GameObject attacker)
+		{
+			base.OnDead(attacker);
+
+			_commandHandle = null;
+
+			PosInfo.State = ActorState.Dead;
+			PosInfo.Position = _position.ToFloat3();
+			PosInfo.Direction = _direction.ToFloat3();
+			PosInfo.LookDirection = PosInfo.LookDirection.Clone();
+			Room.Push(BroadcastMove);
+
+			S_Die diePacket = new S_Die();
+			diePacket.ObjectId = Id;
+			diePacket.AttackerId = attacker.Id;
+			Room.Broadcast(diePacket);
 		}
 
 		protected virtual void RespawnGame(GameRoom room) { }
