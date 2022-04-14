@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class MultiplayersBuildAndRun
 {
+	[MenuItem("Tools/Run Multiplayer/1 Players")]
+	static void PerformWin64Build1()
+	{
+		PerformWin64Build(1, false);
+	}
+
 	[MenuItem("Tools/Run Multiplayer/2 Players")]
 	static void PerformWin64Build2()
 	{
@@ -23,23 +29,26 @@ public class MultiplayersBuildAndRun
 		PerformWin64Build(4);
 	}
 
-	static void PerformWin64Build(int playerCount)
+	static void PerformWin64Build(int playerCount, bool play = true)
 	{
 		EditorUserBuildSettings.SwitchActiveBuildTarget(
 			BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
 
 		for (int i = 1; i <= playerCount; i++)
 		{
+			BuildOptions options = play ? BuildOptions.AutoRunPlayer : BuildOptions.None;
+
 			BuildPipeline.BuildPlayer(GetScenePaths(),
-				"Builds/Win64/" + GetProjectName() + i.ToString() + "/" + GetProjectName() + i.ToString() + ".exe",
-				BuildTarget.StandaloneWindows64, BuildOptions.AutoRunPlayer);
+				"Builds/Win64/" + GetProjectName() + "/" + GetProjectName() + ".exe",
+				BuildTarget.StandaloneWindows64, options);
 		}
 	}
 
 	static string GetProjectName()
 	{
 		string[] s = Application.dataPath.Split('/');
-		return s[s.Length - 2];
+		//return s[s.Length - 2];
+		return "GenshinImpact";
 	}
 
 	static string[] GetScenePaths()
