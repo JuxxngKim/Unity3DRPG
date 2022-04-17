@@ -14,12 +14,16 @@ public class ObjModel
 {
     private static readonly char[] lineSplitChars = { ' ' };
 
-    private List<Triangle> tris;
-    private List<Vector3> norms;
+    private List<Triangle> _tris;
+    private List<Vector3> _norms;
+    private List<Vector3> _monsterPositions;
+    private List<Vector3> _monsterAngles;
 
     private List<NavMeshTriangle> _meshTriangles;
 
     public List<NavMeshTriangle> Triangles => _meshTriangles;
+    public List<Vector3> MonsterPositions => _monsterPositions;
+    public List<Vector3> MonsterAngles => _monsterAngles;
 
     public bool IsVaild { get; private set; }
 
@@ -29,8 +33,8 @@ public class ObjModel
     /// <param name="path">The path of the .obj file to parse.</param>
     public ObjModel(string path)
     {
-        tris = new List<Triangle>();
-        norms = new List<Vector3>();
+        _tris = new List<Triangle>();
+        _norms = new List<Vector3>();
         List<Vector3> tempVerts = new List<Vector3>();
         List<Vector3> tempNorms = new List<Vector3>();
 
@@ -94,13 +98,13 @@ public class ObjModel
                                 n1 -= 1;
                                 n2 -= 1;
 
-                                tris.Add(new Triangle(tempVerts[v0], tempVerts[v1], tempVerts[v2]));
+                                _tris.Add(new Triangle(tempVerts[v0], tempVerts[v1], tempVerts[v2]));
                                 if (tempNorms.Count > n0)
-                                    norms.Add(tempNorms[n0]);
+                                    _norms.Add(tempNorms[n0]);
                                 if (tempNorms.Count > n1)
-                                    norms.Add(tempNorms[n1]);
+                                    _norms.Add(tempNorms[n1]);
                                 if (tempNorms.Count > n2)
-                                    norms.Add(tempNorms[n2]);
+                                    _norms.Add(tempNorms[n2]);
                             }
                             else
                             {
@@ -125,13 +129,13 @@ public class ObjModel
                                     ni -= 1;
                                     nii -= 1;
 
-                                    tris.Add(new Triangle(tempVerts[v0], tempVerts[vi], tempVerts[vii]));
+                                    _tris.Add(new Triangle(tempVerts[v0], tempVerts[vi], tempVerts[vii]));
                                     if (tempNorms.Count > n0)
-                                        norms.Add(tempNorms[n0]);
+                                        _norms.Add(tempNorms[n0]);
                                     if (tempNorms.Count > ni)
-                                        norms.Add(tempNorms[ni]);
+                                        _norms.Add(tempNorms[ni]);
                                     if (tempNorms.Count > nii)
-                                        norms.Add(tempNorms[nii]);
+                                        _norms.Add(tempNorms[nii]);
                                 }
                             }
                             break;
@@ -147,13 +151,61 @@ public class ObjModel
         }
     }
 
+    public void InitMonsterFile(string path)
+    {
+        _monsterPositions = new List<Vector3>();
+        _monsterAngles = new List<Vector3>();
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            try
+            {
+                string file = reader.ReadToEnd();
+                foreach (string l in file.Split('\n'))
+                {
+                    //trim any extras
+                    string tl = l;
+                    int commentStart = l.IndexOf("#");
+                    if (commentStart != -1)
+                        tl = tl.Substring(0, commentStart);
+                    tl = tl.Trim();
+
+                    string[] line = tl.Split(lineSplitChars, StringSplitOptions.RemoveEmptyEntries);
+                    if (line == null || line.Length == 0)
+                        continue;
+
+                    switch (line[0])
+                    {
+                        case "v":
+                            if (line.Length < 4)
+                                continue;
+                            if (!TryParseVec(line, 1, 2, 3, out var v)) continue;
+                            _monsterPositions.Add(v);
+                            break;
+
+                        case "a":
+                            if (line.Length < 4)
+                                continue;
+                            if (!TryParseVec(line, 1, 2, 3, out var a)) continue;
+                            _monsterAngles.Add(a);
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Load NavMesh : {ex}");
+            }
+        }
+    }
+
     public void CalculateTriSibling()
     {
-        _meshTriangles = new List<NavMeshTriangle>(tris.Count);
+        _meshTriangles = new List<NavMeshTriangle>(_tris.Count);
 
-        for (int i = 0; i < tris.Count; ++i)
+        for (int i = 0; i < _tris.Count; ++i)
         {
-            _meshTriangles.Add(new NavMeshTriangle(tris[i]));
+            _meshTriangles.Add(new NavMeshTriangle(_tris[i]));
         }
 
         for (int i = 0; i < _meshTriangles.Count; ++i)
@@ -204,7 +256,7 @@ public class ObjModel
     /// <returns></returns>
     public Triangle[] GetTriangles()
     {
-        return tris.ToArray();
+        return _tris.ToArray();
     }
 
     /// <summary>
@@ -213,7 +265,7 @@ public class ObjModel
     /// <returns></returns>
     public Vector3[] GetNormals()
     {
-        return norms.ToArray();
+        return _norms.ToArray();
     }
 
     private bool TryParseVec(string[] values, int x, int y, int z, out Vector3 v)

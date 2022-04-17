@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Monster
+  - Item
+  - Door
+  - MonsterSpawn
   layers:
   - Default
   - TransparentFX

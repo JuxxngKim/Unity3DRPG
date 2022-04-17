@@ -20,24 +20,24 @@ namespace Server.Game
 
         public void Init(int mapId)
         {
-            string path = $"NavMesh{mapId:D2}.obj";
-            Level = new ObjModel(path);
+            Level = new ObjModel($"NavMesh{mapId:D2}.obj");
+            Level.InitMonsterFile($"MonsterSpawn{mapId:D2}.obj");
 
             // TODO : Monster Load
             //path = $"Monster{mapId:D2}.obj";
 
-            for (int i = 0; i < 5; ++i)
+            for(int i = 0; i < Level.MonsterPositions.Count; ++i)
             {
-                Vector3 spawnPos = new Vector3(147.0f + i * 0.5f, 0.0f, 160f - i * 0.5f);
+                Vector3 spawnPos = Level.MonsterPositions[i];
+                Vector3 spawnAngle = Level.MonsterAngles[i];
+                
                 Monster monster = ObjectManager.Instance.Add<Monster>();
-
                 monster.Info.Name = $"Monster_{monster.Info.ObjectId}";
                 monster.Info.PosInfo.State = ActorState.Idle;
                 monster.Info.PosInfo.Position = spawnPos.ToFloat3();
+                monster.Info.PosInfo.LookDirection = spawnAngle.ToFloat3();
                 monster.Info.PosInfo.Direction = Vector3.zero.ToFloat3();
-                monster.Info.PosInfo.LookDirection = Vector3.back.ToFloat3();
                 monster.Info.TeamType = Const.MonsterTeamType;
-
                 StatInfo stat = DataPresets.MakeChuChuStat(level: 1);
                 monster.Stat.MergeFrom(stat);
 
