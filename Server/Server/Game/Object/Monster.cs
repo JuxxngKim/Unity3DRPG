@@ -102,8 +102,13 @@ namespace Server.Game
 
         private void AttackToTarget()
         {
-            _stateHandle = ProcessSkill;
             _commandHandle = null;
+            
+            _stateHandle = ProcessSkill;
+            _stateEndHandle = () =>
+            {
+                PosInfo.State = ActorState.Idle;
+            };
 
             _direction = Vector3.zero;
 

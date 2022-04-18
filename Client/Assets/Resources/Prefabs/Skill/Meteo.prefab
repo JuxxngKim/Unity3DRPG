@@ -24555,10 +24555,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _model: {fileID: 0}
   _uIRoot: {fileID: 0}
+  _actorRoot: {fileID: 0}
   _animator: {fileID: 0}
   _groundedRayDistance: 30
   _hitEffect: {fileID: 0}
-  _heightOffset: 0.1
+  _attackEffect: {fileID: 0}
+  _heightOffset: 0.2
 --- !u!114 &17640115056125859
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ namespace YeongJ.UI
 
         private Dictionary<int, HpBar> _hpBars = new Dictionary<int, HpBar>();
         private TeamType _playerTeamType = TeamType.Friendly;
+        private int _myObjectId;
 
         void Update()
         {
@@ -34,6 +35,7 @@ namespace YeongJ.UI
             if (ownerActor == null)
                 return;
 
+            _myObjectId = objectId;
             _myHpBar.SetActor(ownerActor);
             _myHpBar.SetPlayerTeamType(_playerTeamType);
         }
@@ -68,8 +70,16 @@ namespace YeongJ.UI
 
         public void ChangeHpBar(int objectId, int hp)
         {
-            if (!_hpBars.ContainsKey(objectId))
+            if(_myObjectId == objectId)
+            {
+                _myHpBar.ChangeHp(hp);
                 return;
+            }
+
+            if (!_hpBars.ContainsKey(objectId))
+            {
+                return;
+            }
 
             _hpBars[objectId].ChangeHp(hp);
         }

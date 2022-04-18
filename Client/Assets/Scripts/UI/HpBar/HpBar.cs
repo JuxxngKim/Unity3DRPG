@@ -76,8 +76,19 @@ public class HpBar : MonoBehaviour
         if (Owner == null)
             return;
 
+        _root.gameObject.SetActive(false);
+
+        var diff = Owner.UIRoot.transform.position - Camera.main.transform.position;
+        diff.y = 0.0f;
+
+        if (diff.z < 0.0f)
+            return;
+        if (diff.magnitude > 30.0f)
+            return;
+
         var velocity = Vector3.zero;
         var targetPosition = Camera.main.WorldToScreenPoint(Owner.UIRoot.transform.position);
         this.transform.position = Vector3.SmoothDamp(this.transform.position, targetPosition, ref velocity, 0.005f);
+        _root.gameObject.SetActive(true);
     }
 }

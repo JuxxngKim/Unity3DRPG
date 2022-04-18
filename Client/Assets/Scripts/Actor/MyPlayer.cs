@@ -85,6 +85,12 @@ namespace YeongJ.Inagme
                 return;
             }
 
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SendSkillPacket(skillId: 5, isCliektSpawn: true);
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 SendSkillPacket(skillId: 3, isCliektSpawn: true);
@@ -174,6 +180,9 @@ namespace YeongJ.Inagme
 
         void SendDancePacket()
         {
+            if (ServerDir != Vector3.zero)
+                return;
+
             C_Dance dancePacket = new C_Dance();
             dancePacket.DanceId = 1;
 

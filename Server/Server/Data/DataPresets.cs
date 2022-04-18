@@ -14,6 +14,7 @@ namespace Server.Data
             {2,  Meteo},
             {3,  IonStrike},
             {4,  HammerStrike},
+            {5,  LightningField},
         };
 
         public static StatInfo MakeGanyuStat(int level)
@@ -91,15 +92,46 @@ namespace Server.Data
                 {
                     Id = 3,
                     Type = SkillType.Area,
-                    Damage = 40,
+                    Damage = 10,
                     CoolTimeFrame = 10,
                     LifeFrame = 100,
                     StateFrame = 10,
                     MoveSpeed = 0,
                     Range = 4.0f,
-                    HitDelayFrame = 30,
+                    HitDelayFrame = 0,
+                    LoopHitDelayFrame = 27,
                     SpawnDelayTick = 1000,
+                    IsLoopSkill = true,
+                    LoopTimeFrame = 27,
+                    LoopDamage = 50,
                     Name = "IonStrike",
+                };
+
+                return skillData;
+            }
+        }
+
+        public static SkillData LightningField
+        {
+            get
+            {
+                SkillData skillData = new SkillData()
+                {
+                    Id = 4,
+                    Type = SkillType.Area,
+                    Damage = 7,
+                    CoolTimeFrame = 10,
+                    LifeFrame = 100,
+                    StateFrame = 10,
+                    MoveSpeed = 0,
+                    Range = 4.0f,
+                    HitDelayFrame = 0,
+                    LoopHitDelayFrame = 3,
+                    SpawnDelayTick = 1000,
+                    IsLoopSkill = true,
+                    LoopTimeFrame = 15,
+                    LoopDamage = 1,
+                    Name = "LightningField",
                 };
 
                 return skillData;
@@ -171,7 +203,9 @@ namespace Server.Data
     {
         public int Id;
         public SkillType Type;
+        public bool IsLoopSkill;
         public int Damage;
+        public int LoopDamage;
         public int CoolTimeFrame;
         public int LifeFrame;
         public int StateFrame;
@@ -179,6 +213,8 @@ namespace Server.Data
         public float Range;
         public int SpawnDelayTick;
         public int HitDelayFrame;
+        public int LoopHitDelayFrame;
+        public int LoopTimeFrame;
         public string Name;
     }
 }

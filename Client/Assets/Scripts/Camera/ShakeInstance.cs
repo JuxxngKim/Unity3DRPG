@@ -13,7 +13,7 @@ namespace YeongJ.Inagme
 
         void Start()
         {
-            _remainTime = _shakeDelay;
+            _remainTime = _shakeDelay <= 0.0f ? 0.1f : _shakeDelay;
         }
 
         void Update()
