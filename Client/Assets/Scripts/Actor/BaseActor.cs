@@ -20,6 +20,7 @@ namespace YeongJ.Inagme
         public GameObject UIRoot => _uIRoot;
         public GameObject ActorRoot => _actorRoot ?? null;
         public GameObject HitEffect => _hitEffect ?? null;
+        public TeamType TeamType => _teamType;
 
         protected float _positionLerpTime;
         protected float _currentPositionLerpTime;
@@ -29,6 +30,8 @@ namespace YeongJ.Inagme
         protected PositionInfo _serverPosInfo;
         protected PositionInfo _prevServerPosInfo;
         protected float _currentAnimatorVelocity;
+
+        protected TeamType _teamType;
 
         protected delegate void InputHandle();
         protected delegate void CommandHandle();
@@ -115,6 +118,11 @@ namespace YeongJ.Inagme
             _prevServerPosInfo = _serverPosInfo;
             _serverPosInfo = posInfo;
             _currentPositionLerpTime = _positionLerpTime = Const.FrameTime + Managers.Network.Latency + Const.MoveLerpDelay;
+        }
+
+        public virtual void SetTeamType(TeamType teamType)
+        {
+            _teamType = teamType;
         }
 
         public virtual void Remove() { }

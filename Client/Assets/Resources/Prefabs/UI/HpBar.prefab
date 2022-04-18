@@ -255,10 +255,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2153ecdbe58107044ab1b30633f99776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _root: {fileID: 0}
   _hpSlider: {fileID: 1165915480227765523}
   _bgSlider: {fileID: 2884677723515100659}
   _levelText: {fileID: 0}
   _nameText: {fileID: 1165915480379285994}
+  _gagueImage: {fileID: 6189621044998603368}
+  _playerTeamTypeColor: {r: 0.5137255, g: 0.9607843, b: 0, a: 0.92941177}
+  _opponentTeamTypeColor: {r: 1, g: 0.3254902, b: 0.4117647, a: 0.92941177}
 --- !u!1 &1165915480379285993
 GameObject:
   m_ObjectHideFlags: 0

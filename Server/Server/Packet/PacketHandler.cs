@@ -77,4 +77,18 @@ class PacketHandler
 
         room.Push(room.HandleDance, player, dancePacket);
     }
+
+    public static void C_ChangeTeamHandler(PacketSession session, IMessage packet)
+    {
+        C_ChangeTeam changePacket = packet as C_ChangeTeam;
+        ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession?.MyPlayer;
+        GameRoom room = player?.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleChangeTeamType, player);
+    }
+
 }

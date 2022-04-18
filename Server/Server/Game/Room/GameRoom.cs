@@ -175,6 +175,17 @@ namespace Server.Game
             Broadcast(sendPacket);
         }
 
+        public void HandleChangeTeamType(Player player)
+        {
+            S_ChangeTeam sendPacket = new S_ChangeTeam();
+            sendPacket.ObjectId = player.Id;
+            sendPacket.TeamType = player.Info.TeamType == TeamType.Friendly ? TeamType.War : TeamType.Friendly;
+
+            player.Info.TeamType = sendPacket.TeamType;
+
+            Broadcast(sendPacket);
+        }
+
         public void HandleMove(Player player, C_Move movePacket)
         {
             PositionInfo movePosInfo = movePacket.PosInfo;

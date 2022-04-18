@@ -23,6 +23,8 @@ enum MsgId {
   C_DANCE = 15;
   S_DANCE = 16;
   S_RESURRECTION = 17;
+  C_CHANGE_TEAM = 18;
+  S_CHANGE_TEAM = 19;
 }
 
 enum GameObjectType {
@@ -132,6 +134,14 @@ message S_Hit {
   int32 attackerId = 1;
   int32 defenderId = 2;
   int32 damage = 3;
+}
+
+message C_ChangeTeam {
+}
+
+message S_ChangeTeam {
+  int32 objectId = 1;
+  TeamType teamType = 2;
 }
 
 message StatInfo {

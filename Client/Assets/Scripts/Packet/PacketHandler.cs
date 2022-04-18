@@ -136,7 +136,7 @@ class PacketHandler
 
         if (baseActor == null)
             return;
-        
+
         baseActor.gameObject.SetActive(false);
         baseActor.gameObject.SetActive(true);
         baseActor.SetServerPos(resurrectionPacekt.Player.PosInfo);
@@ -145,5 +145,22 @@ class PacketHandler
         baseActor.Stat.Hp = resurrectionPacekt.Player.StatInfo.Hp;
 
         HpBarManager.Instance.ChangeHpBar(resurrectionPacekt.ObjectId, resurrectionPacekt.Player.StatInfo.Hp);
+    }
+
+    public static void S_ChangeTeamHandler(PacketSession session, IMessage packet)
+    {
+        S_ChangeTeam changePacket = packet as S_ChangeTeam;
+
+        GameObject go = Managers.Object?.FindById(changePacket.ObjectId);
+        BaseActor baseActor = go?.GetComponent<BaseActor>();
+        if (baseActor == null)
+            return;
+
+        baseActor.SetTeamType(changePacket.TeamType);
+        if (baseActor is MyPlayer)
+        {
+            HpBarManager.Instance.SetPlayerTeamType(changePacket.TeamType);
+            OthersUI.Instance.RefreshTeamType(changePacket.TeamType);
+        }
     }
 }

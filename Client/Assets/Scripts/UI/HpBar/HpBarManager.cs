@@ -12,7 +12,8 @@ namespace YeongJ.UI
         [SerializeField] HpBar _myHpBar;
         [SerializeField] RectTransform _hpBarRoot;
 
-        Dictionary<int, HpBar> _hpBars = new Dictionary<int, HpBar>();
+        private Dictionary<int, HpBar> _hpBars = new Dictionary<int, HpBar>();
+        private TeamType _playerTeamType = TeamType.Friendly;
 
         void Update()
         {
@@ -20,7 +21,11 @@ namespace YeongJ.UI
             while(d_enum.MoveNext())
             {
                 d_enum.Current.Value.UpdateHpBar();
+                d_enum.Current.Value.UpdatePpsition();
+                d_enum.Current.Value.UpdateTeamTypeColor();
             }
+
+            _myHpBar.UpdateHpBar();
         }
 
         public void AddMyHpBar(int objectId)
@@ -30,7 +35,18 @@ namespace YeongJ.UI
                 return;
 
             _myHpBar.SetActor(ownerActor);
-            _hpBars.Add(objectId, _myHpBar);
+            _myHpBar.SetPlayerTeamType(_playerTeamType);
+        }
+
+        public void SetPlayerTeamType(TeamType teamType)
+        {
+            _playerTeamType = teamType;
+
+            var d_enum = _hpBars.GetEnumerator();
+            while (d_enum.MoveNext())
+            {
+                d_enum.Current.Value.SetPlayerTeamType(teamType);
+            }
         }
 
         public void AddHpBar(int objectId)

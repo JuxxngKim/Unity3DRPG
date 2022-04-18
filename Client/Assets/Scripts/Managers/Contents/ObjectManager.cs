@@ -75,6 +75,7 @@ public class ObjectManager
 		baseActor.gameObject.name = info.Name;
 		baseActor.ServerPosInfo = info.PosInfo;
 		baseActor.Stat = info.StatInfo;
+		baseActor.SetTeamType(info.TeamType);
 		baseActor.SyncPos();
 		baseActor.Init(info.ObjectId);
 

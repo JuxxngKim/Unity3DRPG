@@ -48,7 +48,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.SDance, MakePacket<S_Dance>);
 		_handler.Add((ushort)MsgId.SDance, PacketHandler.S_DanceHandler);		
 		_onRecv.Add((ushort)MsgId.SResurrection, MakePacket<S_Resurrection>);
-		_handler.Add((ushort)MsgId.SResurrection, PacketHandler.S_ResurrectionHandler);
+		_handler.Add((ushort)MsgId.SResurrection, PacketHandler.S_ResurrectionHandler);		
+		_onRecv.Add((ushort)MsgId.SChangeTeam, MakePacket<S_ChangeTeam>);
+		_handler.Add((ushort)MsgId.SChangeTeam, PacketHandler.S_ChangeTeamHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
