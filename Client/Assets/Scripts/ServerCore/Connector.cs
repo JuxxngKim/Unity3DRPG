@@ -49,7 +49,7 @@ namespace ServerCore
 			}
 			else
 			{
-				Debug.Log($"OnConnectCompleted Fail: {args.SocketError}");
+				Debug.LogError($"OnConnectCompleted Fail: {args.SocketError}");
 			}
 		}
 	}

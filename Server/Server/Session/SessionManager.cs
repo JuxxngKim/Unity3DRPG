@@ -49,6 +49,7 @@ namespace Server
 				_sessions.Add(sessionId, session);
 
 				Console.WriteLine($"Connected ({_sessions.Count}) Players");
+				Console.WriteLine($"Time : {DateTime.Now}");
 
 				return session;
 			}
@@ -70,6 +71,7 @@ namespace Server
 			{
 				_sessions.Remove(session.SessionId);
 				Console.WriteLine($"Connected ({_sessions.Count}) Players");
+				Console.WriteLine($"Time : {DateTime.Now}");
 			}
 		}
 	}

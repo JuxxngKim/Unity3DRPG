@@ -62,6 +62,11 @@ class PacketHandler
         sendPacket.UserName = player?.Info.Name ?? string.Empty;
         sendPacket.Chat = chatPacket.Chat;
 
+        if(player != null)
+        {
+            Console.WriteLine($"{player.Id}: {chatPacket.Chat}");
+        }
+
         room?.Push(room.Broadcast, sendPacket);
     }
 

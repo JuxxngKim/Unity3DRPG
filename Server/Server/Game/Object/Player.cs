@@ -64,7 +64,7 @@ namespace Server.Game
 			PosInfo.Position = _position.ToFloat3();
 			PosInfo.Direction = _direction.ToFloat3();
 			PosInfo.LookDirection = _spawnDirection.ToFloat3();
-			Info.TeamType = Const.PlayerTeamType;
+			Info.TeamType = Info.TeamType;
 			Info.PosInfo = PosInfo;
 
 			SyncPos();
