@@ -13,9 +13,6 @@
 
 ### 사용 라이브러리
 - Protocol buffer
-- cpp-httplib
-- MySQL X DevAPI (MySQL Connector C++)
-- JSON for Modern C++
 
 ### 제작 기능
 - 게임 전투 로직 구현
